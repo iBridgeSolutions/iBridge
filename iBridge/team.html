@@ -3,157 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Meet the passionate professionals behind iBridge Contact Solutions.">
+    <meta name="description" content="Meet the iBridge Contact Solutions team. Our experienced professionals are dedicated to your business success.">
     <title>Our Team | iBridge Contact Solutions</title>
-    
-    <!-- Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
-    
-    <!-- PWA Support -->
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#32CD32">
-    <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Favicon -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/scripts.js" defer></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
+    <!-- PWA Support -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#A27936">
+    <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
 </head>
 <body>
-    <!-- Skip to main content link for accessibility -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <header role="banner">
-        <div class="container header-container">
-            <div class="logo">
-                <img src="images/logo.png" alt="iBridge Contact Solutions" width="150" height="50">
-                <h1>iBridge Contact Solutions</h1>
-            </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainMenu">
-                <i class="fas fa-bars" aria-hidden="true"></i>
-            </button>
-            <nav role="navigation" aria-label="Main navigation">
-                <ul id="mainMenu">
-                    <li><a href="Home.html">Home</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="careers.html">Careers</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="team.html" class="active" aria-current="page">Our Team</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <header class="hero" aria-label="Hero section">
-        <div class="hero-svg-wave" aria-hidden="true">
-            <svg viewBox="0 0 1440 320" width="100%" height="80" preserveAspectRatio="none" style="display:block;"><path fill="#32CD32" fill-opacity="1" d="M0,224L48,197.3C96,171,192,117,288,117.3C384,117,480,171,576,197.3C672,224,768,224,864,197.3C960,171,1056,117,1152,122.7C1248,128,1344,192,1392,224L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-        </div>
-        <div class="container hero-content">
-            <h1>Meet Our Team</h1>
-            <p>Get to know the passionate professionals behind iBridge Contact Solutions.</p>
-        </div>
-    </header>
-
-    <main id="main-content" role="main">
-        <section class="team-section" aria-labelledby="team-title">
-            <div class="container">
-                <h2 id="team-title" class="sr-only">Our Team Members</h2>
-                <div class="team-grid">
-                    <article class="team-member">
-                        <div class="image-container">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
-                                 data-src="images/team1.jpg" 
-                                 alt="Jane Smith"
-                                 loading="lazy"
-                                 width="300"
-                                 height="300"
-                                 class="lazy-image">
-                        </div>
-                        <h3>Jane Smith</h3>
-                        <p>Chief Executive Officer</p>
-                        <div class="social-links" aria-label="Social media links for Jane Smith">
-                            <a href="#" aria-label="LinkedIn profile" rel="noopener" target="_blank">
-                                <i class="fab fa-linkedin" aria-hidden="true"></i>
-                            </a>
-                            <a href="#" aria-label="Twitter profile" rel="noopener" target="_blank">
-                                <i class="fab fa-twitter" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="team-member">
-                        <div class="image-container">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
-                                 data-src="images/team2.jpg" 
-                                 alt="John Doe"
-                                 loading="lazy"
-                                 width="300"
-                                 height="300"
-                                 class="lazy-image">
-                        </div>
-                        <h3>John Doe</h3>
-                        <p>Head of Operations</p>
-                        <div class="social-links" aria-label="Social media links for John Doe">
-                            <a href="#" aria-label="LinkedIn profile" rel="noopener" target="_blank">
-                                <i class="fab fa-linkedin" aria-hidden="true"></i>
-                            </a>
-                            <a href="#" aria-label="Twitter profile" rel="noopener" target="_blank">
-                                <i class="fab fa-twitter" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="team-member">
-                        <div class="image-container">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
-                                 data-src="images/team3.jpg" 
-                                 alt="Mary Johnson"
-                                 loading="lazy"
-                                 width="300"
-                                 height="300"
-                                 class="lazy-image">
-                        </div>
-                        <h3>Mary Johnson</h3>
-                        <p>IT Manager</p>
-                        <div class="social-links" aria-label="Social media links for Mary Johnson">
-                            <a href="#" aria-label="LinkedIn profile" rel="noopener" target="_blank">
-                                <i class="fab fa-linkedin" aria-hidden="true"></i>
-                            </a>
-                            <a href="#" aria-label="Twitter profile" rel="noopener" target="_blank">
-                                <i class="fab fa-twitter" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </article>
+    <div class="page-wrapper">
+        <header>
+            <div class="container header-container">
+                <div class="logo">
+                    <img src="images/logo.png" alt="iBridge Contact Solutions">
+                    <h1>iBridge Contact Solutions</h1>
                 </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" title="Open menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav>
+                    <ul id="mainMenu">
+                        <li><a href="Home.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="team.html" class="active" aria-current="page">Our Team</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
             </div>
-        </section>
-    </main>
-
-    <footer role="contentinfo">
-        <div class="container footer-container">
-            <a href="#mainMenu" class="back-to-menu cta-button" onclick="document.getElementById('mobileMenuBtn').click(); return false;" style="display:inline-block;margin-bottom:16px;">Back to Main Menu</a>
-            <p>&copy; 2025 iBridge Contact Solutions. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp Button with accessibility improvements -->
-    <a href="https://wa.me/27111234567" 
-       class="whatsapp-float" 
-       target="_blank" 
-       rel="noopener"
-       aria-label="Chat with us on WhatsApp">
-        <i class="fab fa-whatsapp" aria-hidden="true"></i>
-        <span class="sr-only">Open WhatsApp chat</span>
+        </header>
+        <header class="hero" aria-label="Hero section">
+            <div class="container hero-content">
+                <h1>Our Team</h1>
+                <p>Meet the professionals who drive iBridge Contact Solutions forward.</p>
+            </div>
+        </header>
+        <main style="padding-top: 80px;">
+            <section class="team-section">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Meet Our Team</h2>
+                        <p>Our experienced team is dedicated to delivering exceptional results for your business.</p>
+                    </div>
+                    <div class="team-list">
+                        <div class="team-member">
+                            <img src="images/placeholder1.jpg" alt="Team Member 1" class="lazy-image" loading="lazy">
+                            <h3>Jane Doe</h3>
+                            <p>Chief Executive Officer</p>
+                        </div>
+                        <div class="team-member">
+                            <img src="images/placeholder2.jpg" alt="Team Member 2" class="lazy-image" loading="lazy">
+                            <h3>John Smith</h3>
+                            <p>Head of IT Support</p>
+                        </div>
+                        <div class="team-member">
+                            <img src="images/placeholder3.jpg" alt="Team Member 3" class="lazy-image" loading="lazy">
+                            <h3>Mary Johnson</h3>
+                            <p>Operations Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <div class="container footer-container">
+                <a href="#mainMenu" class="back-to-menu cta-button" onclick="document.getElementById('mobileMenuBtn').click(); return false;" style="display:inline-block;margin-bottom:16px;">Back to Main Menu</a>
+                <p>&copy; 2025 iBridge Contact Solutions. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <!-- Floating WhatsApp/Chat Button -->
+    <a href="https://wa.me/27111234567" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
     </a>
-
-    <!-- Scripts -->
-    <script src="js/scripts.js" defer></script>
+    <!-- Scroll-to-Top Button (added via JS) -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainMenu = document.getElementById('mainMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mainMenu.classList.toggle('show');
+        });
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (document.querySelector(this.getAttribute('href'))) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        // Scroll-to-Top Button
+        const scrollBtn = document.createElement('button');
+        scrollBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        scrollBtn.className = 'cta-button';
+        scrollBtn.style.position = 'fixed';
+        scrollBtn.style.bottom = '100px';
+        scrollBtn.style.right = '40px';
+        scrollBtn.style.display = 'none';
+        scrollBtn.style.zIndex = '1001';
+        scrollBtn.setAttribute('aria-label', 'Scroll to top');
+        document.body.appendChild(scrollBtn);
+        window.addEventListener('scroll', () => {
+            scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+        });
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
     <noscript>
         <div class="noscript-warning">
             Please enable JavaScript for the best experience on this site.

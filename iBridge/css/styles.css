@@ -1813,3 +1813,97 @@ textarea:focus,
 .form-error {
     animation: formShake 0.5s ease-in-out;
 }
+
+/* --- Animations & Transitions Inspired by CodeSandbox --- */
+
+/* Fade-in animation for sections */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Card hover effect */
+.card, .blog-post, .service-card {
+  transition: box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1), transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: var(--shadow);
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+}
+.card:hover, .blog-post:hover, .service-card:hover {
+  box-shadow: var(--shadow-large);
+  transform: translateY(-8px) scale(1.03);
+}
+
+/* Button animation */
+.cta-button, button {
+  position: relative;
+  overflow: hidden;
+}
+.cta-button::after, button::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(161,196,79,0.15);
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1), height 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 0;
+}
+.cta-button:active::after, button:active::after {
+  width: 200px;
+  height: 200px;
+}
+
+/* Glassmorphism effect for overlays/panels */
+.glass-panel {
+  background: rgba(255,255,255,0.7);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+/* Section reveal on scroll (add .fade-in-up to sections in HTML) */
+section.fade-in-up {
+  will-change: opacity, transform;
+}
+
+/* Focus and active states for accessibility */
+a:focus, button:focus, .cta-button:focus {
+  outline: 2px solid var(--yellow-green);
+  outline-offset: 2px;
+}
+
+/* Subtle link underline animation */
+a.animated-link {
+  position: relative;
+  color: var(--primary-color);
+  transition: color 0.3s;
+}
+a.animated-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: var(--yellow-green);
+  transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+a.animated-link:hover::after {
+  width: 100%;
+}

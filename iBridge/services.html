@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore the wide range of services offered by iBridge Contact Solutions to help your business thrive.">
-    <title>Services | iBridge Contact Solutions</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Favicon -->
+    <meta name="description" content="Explore our range of business process outsourcing, IT support, and contact center services at iBridge Contact Solutions.">
+    <title>Our Services | iBridge Contact Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/scripts.js" defer></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
+    <!-- PWA Support -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#A27936">
+    <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
 </head>
 <body>
     <div class="page-wrapper">
@@ -40,36 +42,30 @@
             </div>
         </header>
         <header class="hero" aria-label="Hero section">
-            <div class="hero-svg-wave" aria-hidden="true">
-                <svg viewBox="0 0 1440 320" width="100%" height="80" preserveAspectRatio="none" style="display:block;"><path fill="#32CD32" fill-opacity="1" d="M0,224L48,197.3C96,171,192,117,288,117.3C384,117,480,171,576,197.3C672,224,768,224,864,197.3C960,171,1056,117,1152,122.7C1248,128,1344,192,1392,224L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-            </div>
             <div class="container hero-content">
                 <h1>Our Services</h1>
-                <p>Explore the wide range of services we offer to help your business thrive.</p>
+                <p>Discover how iBridge Contact Solutions can help your business grow and succeed.</p>
             </div>
         </header>
         <main style="padding-top: 80px;">
-            <section class="services">
+            <section class="services-section">
                 <div class="container">
                     <div class="section-title">
-                        <h2>Our Services</h2>
-                        <p>Explore the wide range of services we offer to help your business thrive.</p>
+                        <h2>What We Offer</h2>
+                        <p>Our comprehensive suite of services is designed to meet your business needs.</p>
                     </div>
-                    <div class="services-grid">
+                    <div class="services-list">
                         <div class="service-item">
-                            <i class="fa fa-headset service-icon"></i>
-                            <h3>Contact Center Solutions</h3>
-                            <p>Providing 24/7 customer support with multilingual agents and omnichannel solutions.</p>
-                        </div>
-                        <div class="service-item">
-                            <i class="fa fa-laptop service-icon"></i>
-                            <h3>IT Support Services</h3>
-                            <p>Comprehensive IT solutions including help desk support, network management, and cybersecurity.</p>
-                        </div>
-                        <div class="service-item">
-                            <i class="fa fa-briefcase service-icon"></i>
                             <h3>Business Process Outsourcing</h3>
-                            <p>Streamline your operations with expert back-office processing and data entry services.</p>
+                            <p>Streamline your operations and reduce costs with our expert BPO solutions.</p>
+                        </div>
+                        <div class="service-item">
+                            <h3>IT Support Services</h3>
+                            <p>Keep your business running smoothly with our reliable IT support and solutions.</p>
+                        </div>
+                        <div class="service-item">
+                            <h3>Contact Center Solutions</h3>
+                            <p>Enhance your customer experience with our state-of-the-art contact center services.</p>
                         </div>
                     </div>
                 </div>
@@ -102,46 +98,51 @@
         </main>
         <footer>
             <div class="container footer-container">
-                <a href="#mainMenu" class="back-to-menu cta-button" onclick="document.getElementById('mobileMenuBtn').click(); return false;">Back to Main Menu</a>
+                <a href="#mainMenu" class="back-to-menu cta-button" onclick="document.getElementById('mobileMenuBtn').click(); return false;" style="display:inline-block;margin-bottom:16px;">Back to Main Menu</a>
                 <p>&copy; 2025 iBridge Contact Solutions. All rights reserved.</p>
             </div>
         </footer>
-        <!-- Floating WhatsApp/Chat Button -->
-        <a href="https://wa.me/27111234567" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp" rel="noopener">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-        <!-- Scroll-to-Top Button (added via JS) -->
-        <script>
-            // Mobile Menu Toggle
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mainMenu = document.getElementById('mainMenu');
-            mobileMenuBtn.addEventListener('click', () => {
-                mainMenu.classList.toggle('show');
-            });
-            // Smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    if (document.querySelector(this.getAttribute('href'))) {
-                        e.preventDefault();
-                        document.querySelector(this.getAttribute('href')).scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            // Scroll-to-Top Button
-            const scrollBtn = document.createElement('button');
-            scrollBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-            scrollBtn.className = 'cta-button scroll-to-top-btn';
-            scrollBtn.setAttribute('aria-label', 'Scroll to top');
-            document.body.appendChild(scrollBtn);
-            window.addEventListener('scroll', () => {
-                scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-            });
-            scrollBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        </script>
     </div>
+    <!-- Floating WhatsApp/Chat Button -->
+    <a href="https://wa.me/27111234567" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <!-- Scroll-to-Top Button (added via JS) -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainMenu = document.getElementById('mainMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mainMenu.classList.toggle('show');
+        });
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (document.querySelector(this.getAttribute('href'))) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        // Scroll-to-Top Button
+        const scrollBtn = document.createElement('button');
+        scrollBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        scrollBtn.className = 'cta-button';
+        scrollBtn.style.position = 'fixed';
+        scrollBtn.style.bottom = '100px';
+        scrollBtn.style.right = '40px';
+        scrollBtn.style.display = 'none';
+        scrollBtn.style.zIndex = '1001';
+        scrollBtn.setAttribute('aria-label', 'Scroll to top');
+        document.body.appendChild(scrollBtn);
+        window.addEventListener('scroll', () => {
+            scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+        });
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
