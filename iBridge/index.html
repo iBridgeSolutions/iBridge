@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="iBridge Contact Solutions - Your trusted partner in Business Process Outsourcing and Contact Centre Management">
+    <title>iBridge Contact Solutions | Home</title>
+    
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#32CD32">
+    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preload" href="js/scripts.js" as="script">
+    <link rel="preload" href="images/logo.png" as="image">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="images/logo.png" alt="iBridge Contact Solutions" width="150" height="50">
+                <h1>iBridge Contact Solutions</h1>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainMenu">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+            <nav role="navigation" aria-label="Main navigation">
+                <ul id="mainMenu">
+                    <li><a href="index.html" aria-current="page">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <!-- Hero Section -->
+        <section class="hero" aria-label="Welcome section">
+            <div class="hero-content">
+                <h1>Welcome to iBridge Contact Solutions</h1>
+                <p>Your trusted partner in Business Process Outsourcing and Contact Centre Management</p>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services" aria-labelledby="services-title">
+            <div class="container">
+                <h2 id="services-title">Our Services</h2>
+                <div class="services-grid">
+                    <!-- Add your service items here with proper ARIA labels -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section with lazy loaded images -->
+        <section class="features" aria-labelledby="features-title">
+            <div class="container">
+                <h2 id="features-title">Why Choose Us</h2>
+                <div class="features-grid">
+                    <div class="feature">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+                             data-src="images/placeholder1.jpg" 
+                             alt="24/7 Support"
+                             loading="lazy"
+                             width="300"
+                             height="200"
+                             class="lazy-image">
+                        <h3>24/7 Support</h3>
+                        <p>Round-the-clock customer service excellence</p>
+                    </div>
+                    <!-- Add more features with lazy loading -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <address>
+                        <p>141 Ontdekkers Road</p>
+                        <p>Horizon Park, Roodepoort</p>
+                        <p>Gauteng 1724, ZA</p>
+                        <p><a href="tel:+27111234567" aria-label="Call us at +27 11 123 4567">+27 11 123 4567</a></p>
+                        <p><a href="mailto:info@ibridgecontacts.com">info@ibridgecontacts.com</a></p>
+                    </address>
+                </div>
+                <!-- Add more footer columns -->
+            </div>
+            <p class="copyright">&copy; 2025 iBridge Contact Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button with accessibility improvements -->
+    <a href="https://wa.me/27111234567" 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener"
+       aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        <span class="sr-only">Open WhatsApp chat</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="js/scripts.js" defer></script>
+    <noscript>
+        <div class="noscript-warning">
+            Please enable JavaScript for the best experience on this site.
+        </div>
+    </noscript>
+</body>
+</html>
