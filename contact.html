@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=5.0">
+    <meta name="description" content="Get in touch with <span class="primary">iBridge</span> Contact Solutions. Contact us for inquiries about our services, support, or partnership opportunities.">
+    <title>Contact Us | <span class="primary">iBridge</span> Contact Solutions</title>
+    
+    <!-- Standard includes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
+    <!-- Navigation bar included from partials/header.html -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo" aria-label="iBridge Home">
+                    <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" width="100" height="33">
+                </a>
+                <!-- Mobile nav toggle button -->
+                <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu" type="button" tabindex="0">
+                    <span class="hamburger"></span>
+                    <span class="visually-hidden">Menu</span>
+                </button>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="services.html" class="nav-link">Services</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="services-dropdown" tabindex="0">
+                            More <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu" id="services-dropdown">
+                            <li><a href="services.html#contact-center" class="dropdown-item">Contact Center Solutions</a></li>
+                            <li><a href="services.html#it-support" class="dropdown-item">IT Support & Cloud Services</a></li>
+                            <li><a href="services.html#ai-automation" class="dropdown-item">AI & Automation</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="tel:+27111234567" class="nav-link nav-cta">
+                            <i class="fas fa-phone" aria-hidden="true"></i> 
+                            <span>+27 11 123 4567</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Contact Hero -->
+        <section class="hero contact-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Contact <span>Us</span></h1>
+                    <p class="hero-text">Let's discuss how we can help your business grow</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section contact-section">
+            <div class="container">
+                <div class="contact-container">
+                    <!-- Contact Information -->
+                    <div class="contact-info">
+                        <h3>Get in Touch</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Business Park, Innovation Drive<br>Johannesburg, 2196</p>
+                        <p><i class="fas fa-phone"></i> +27 11 123 4567</p>
+                        <p><i class="fas fa-envelope"></i> info@<span class="primary">ibridge</span>.co.za</p>
+                        
+                        <div class="social-links">
+                            <a href="#" class="social-link" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link" aria-label="Follow us on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+
+                        <div class="business-hours">
+                            <h4>Business Hours</h4>
+                            <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                            <p>Saturday: 9:00 AM - 2:00 PM</p>
+                            <p>Sunday: Closed</p>
+                        </div>
+
+                        <!-- Google Map -->
+                        <div class="contact-map">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1234!2d28.0473!3d-26.1052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDA2JzE4LjciUyAyOMKwMDInNTAuMyJF!5e0!3m2!1sen!2sza!4v1234567890!5m2!1sen!2sza" 
+                                width="100%" 
+                                height="300" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form">
+                        <h3>Send us a Message</h3>
+                        <form id="contactForm" action="#" method="POST">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name">Full Name*</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="company">Company Name</label>
+                                    <input type="text" id="company" name="company">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address*</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number*</label>
+                                    <input type="tel" id="phone" name="phone" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="service">Service of Interest</label>
+                                <select id="service" name="service">
+                                    <option value="">Select a Service</option>
+                                    <option value="contact-center">Contact Center Solutions</option>
+                                    <option value="it-support">IT Support & Cloud Services</option>
+                                    <option value="ai-automation">AI & Automation</option>
+                                    <option value="bpo">Business Process Outsourcing</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Your Message*</label>
+                                <textarea id="message" name="message" rows="6" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="privacy" required>
+                                    <span class="checkmark"></span>
+                                    I agree to the privacy policy and consent to being contacted about my inquiry
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-full">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section faq">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Find quick answers to common questions</p>
+                
+                <div class="faq-grid">
+                    <div class="faq-item fade-in">
+                        <h3>What areas do you service?</h3>
+                        <p>We provide services throughout South Africa, with our main office in Johannesburg. We also serve international clients through our remote capabilities.</p>
+                    </div>
+                    <div class="faq-item fade-in">
+                        <h3>How quickly can you respond to support requests?</h3>
+                        <p>We offer 24/7 support with response times varying by service level agreement. Emergency requests are typically addressed within 1 hour.</p>
+                    </div>
+                    <div class="faq-item fade-in">
+                        <h3>Do you offer customized solutions?</h3>
+                        <p>Yes, we tailor our services to meet your specific business needs and requirements. Contact us to discuss your unique situation.</p>
+                    </div>
+                    <div class="faq-item fade-in">
+                        <h3>What industries do you work with?</h3>
+                        <p>We work across various industries including finance, healthcare, retail, technology, and manufacturing, among others.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (same as index.html) -->
+    <footer class="footer">
+        <!-- ... footer content ... -->
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/27111234567" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
