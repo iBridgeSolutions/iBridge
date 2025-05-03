@@ -225,6 +225,7 @@ p {
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
+    -webkit-user-select: none; /* Safari */
     user-select: none;
     padding: 0.75rem 1.5rem;
     font-size: var(--font-size-base);
@@ -2341,4 +2342,14 @@ p {
   .faq-container {
     padding: 0 0.5rem;
   }
+}
+
+/* Styles for embedded elements */
+.about-video {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.google-map-iframe {
+    border: 0;
 }
