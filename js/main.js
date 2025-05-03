@@ -127,6 +127,19 @@ animatedElements.forEach(element => {
     observer.observe(element);
 });
 
+// Animation on scroll for sections, cards, and images
+function animateOnScroll() {
+    const animatedEls = document.querySelectorAll('.section, .service-card, .feature-card, .team-member, .image-placeholder');
+    animatedEls.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 60) {
+            el.classList.add('visible');
+        }
+    });
+}
+window.addEventListener('scroll', animateOnScroll);
+window.addEventListener('DOMContentLoaded', animateOnScroll);
+
 // Form validation
 const contactForm = document.querySelector('.contact-form');
 
