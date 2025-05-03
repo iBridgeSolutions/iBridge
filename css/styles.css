@@ -707,6 +707,10 @@ p {
     box-shadow: var(--shadow-md);
 }
 
+.about-badge span {
+    color: white;
+}
+
 @media (max-width: 992px) {
     .about-content {
         grid-template-columns: 1fr;
