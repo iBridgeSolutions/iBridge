@@ -644,6 +644,21 @@ p {
     flex-wrap: wrap;
 }
 
+/* Make the hero image smaller so it doesn't block the About iBridge title */
+.hero-image img {
+    max-width: 350px;
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+}
+@media (max-width: 600px) {
+  .hero-image img {
+    max-width: 200px;
+  }
+}
+
 /* Service Cards */
 .services-grid {
     display: grid;
