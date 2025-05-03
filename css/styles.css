@@ -2613,3 +2613,95 @@ p {
         gap: 1rem !important;
     }
 }
+
+/* Meet Our Team section styles */
+.meet-team .team-cards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+.team-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(21,23,16,0.08);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  text-align: center;
+  width: 220px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.team-card:hover {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(161,196,79,0.18);
+}
+.team-photo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  background: #f9f9f9;
+  box-shadow: 0 1px 4px rgba(21,23,16,0.08);
+}
+.team-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.team-role {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Partners carousel styles - improved spacing and infinite loop */
+.partners-carousel {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  overflow: hidden;
+  padding: 1.5rem 0;
+  position: relative;
+  width: 100%;
+}
+.partners-carousel-track {
+  display: flex;
+  gap: 4rem;
+  animation: partners-scroll-loop 24s linear infinite;
+  will-change: transform;
+}
+.partner-logo {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 4px rgba(21,23,16,0.08);
+  padding: 0.5rem 1rem;
+  transition: transform 0.3s;
+}
+.partner-logo img {
+  max-width: 100px;
+  max-height: 40px;
+  object-fit: contain;
+}
+.partner-logo:hover {
+  transform: scale(1.08) rotate(-2deg);
+}
+@keyframes partners-scroll-loop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (max-width: 768px) {
+  .partners-carousel, .partners-carousel-track {
+    gap: 2rem;
+  }
+  .partner-logo {
+    width: 90px;
+    height: 44px;
+    padding: 0.25rem 0.5rem;
+  }
+}
