@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="iBridge - Your Strategic Partner in BPO & BPaaS Solutions. Founder-led excellence with tailored solutions to drive your business forward.">
-    <title>iBridge | Strategic Partner in BPO & BPaaS Solutions</title>
+    <title>iBridge | Home | BPO & BPaaS Solutions</title>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -46,63 +45,37 @@
     
     <!-- Header -->
     <!-- Navigation bar included from partials/header.html -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="index.html" class="logo" aria-label="iBridge Home">
-                    <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" width="100" height="33">
-                </a>
-                <!-- Mobile nav toggle button -->
-                <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu" type="button" tabindex="0">
-                    <span class="hamburger"></span>
-                    <span class="visually-hidden">Menu</span>
-                </button>
-                <ul class="nav-menu" id="nav-menu">
-                    <li class="nav-item">
-                        <a href="index.html" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="about.html" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="services.html" class="nav-link">Services</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="services-dropdown" tabindex="0">
-                            More <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu" id="services-dropdown">
-                            <li><a href="services.html#contact-center" class="dropdown-item">Contact Center Solutions</a></li>
-                            <li><a href="services.html#it-support" class="dropdown-item">IT Support & Cloud Services</a></li>
-                            <li><a href="services.html#ai-automation" class="dropdown-item">AI & Automation</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="contact.html" class="nav-link">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="tel:+27111234567" class="nav-link nav-cta">
-                            <i class="fas fa-phone" aria-hidden="true"></i> 
-                            <span>+27 11 123 4567</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <header></header>
 
     <!-- Main Content -->
     <main id="main-content">
         <!-- Hero Section -->
-        <section class="hero" style="margin-top: 90px;">
+        <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-title">iBridge: Your Strategic Partner in BPO &amp; BPaaS Solutions</h1>
-                    <p class="hero-text">Founder-Led Excellence. Tailored Solutions. Driving Your Business Forward.</p>
-                    <div class="hero-btns">
-                        <a href="services.html" class="btn btn-primary">Our Services</a>
-                        <a href="contact.html" class="btn btn-outline">Contact Us</a>
+                    <h1 class="hero-title">Strategic BPO & BPaaS Solutions</h1>
+                    <p class="hero-text">Elevate your business operations with our tailored outsourcing and automation solutions.</p>
+                    <div class="hero-buttons">
+                        <a href="contact.html" class="btn">Get Started</a>
+                        <a href="services.html" class="btn btn-outline">Explore Services</a>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Omnichannel Experience Section -->
+        <section class="omnichannel-section">
+            <div class="container">
+                <h2>Omnichannel Experience</h2>
+                <p>Seamlessly connect with us across all channels: phone, email, chat, WhatsApp, and social media. Our integrated omnichannel platform ensures your customers receive consistent, high-quality support wherever they reach out.</p>
+                <div class="omni-icons" style="display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem;">
+                    <a href="tel:+27111234567" aria-label="Call"><i class="fas fa-phone fa-2x"></i></a>
+                    <a href="mailto:info@ibridge.co.za" aria-label="Email"><i class="fas fa-envelope fa-2x"></i></a>
+                    <a href="contact.html#chat" aria-label="Chatbot"><i class="fas fa-comments fa-2x"></i></a>
+                    <a href="https://wa.me/27111234567" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp fa-2x"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter fa-2x"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin fa-2x"></i></a>
                 </div>
             </div>
         </section>
@@ -284,7 +257,7 @@
                         </div>
                         <h3>Retail & FMCG</h3>
                     </div>
-                    <div class="feature-card"></div>
+                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-bolt"></i>
                         </div>
@@ -402,71 +375,8 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" width="150" height="50">
-                    </div>
-                    <p>Your strategic partner in BPO and BPaaS solutions, helping businesses unlock performance, customer experience, and growth.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link" aria-label="Follow us on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-link" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Our Services</h4>
-                    <ul class="footer-links">
-                        <li><a href="services.html#contact-center">Omnichannel Customer Support</a></li>
-                        <li><a href="services.html#call-center">Call Centre Solutions</a></li>
-                        <li><a href="services.html#back-office">Back Office & Administration</a></li>
-                        <li><a href="services.html#fraud-detection">Fraud Detection & Management</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Contact Info</h4>
-                    <ul class="footer-contact">
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            Head Office: Randburg, South Africa
-                        </li>
-                        <li>
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:+27111234567">+27 11 123 4567</a>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:info@ibridgegroup.co.za">info@ibridgegroup.co.za</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; <span id="currentYear">2025</span> <span class="primary">iBridge</span>. All rights reserved.</p>
-                <ul class="footer-legal">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer (included dynamically with JavaScript) -->
+    <footer></footer>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/27111234567" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore iBridge's comprehensive range of BPO & BPaaS solutions including Omnichannel Customer Support, Call Centre Solutions, and Business Process Consulting.">
-    <title>Our Services | iBridge - Strategic Partner in BPO & BPaaS Solutions</title>
+    <title>iBridge | Services | BPO & BPaaS Solutions</title>
     
     <!-- Standard includes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,39 +16,7 @@
     
     <!-- Header -->
     <!-- Navigation bar included from partials/header.html -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="index.html" class="logo" aria-label="iBridge Home">
-                    <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" width="100" height="33">
-                </a>
-                <!-- Mobile nav toggle button -->
-                <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu" type="button" tabindex="0">
-                    <span class="hamburger"></span>
-                    <span class="visually-hidden">Menu</span>
-                </button>
-                <ul class="nav-menu" id="nav-menu">
-                    <li class="nav-item">
-                        <a href="index.html" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="about.html" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="services.html" class="nav-link">Services</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="services-dropdown" tabindex="0">
-                            More <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu" id="services-dropdown">
-                            <li><a href="services.html#contact-center" class="dropdown-item">Contact Center Solutions</a></li>
-                            <li><a href="services.html#it-support" class="dropdown-item">IT Support & Cloud Services</a></li>
-                            <li><a href="services.html#ai-automation" class="dropdown-item">AI & Automation</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="contact.html" class="nav-link">Contact</a>
+    <header></header>
                     </li>
                     <li class="nav-item">
                         <a href="tel:+27111234567" class="nav-link nav-cta">
@@ -334,41 +301,38 @@
             <div class="container">
                 <h2 class="section-title">8. Our Service Solutions in Detail</h2>
                 
-                <!-- Contact Center Solutions -->
-                <div id="contact-center" class="service-detail">
-                    <div class="service-detail-content">
-                        <h3>Omnichannel Customer Support</h3>
-                        <p>Comprehensive customer engagement across voice, email, chat, and social media channels to deliver exceptional customer experiences.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> 24/7 Multilingual Support</li>
-                            <li><i class="fas fa-check-circle"></i> Cross-Channel Integration</li>
-                            <li><i class="fas fa-check-circle"></i> Real-time Analytics & Reporting</li>
-                            <li><i class="fas fa-check-circle"></i> Quality Monitoring & Coaching</li>
-                            <li><i class="fas fa-check-circle"></i> Customer Journey Mapping</li>
-                        </ul>
-                        <a href="contact.html" class="btn">Get Started</a>
-                    </div>
-                    <div class="service-detail-image">
-                        <img src="images/iBridge_IMG_3.png" alt="Omnichannel support solutions" loading="lazy">
-                    </div>
-                </div>
-
-                <!-- Call Centre Solutions -->
-                <div id="call-center" class="service-detail reverse">
-                    <div class="service-detail-content">
-                        <h3>Call Centre Solutions</h3>
-                        <p>Inbound, outbound, and blended call handling with integration to leading platforms including Genesys, Five9, NICE inContact, Avaya, and Aspect.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> IVR & Routing Optimization</li>
-                            <li><i class="fas fa-check-circle"></i> Outbound Campaign Management</li>
-                            <li><i class="fas fa-check-circle"></i> Call Quality Monitoring</li>
-                            <li><i class="fas fa-check-circle"></i> CRM Integration</li>
-                            <li><i class="fas fa-check-circle"></i> Real-time & Historical Reporting</li>
-                        </ul>
-                        <a href="contact.html" class="btn">Learn More</a>
-                    </div>
-                    <div class="service-detail-image">
-                        <img src="images/iBridge_IMG_4.png" alt="Call centre operations" loading="lazy">
+                <!-- Featured Service Solutions -->
+                <div id="featured-services" class="featured-services">
+                    <h3>Our Dedicated Service Solutions</h3>
+                    <p>Explore our specialized services in detail by visiting our dedicated service pages:</p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h3>Contact Center Solutions</h3>
+                            <p>Comprehensive customer engagement across voice, email, chat, and social media channels.</p>
+                            <a href="contact-center.html" class="btn btn-outline">Learn More</a>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <h3>IT Support & Cloud Services</h3>
+                            <p>Technical support, cloud migration, and infrastructure management solutions.</p>
+                            <a href="it-support.html" class="btn btn-outline">Learn More</a>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3>AI & Automation</h3>
+                            <p>Intelligent automation, conversational AI, and predictive analytics solutions.</p>
+                            <a href="ai-automation.html" class="btn btn-outline">Learn More</a>
+                        </div>
                     </div>
                 </div>
 
@@ -391,22 +355,22 @@
                     </div>
                 </div>
 
-                <!-- Fraud Detection -->
-                <div id="fraud-detection" class="service-detail reverse">
+                <!-- Additional BPO Services -->
+                <div id="bpo" class="service-detail reverse">
                     <div class="service-detail-content">
-                        <h3>Fraud Detection & Management</h3>
-                        <p>Protect your business with advanced fraud detection, prevention, and management solutions.</p>
+                        <h3>Business Process Outsourcing</h3>
+                        <p>Comprehensive BPO services designed to optimize your operations and improve business efficiency.</p>
                         <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> Real-time Monitoring</li>
-                            <li><i class="fas fa-check-circle"></i> Pattern Recognition</li>
-                            <li><i class="fas fa-check-circle"></i> Transaction Verification</li>
-                            <li><i class="fas fa-check-circle"></i> Risk Assessment</li>
-                            <li><i class="fas fa-check-circle"></i> Compliance Management</li>
+                            <li><i class="fas fa-check-circle"></i> Customer Vetting and Profiling</li>
+                            <li><i class="fas fa-check-circle"></i> Retention Strategies</li>
+                            <li><i class="fas fa-check-circle"></i> Sales, Collections & Recovery</li>
+                            <li><i class="fas fa-check-circle"></i> Product Fulfillment</li>
+                            <li><i class="fas fa-check-circle"></i> Business Process Consulting</li>
                         </ul>
                         <a href="contact.html" class="btn">Contact Us</a>
                     </div>
                     <div class="service-detail-image">
-                        <img src="images/iBridge_IMG_2.png" alt="Fraud detection systems" loading="lazy">
+                        <img src="images/iBridge_IMG_2.png" alt="BPO services" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -419,16 +383,14 @@
                 <p>Ready to explore how our services can benefit your business?</p>
                 <div class="cta-buttons">
                     <a href="contact.html" class="btn">Contact Our Team</a>
-                    <a href="services.html#contact-center" class="btn btn-outline">Learn More About Solutions</a>
+                    <a href="#featured-services" class="btn btn-outline">Explore Our Services</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer (same as index.html) -->
-    <footer class="footer">
-        <!-- ... existing footer content ... -->
-    </footer>
+    <!-- Footer (included dynamically with JavaScript) -->
+    <footer></footer>
 
     <!-- WhatsApp Button -->
     <a href="https://wa.me/27111234567" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">

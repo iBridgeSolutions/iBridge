@@ -3,22 +3,54 @@
  * Vanilla JS implementation with mobile-first approach
  */
 
-// DOM Elements
-const nav = document.querySelector('.nav');
-const navToggle = document.querySelector('.nav-toggle');
-const navMenu = document.querySelector('.nav-menu');
-const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-const yearSpan = document.querySelector('.current-year');
-const scrollTopBtn = document.querySelector('.scroll-top');
+// Include header and footer partials dynamically
+document.addEventListener('DOMContentLoaded', function() {
+    // Include header
+    const headerPlaceholder = document.querySelector('header');
+    if (headerPlaceholder && !headerPlaceholder.innerHTML.trim()) {
+        fetch('partials/header.html')
+            .then(response => response.text())
+            .then(data => {
+                headerPlaceholder.innerHTML = data;
+                initNavigation();
+            });
+    } else {
+        initNavigation();
+    }
+    
+    // Include footer
+    const footerPlaceholder = document.querySelector('footer');
+    if (footerPlaceholder && !footerPlaceholder.innerHTML.trim()) {
+        fetch('partials/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                footerPlaceholder.innerHTML = data;
+                // Set current year in footer after loading
+                const yearSpan = document.querySelector('.current-year');
+                if (yearSpan) {
+                    yearSpan.textContent = new Date().getFullYear();
+                }
+            });
+    }
+});
 
-// Set current year in footer
-if (yearSpan) {
-    yearSpan.textContent = new Date().getFullYear();
-}
+function initNavigation() {
+    // DOM Elements
+    const nav = document.querySelector('.nav');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    const yearSpan = document.querySelector('.current-year');
+    const scrollTopBtn = document.querySelector('.scroll-top');
 
-// Mobile Menu Toggle
-if (navToggle) {
-    const toggleMenu = () => {
+    // Set current year in footer
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+
+    // Mobile Menu Toggle
+    if (navToggle) {
+        const toggleMenu = () => {
         const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
         navToggle.setAttribute('aria-expanded', !expanded);
         navMenu.classList.toggle('active');
@@ -236,8 +268,7 @@ tabButtons.forEach(button => {
     });
 });
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
+    // Initialize on page load (within navigation context)
     // Set first tab as active by default if none are active
     if (!document.querySelector('[role="tab"][aria-selected="true"]')) {
         const firstTab = document.querySelector('[role="tab"]');
@@ -251,4 +282,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hero) {
         hero.classList.add('fade-in');
     }
-});
+} // End of initNavigation function
