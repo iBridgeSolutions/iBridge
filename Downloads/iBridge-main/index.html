@@ -13,9 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/favicon.png">
-      <!-- Custom CSS -->
+    <link rel="icon" type="image/png" href="images/favicon.png">      <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles-fixed.css">
+    <link rel="stylesheet" href="css/style-enhancements.css">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -54,11 +54,11 @@
             <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu" type="button" tabindex="0">
                 <span class="hamburger"></span>
                 <span class="visually-hidden">Menu</span>
-            </button>
-            <ul class="nav-menu" id="nav-menu">
+            </button>            <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="omnichannel.html" class="nav-link highlight-nav"><i class="fas fa-network-wired"></i> Omnichannel Experience</a></li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="services-dropdown" tabindex="0">
                         More <i class="fas fa-chevron-down" aria-hidden="true"></i>
@@ -71,20 +71,22 @@
                 <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
                 <li class="nav-item"><a href="tel:+27111234567" class="nav-link nav-cta"><i class="fas fa-phone" aria-hidden="true"></i> <span>+27 11 123 4567</span></a></li>
             </ul>
-        </nav>
-    </div>
-</header>    <!-- Omnichannel Section -->
-    <section class="omnichannel-section">
+        </nav>    </div>
+    <!-- Social icons added to header -->
+    <div class="header-social">
         <div class="container">
-            <div>
-                <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
-                <div>
-                    <h2 class="omni-header"><i class="fas fa-network-wired"></i> Omnichannel Experience</h2>
-                    <p>Connect with us: <a href="tel:+27111234567"><i class="fas fa-phone"></i></a> <a href="mailto:info@ibridge.co.za"><i class="fas fa-envelope"></i></a> <a href="contact.html#chat"><i class="fas fa-comments"></i></a> <a href="https://wa.me/27111234567" target="_blank"><i class="fab fa-whatsapp"></i></a> <a href="#"><i class="fab fa-facebook"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-linkedin"></i></a></p>
-                </div>
+            <div class="social-icons">
+                <a href="tel:+27111234567" aria-label="Call us"><i class="fas fa-phone"></i></a>
+                <a href="mailto:info@ibridge.co.za" aria-label="Email us"><i class="fas fa-envelope"></i></a>
+                <a href="contact.html#chat" aria-label="Chat with us"><i class="fas fa-comments"></i></a>
+                <a href="https://wa.me/27111234567" target="_blank" aria-label="WhatsApp us"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" aria-label="Visit our Facebook page"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Connect with us on LinkedIn"><i class="fab fa-linkedin"></i></a>
             </div>
         </div>
-    </section>
+    </div>
+</header>
 
     <!-- Main Content -->
     <main id="main-content">

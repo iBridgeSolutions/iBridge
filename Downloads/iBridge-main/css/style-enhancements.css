@@ -1,0 +1,174 @@
+/* Additional modern styles enhancement */
+
+/* Add smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Enhance card hover effects */
+.feature-card, .service-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.feature-card:hover, .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* Improve button hover states */
+.btn {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+}
+
+.btn:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.25);
+    transition: all 0.5s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.btn:hover:after {
+    left: 100%;
+}
+
+/* Enhance section transitions */
+.section {
+    transition: opacity 0.5s ease;
+    padding: 80px 0;
+}
+
+/* Improve image hover effects */
+.image-wrapper {
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.image-wrapper img {
+    transition: transform 0.6s ease;
+}
+
+.image-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+/* Add subtle animation to icons */
+.feature-icon, .service-icon {
+    transition: transform 0.4s ease, color 0.4s ease;
+    height: 70px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background: rgba(161, 196, 79, 0.1);
+    color: var(--primary);
+}
+
+.feature-card:hover .feature-icon,
+.service-card:hover .service-icon {
+    transform: scale(1.15);
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 5px 15px rgba(161, 196, 79, 0.3);
+}
+
+/* Modern hero section */
+.hero {
+    position: relative;
+    padding: 160px 0 100px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%), url('../images/hero-bg.jpg') center/cover no-repeat;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.hero-text {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+/* Enhance section titles */
+.section-title {
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+.section-title.text-center:after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Enhance mobile menu */
+@media (max-width: 992px) {
+    .header-social {
+        padding: 5px 0;
+    }
+    
+    .header-social .social-icons {
+        gap: 12px;
+    }
+    
+    .nav-link.highlight-nav {
+        background-color: var(--primary-light);
+        color: white;
+        border-radius: var(--border-radius-sm);
+    }
+    
+    .section {
+        padding: 60px 0;
+    }
+    
+    .hero {
+        padding: 140px 0 80px;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .feature-icon, .service-icon {
+        height: 60px;
+        width: 60px;
+        font-size: 24px;
+    }
+}
