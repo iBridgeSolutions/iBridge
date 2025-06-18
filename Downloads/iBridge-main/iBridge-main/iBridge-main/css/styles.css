@@ -116,20 +116,19 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-dark);
 }
 
-h1 {
-    font-size: var(--font-size-xxl);
+h1, .hero-title {
+    font-size: 2rem !important;
+    font-weight: 600;
 }
 
-h2 {
-    font-size: var(--font-size-xl);
+h2, .section-title {
+    font-size: 1.5rem !important;
+    font-weight: 500;
 }
 
-h3 {
-    font-size: var(--font-size-lg);
-}
-
-h4 {
-    font-size: var(--font-size-md);
+h3, .about-title, .service-title, .feature-title {
+    font-size: 1.15rem !important;
+    font-weight: 500;
 }
 
 p {
@@ -363,6 +362,11 @@ p {
     list-style: none;
     margin: 0;
     padding: 0;
+    background: #fff;
+    border-right: 2px solid var(--primary);
+    box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+    min-width: 220px;
+    font-size: 1.1em;
 }
 
 .nav-item {
@@ -371,7 +375,9 @@ p {
 }
 
 .nav-link {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
     padding: 0.5rem 1rem;
     color: var(--text-dark);
     font-weight: 600;
@@ -2876,4 +2882,74 @@ p {
     .tech-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Header size reduction */
+h1, .hero-title {
+    font-size: 2rem !important;
+    font-weight: 600;
+}
+h2, .section-title {
+    font-size: 1.5rem !important;
+    font-weight: 500;
+}
+h3, .about-title, .service-title, .feature-title {
+    font-size: 1.15rem !important;
+    font-weight: 500;
+}
+
+/* Emphasize icons */
+.fa, .fab, .fas {
+    color: var(--primary);
+    font-size: 1.3em;
+    margin-right: 0.5em;
+}
+
+/* Sidebar/menu improvements */
+.nav-menu {
+    background: #fff;
+    border-right: 2px solid var(--primary);
+    box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+    min-width: 220px;
+    font-size: 1.1em;
+}
+.nav-menu .nav-item {
+    padding: 0.75em 1.5em;
+}
+.nav-menu .nav-link, .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+/* Make dropdown always visible for 'More' tab */
+.show-always {
+    display: block !important;
+    position: static !important;
+    box-shadow: none !important;
+    background: none !important;
+    margin-top: 0.5em;
+}
+
+/* Omnichannel section styling */
+.omnichannel-section {
+    background: var(--gradient-primary);
+    padding: 2em 0 1em 0;
+    border-radius: 0 0 1.5em 1.5em;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.omni-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.5em;
+}
+.omni-icons a {
+    color: var(--primary);
+    margin: 0 0.5em;
+    font-size: 2em;
+    transition: color 0.2s;
+}
+.omni-icons a:hover {
+    color: var(--accent-secondary);
 }
