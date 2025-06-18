@@ -14,7 +14,7 @@ Write-Host
 Write-Host "Checking DNS records..." -ForegroundColor Yellow
 $nsRecords = Resolve-DnsName -Name $domain -Type NS -ErrorAction SilentlyContinue
 if ($nsRecords) {
-    Write-Host "Nameservers for $domain:" -ForegroundColor Green
+    Write-Host ("Nameservers for " + $domain + ":") -ForegroundColor Green
     $nsRecords | Where-Object { $_.Type -eq "NS" } | ForEach-Object {
         $ns = $_.NameHost
         if ($ns -like "*awsdns*") {
@@ -28,7 +28,7 @@ if ($nsRecords) {
 # Check A records for root domain
 $aRecords = Resolve-DnsName -Name $domain -Type A -ErrorAction SilentlyContinue
 if ($aRecords) {
-    Write-Host "`nA Records for $domain:" -ForegroundColor Green
+    Write-Host ("`nA Records for " + $domain + ":") -ForegroundColor Green
     $aRecords | Where-Object { $_.Type -eq "A" } | ForEach-Object {
         Write-Host "  - $($_.IPAddress)" -ForegroundColor White
     }
@@ -37,7 +37,7 @@ if ($aRecords) {
 # Check A records for www subdomain
 $wwwARecords = Resolve-DnsName -Name $wwwDomain -Type A -ErrorAction SilentlyContinue
 if ($wwwARecords) {
-    Write-Host "`nA Records for $wwwDomain:" -ForegroundColor Green
+    Write-Host ("`nA Records for " + $wwwDomain + ":") -ForegroundColor Green
     $wwwARecords | Where-Object { $_.Type -eq "A" } | ForEach-Object {
         Write-Host "  - $($_.IPAddress)" -ForegroundColor White
     }
