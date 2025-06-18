@@ -1,0 +1,161 @@
+{
+    "Location": "https://cloudfront.amazonaws.com/2020-05-31/distribution/E1T7BY6VF4J47N",
+    "ETag": "E1UDR0833H1Q4V",
+    "Distribution": {
+        "Id": "E1T7BY6VF4J47N",
+        "ARN": "arn:aws:cloudfront::640825887118:distribution/E1T7BY6VF4J47N",
+        "Status": "InProgress",
+        "LastModifiedTime": "2025-06-17T13:21:34.227000+00:00",
+        "InProgressInvalidationBatches": 0,
+        "DomainName": "diso379wpy1no.cloudfront.net",
+        "ActiveTrustedSigners": {
+            "Enabled": false,
+            "Quantity": 0
+        },
+        "ActiveTrustedKeyGroups": {
+            "Enabled": false,
+            "Quantity": 0
+        },
+        "DistributionConfig": {
+            "CallerReference": "ibridgesolutions-20250617152123",
+            "Aliases": {
+                "Quantity": 2,
+                "Items": [
+                    "www.ibridgesolutions.co.za",
+                    "ibridgesolutions.co.za"
+                ]
+            },
+            "DefaultRootObject": "index.html",
+            "Origins": {
+                "Quantity": 1,
+                "Items": [
+                    {
+                        "Id": "S3-ibridgesolutions-website-640825887118",
+                        "DomainName": "ibridgesolutions-website-640825887118.s3.amazonaws.com",
+                        "OriginPath": "",
+                        "CustomHeaders": {
+                            "Quantity": 0
+                        },
+                        "S3OriginConfig": {
+                            "OriginAccessIdentity": ""
+                        },
+                        "ConnectionAttempts": 3,
+                        "ConnectionTimeout": 10,
+                        "OriginShield": {
+                            "Enabled": false
+                        },
+                        "OriginAccessControlId": ""
+                    }
+                ]
+            },
+            "OriginGroups": {
+                "Quantity": 0
+            },
+            "DefaultCacheBehavior": {
+                "TargetOriginId": "S3-ibridgesolutions-website-640825887118",
+                "TrustedSigners": {
+                    "Enabled": false,
+                    "Quantity": 0
+                },
+                "TrustedKeyGroups": {
+                    "Enabled": false,
+                    "Quantity": 0
+                },
+                "ViewerProtocolPolicy": "redirect-to-https",
+                "AllowedMethods": {
+                    "Quantity": 2,
+                    "Items": [
+                        "HEAD",
+                        "GET"
+                    ],
+                    "CachedMethods": {
+                        "Quantity": 2,
+                        "Items": [
+                            "HEAD",
+                            "GET"
+                        ]
+                    }
+                },
+                "SmoothStreaming": false,
+                "Compress": true,
+                "LambdaFunctionAssociations": {
+                    "Quantity": 0
+                },
+                "FunctionAssociations": {
+                    "Quantity": 0
+                },
+                "FieldLevelEncryptionId": "",
+                "GrpcConfig": {
+                    "Enabled": false
+                },
+                "ForwardedValues": {
+                    "QueryString": false,
+                    "Cookies": {
+                        "Forward": "none"
+                    },
+                    "Headers": {
+                        "Quantity": 0
+                    },
+                    "QueryStringCacheKeys": {
+                        "Quantity": 0
+                    }
+                },
+                "MinTTL": 0,
+                "DefaultTTL": 86400,
+                "MaxTTL": 31536000
+            },
+            "CacheBehaviors": {
+                "Quantity": 0
+            },
+            "CustomErrorResponses": {
+                "Quantity": 1,
+                "Items": [
+                    {
+                        "ErrorCode": 404,
+                        "ResponsePagePath": "/index.html",
+                        "ResponseCode": "200",
+                        "ErrorCachingMinTTL": 300
+                    }
+                ]
+            },
+            "Comment": "CloudFront for ibridgesolutions.co.za",
+            "Logging": {
+                "Enabled": false,
+                "IncludeCookies": false,
+                "Bucket": "",
+                "Prefix": ""
+            },
+            "PriceClass": "PriceClass_All",
+            "Enabled": true,
+            "ViewerCertificate": {
+                "CloudFrontDefaultCertificate": false,
+                "ACMCertificateArn": "arn:aws:acm:us-east-1:640825887118:certificate/c3af2325-0197-44a6-b586-e4fcb029c0a4",
+                "SSLSupportMethod": "sni-only",
+                "MinimumProtocolVersion": "TLSv1.2_2021",
+                "Certificate": "arn:aws:acm:us-east-1:640825887118:certificate/c3af2325-0197-44a6-b586-e4fcb029c0a4",
+                "CertificateSource": "acm"
+            },
+            "Restrictions": {
+                "GeoRestriction": {
+                    "RestrictionType": "none",
+                    "Quantity": 0
+                }
+            },
+            "WebACLId": "",
+            "HttpVersion": "http2",
+            "IsIPV6Enabled": true,
+            "ContinuousDeploymentPolicyId": "",
+            "Staging": false
+        },
+        "AliasICPRecordals": [
+            {
+                "CNAME": "www.ibridgesolutions.co.za",
+                "ICPRecordalStatus": "APPROVED"
+            },
+            {
+                "CNAME": "ibridgesolutions.co.za",
+                "ICPRecordalStatus": "APPROVED"
+            }
+        ]
+    }
+}

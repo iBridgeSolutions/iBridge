@@ -59,9 +59,6 @@ foreach ($file in $filesToUpload) {
     $remotePath = "$remoteFolder$relativePath"
     $remoteUrl = "ftp://$ftpHost$remotePath"
     
-    # Ensure remote directory exists
-    $remoteDir = [System.IO.Path]::GetDirectoryName($remotePath)
-    
     try {
         Write-Host "Uploading: $relativePath" -NoNewline
         
