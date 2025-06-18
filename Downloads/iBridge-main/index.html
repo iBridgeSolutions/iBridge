@@ -14,9 +14,8 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+      <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles-fixed.css">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -45,8 +44,7 @@
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
     <!-- Header -->
-    <!-- Navigation bar included from partials/header.html -->
-    <header class="header">
+    <!-- Navigation bar included from partials/header.html -->    <header class="header">
     <div class="container">
         <nav class="nav">
             <a href="index.html" class="logo" aria-label="iBridge Home">
@@ -62,10 +60,9 @@
                 <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" aria-expanded="true" aria-controls="services-dropdown" tabindex="0">
+                    <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="services-dropdown" tabindex="0">
                         More <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                    </a>
-                    <ul class="dropdown-menu show-always" id="services-dropdown" style="display:block;position:static;box-shadow:none;background:none;">
+                    </a>                    <ul class="dropdown-menu" id="services-dropdown">
                         <li><a href="contact-center.html" class="dropdown-item"><i class="fas fa-headset"></i> Contact Center Solutions</a></li>
                         <li><a href="it-support.html" class="dropdown-item"><i class="fas fa-cloud"></i> IT Support & Cloud Services</a></li>
                         <li><a href="ai-automation.html" class="dropdown-item"><i class="fas fa-robot"></i> AI & Automation</a></li>
@@ -76,23 +73,23 @@
             </ul>
         </nav>
     </div>
-</header>
-<section class="omnichannel-section" style="margin-top: 1rem;">
-    <div class="container">
-        <div style="display:flex;align-items:center;gap:2rem;justify-content:center;">
-            <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" style="height:64px;">
+</header>    <!-- Omnichannel Section -->
+    <section class="omnichannel-section">
+        <div class="container">
             <div>
-                <h2 class="omni-header"><i class="fas fa-network-wired"></i> Omnichannel Experience</h2>
-                <p>Connect with us: <a href="tel:+27111234567"><i class="fas fa-phone"></i></a> <a href="mailto:info@ibridge.co.za"><i class="fas fa-envelope"></i></a> <a href="contact.html#chat"><i class="fas fa-comments"></i></a> <a href="https://wa.me/27111234567" target="_blank"><i class="fab fa-whatsapp"></i></a> <a href="#"><i class="fab fa-facebook"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-linkedin"></i></a></p>
+                <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
+                <div>
+                    <h2 class="omni-header"><i class="fas fa-network-wired"></i> Omnichannel Experience</h2>
+                    <p>Connect with us: <a href="tel:+27111234567"><i class="fas fa-phone"></i></a> <a href="mailto:info@ibridge.co.za"><i class="fas fa-envelope"></i></a> <a href="contact.html#chat"><i class="fas fa-comments"></i></a> <a href="https://wa.me/27111234567" target="_blank"><i class="fab fa-whatsapp"></i></a> <a href="#"><i class="fab fa-facebook"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-linkedin"></i></a></p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Main Content -->
     <main id="main-content">
         <!-- Hero Section -->
-        <section class="hero" style="margin-top: 90px;">
+        <section class="hero">
             <div class="container">
                 <div class="hero-content">
                     <h1 class="hero-title">iBridge: Your Strategic Partner in BPO &amp; BPaaS Solutions</h1>
@@ -118,7 +115,8 @@
                                 <div class="stat-label">Years Experience</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-number">100%</                                <div class="stat-label">Customer Satisfaction</div>
+                                <div class="stat-number">100%</div>
+                            <div class="stat-label">Customer Satisfaction</div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-number">24/7</div>
@@ -130,26 +128,12 @@
                         <img src="images/iBridge_IMG_2.png" alt="About iBridge" class="about-img" loading="lazy">
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
+            </div>        </section>        <!-- Services Section -->
         <section id="services" class="section services">
             <div class="container">
                 <h2 class="section-title">Our Core Services</h2>
                 <p class="section-subtitle">Comprehensive BPO and BPaaS solutions tailored to your business needs.</p>
-                
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <h3 class="service-title">Omnichannel Customer Support</h3>
-                        <p class="service-desc">Voice, email, chat, and social media support strategies designed to enhance customer satisfaction.</p>
-                        <img src="images/iBridge_IMG_3.png" alt="Omnichannel Customer Support" class="service-image" loading="lazy">
-                        <a href="services.html" class="btn btn-outline">Learn More</a>
-                    </div>
-                    
+                  <div class="services-grid">
                     <div class="service-card">
                         <div class="service-icon">
                             <i class="fas fa-cogs"></i>
@@ -168,6 +152,16 @@
                         <p class="service-desc">Protect your business with our advanced fraud detection and management solutions.</p>
                         <img src="images/iBridge_IMG_1.png" alt="Fraud Detection" class="service-image" loading="lazy">
                         <a href="services.html" class="btn btn-outline">Learn More</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="service-title">AI & Automation</h3>
+                        <p class="service-desc">Enhance efficiency with our cutting-edge AI and automation solutions designed for modern businesses.</p>
+                        <img src="images/iBridge_IMG_2.png" alt="AI & Automation" class="service-image" loading="lazy">
+                        <a href="services.html#ai-automation" class="btn btn-outline">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -281,8 +275,7 @@
                             <i class="fas fa-shopping-cart"></i>
                         </div>
                         <h3>Retail & FMCG</h3>
-                    </div>
-                    <div class="feature-card"></div>
+                    </div>                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-bolt"></i>
                         </div>
@@ -427,13 +420,12 @@
                     </ul>
                 </div>
 
-                <div class="footer-col">
-                    <h4>Our Services</h4>
+                <div class="footer-col">                    <h4>Our Services</h4>
                     <ul class="footer-links">
-                        <li><a href="services.html#contact-center">Omnichannel Customer Support</a></li>
-                        <li><a href="services.html#call-center">Call Centre Solutions</a></li>
-                        <li><a href="services.html#back-office">Back Office & Administration</a></li>
-                        <li><a href="services.html#fraud-detection">Fraud Detection & Management</a></li>
+                        <li><a href="contact-center.html">Contact Center Solutions</a></li>
+                        <li><a href="it-support.html">IT Support & Cloud Services</a></li>
+                        <li><a href="ai-automation.html">AI & Automation</a></li>
+                        <li><a href="services.html">All Services</a></li>
                     </ul>
                 </div>
 
