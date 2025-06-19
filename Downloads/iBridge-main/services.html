@@ -11,17 +11,16 @@
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
+      <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
       <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles-fixed.css">
+    <link rel="stylesheet" href="css/style-enhancements.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <!-- Header -->
-    <header class="header">
+    <!-- Header -->    <header class="header">
         <div class="container">
             <nav class="nav">
                 <a href="index.html" class="logo" aria-label="iBridge Home">
@@ -35,11 +34,13 @@
                 <ul class="nav-menu" id="nav-menu">
                     <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link active">Services</a></li>
+                    <li class="nav-item"><a href="omnichannel.html" class="nav-link highlight-nav"><i class="fas fa-network-wired"></i> Omnichannel Experience</a></li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="services-dropdown" tabindex="0">
                             More <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                        </a>                        <ul class="dropdown-menu" id="services-dropdown">
+                        </a>
+                        <ul class="dropdown-menu" id="services-dropdown">
                             <li><a href="contact-center.html" class="dropdown-item"><i class="fas fa-headset"></i> Contact Center Solutions</a></li>
                             <li><a href="it-support.html" class="dropdown-item"><i class="fas fa-cloud"></i> IT Support & Cloud Services</a></li>
                             <li><a href="ai-automation.html" class="dropdown-item"><i class="fas fa-robot"></i> AI & Automation</a></li>
@@ -50,58 +51,81 @@
                 </ul>
             </nav>
         </div>
-    </header>
-
-    <!-- Omnichannel Section -->
-    <section class="omnichannel-section">
-        <div class="container">
-            <div>
-                <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
-                <div>
-                    <h2 class="omni-header"><i class="fas fa-network-wired"></i> Omnichannel Experience</h2>
-                    <p>Connect with us: <a href="tel:+27111234567"><i class="fas fa-phone"></i></a> <a href="mailto:info@ibridge.co.za"><i class="fas fa-envelope"></i></a> <a href="contact.html#chat"><i class="fas fa-comments"></i></a> <a href="https://wa.me/27111234567" target="_blank"><i class="fab fa-whatsapp"></i></a> <a href="#"><i class="fab fa-facebook"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-linkedin"></i></a></p>
+        <!-- Social icons added to header -->
+        <div class="header-social">
+            <div class="container">
+                <div class="social-icons">
+                    <a href="tel:+27111234567" aria-label="Call us"><i class="fas fa-phone"></i></a>
+                    <a href="mailto:info@ibridge.co.za" aria-label="Email us"><i class="fas fa-envelope"></i></a>
+                    <a href="contact.html#chat" aria-label="Chat with us"><i class="fas fa-comments"></i></a>
+                    <a href="https://wa.me/27111234567" target="_blank" aria-label="WhatsApp us"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" aria-label="Visit our Facebook page"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Connect with us on LinkedIn"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
         </div>
-    </section>
+    </header>
 
     <!-- Main Content -->
     <main id="main-content">
         <!-- Services Hero -->
-        <section class="hero services-hero">
+        <section class="hero services-hero" style="background: linear-gradient(135deg, rgba(161,196,79,0.85) 0%, rgba(255,255,255,0.95) 100%), url('images/services-hero.jpg') center/cover no-repeat; min-height: 400px; display: flex; align-items: center;">
             <div class="container">
-                <div class="hero-content">
+                <div class="hero-content" style="text-align: left; max-width: 600px;">
                     <h1 class="hero-title">Our Services</h1>
                     <p class="hero-text">Comprehensive BPO & BPaaS Solutions for Your Business</p>
                 </div>
             </div>
+            <div class="hero-image" style="position:absolute;right:0;bottom:0;max-width:50vw;z-index:1;">
+                <img src="images/services-illustration.png" alt="Our Services" style="width:100%;max-width:500px;opacity:0.95;">
+            </div>
         </section>
-
+        <!-- Visual Separator -->
+        <div style="height:32px;background:linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);opacity:0.12;"></div>
         <!-- Service Introduction -->
-        <section class="section service-intro">
+        <section class="section service-intro" style="background:#fff;">
             <div class="container">
                 <h2>Strategic BPO & BPaaS Solutions</h2>
                 <p>At iBridge, we deliver customized business process solutions designed to enhance your operational efficiency, improve customer experience, and drive business growth. Our comprehensive service portfolio adapts to your specific industry needs and organizational goals.</p>
             </div>
         </section>
-
         <!-- Core Services -->
-        <section class="section core-services">
+        <section class="section core-services" style="background:#f9f9f9;">
             <div class="container">
                 <h2>1. Our Core Services</h2>
-                <ul class="feature-list">
-                    <li><i class="fas fa-check-circle"></i> Omnichannel Customer Support (voice, email, chat, social)</li>
-                    <li><i class="fas fa-check-circle"></i> Call Centre Solutions: Inbound, outbound, blended (Genesys, Five9, NICE inContact, Avaya, Aspect)</li>
-                    <li><i class="fas fa-check-circle"></i> CRM-integrated operations: Salesforce, HubSpot, SAP, Microsoft Dynamics, Zoho</li>
-                    <li><i class="fas fa-check-circle"></i> Back Office & Administration</li>
-                    <li><i class="fas fa-check-circle"></i> Fraud Detection & Management</li>
-                    <li><i class="fas fa-check-circle"></i> Customer Vetting and Profiling</li>
-                    <li><i class="fas fa-check-circle"></i> Retention Strategies (proactive, preventative, reactive)</li>
-                    <li><i class="fas fa-check-circle"></i> IT & Fintech Integration</li>
-                    <li><i class="fas fa-check-circle"></i> Sales, Collections & Recovery</li>
-                    <li><i class="fas fa-check-circle"></i> Product Fulfilment, Delivery & Installation</li>
-                    <li><i class="fas fa-check-circle"></i> Business Process Consulting and Improvement</li>
-                </ul>
+                <div class="services-grid" style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;">
+                    <div class="service-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(161,196,79,0.08);padding:32px;max-width:340px;flex:1 1 300px;">
+                        <div class="service-icon"><i class="fas fa-network-wired"></i></div>
+                        <h3 class="service-title">Omnichannel Customer Support</h3>
+                        <p class="service-desc">Voice, email, chat, and social support for seamless customer experiences.</p>
+                        <img src="images/service-omnichannel.jpg" alt="Omnichannel Support" class="service-image" loading="lazy" style="border-radius:12px;margin:16px 0;box-shadow:0 2px 8px rgba(161,196,79,0.10);">
+                    </div>
+                    <div class="service-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(161,196,79,0.08);padding:32px;max-width:340px;flex:1 1 300px;">
+                        <div class="service-icon"><i class="fas fa-headset"></i></div>
+                        <h3 class="service-title">Contact Center Solutions</h3>
+                        <p class="service-desc">Inbound, outbound, and blended call center solutions with leading platforms.</p>
+                        <img src="images/service-contactcenter.jpg" alt="Contact Center" class="service-image" loading="lazy" style="border-radius:12px;margin:16px 0;box-shadow:0 2px 8px rgba(161,196,79,0.10);">
+                    </div>
+                    <div class="service-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(161,196,79,0.08);padding:32px;max-width:340px;flex:1 1 300px;">
+                        <div class="service-icon"><i class="fas fa-cogs"></i></div>
+                        <h3 class="service-title">Back Office & Administration</h3>
+                        <p class="service-desc">Comprehensive back-office support to streamline operations and reduce costs.</p>
+                        <img src="images/service-backoffice.jpg" alt="Back Office" class="service-image" loading="lazy" style="border-radius:12px;margin:16px 0;box-shadow:0 2px 8px rgba(161,196,79,0.10);">
+                    </div>
+                    <div class="service-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(161,196,79,0.08);padding:32px;max-width:340px;flex:1 1 300px;">
+                        <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3 class="service-title">Fraud Detection & Management</h3>
+                        <p class="service-desc">Advanced fraud detection and management solutions for your business.</p>
+                        <img src="images/service-fraud.jpg" alt="Fraud Detection" class="service-image" loading="lazy" style="border-radius:12px;margin:16px 0;box-shadow:0 2px 8px rgba(161,196,79,0.10);">
+                    </div>
+                    <div class="service-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(161,196,79,0.08);padding:32px;max-width:340px;flex:1 1 300px;">
+                        <div class="service-icon"><i class="fas fa-robot"></i></div>
+                        <h3 class="service-title">AI & Automation</h3>
+                        <p class="service-desc">Cutting-edge AI and automation solutions for modern businesses.</p>
+                        <img src="images/service-ai.jpg" alt="AI & Automation" class="service-image" loading="lazy" style="border-radius:12px;margin:16px 0;box-shadow:0 2px 8px rgba(161,196,79,0.10);">
+                    </div>
+                </div>
             </div>
         </section>
 

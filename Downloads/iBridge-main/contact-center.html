@@ -11,17 +11,16 @@
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
+      <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
       <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles-fixed.css">
+    <link rel="stylesheet" href="css/style-enhancements.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <!-- Header -->
-    <header class="header">
+    <!-- Header -->    <header class="header">
         <div class="container">
             <nav class="nav">
                 <a href="index.html" class="logo" aria-label="iBridge Home">
@@ -35,71 +34,75 @@
                     <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="omnichannel.html" class="nav-link highlight-nav"><i class="fas fa-network-wired"></i> Omnichannel Experience</a></li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="services-dropdown" tabindex="0">
                             More <i class="fas fa-chevron-down" aria-hidden="true"></i>
                         </a>                        <ul class="dropdown-menu" id="services-dropdown">
-                            <li><a href="contact-center.html" class="dropdown-item"><i class="fas fa-headset"></i> Contact Center Solutions</a></li>
+                            <li><a href="contact-center.html" class="dropdown-item active"><i class="fas fa-headset"></i> Contact Center Solutions</a></li>
                             <li><a href="it-support.html" class="dropdown-item"><i class="fas fa-cloud"></i> IT Support & Cloud Services</a></li>
                             <li><a href="ai-automation.html" class="dropdown-item"><i class="fas fa-robot"></i> AI & Automation</a></li>
                         </ul>
                     </li>
                     <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                    <li class="nav-item"><a href="tel:+27111234567" class="nav-link nav-cta"><i class="fas fa-phone" aria-hidden="true"></i> <span>+27 11 123 4567</span></a></li>
-                </ul>
+                    <li class="nav-item"><a href="tel:+27111234567" class="nav-link nav-cta"><i class="fas fa-phone" aria-hidden="true"></i> <span>+27 11 123 4567</span></a></li>                </ul>
         </nav>
-    </header>    <!-- Omnichannel Section -->
-    <section class="omnichannel-section">
-        <div class="container">
-            <div>
-                <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
-                <div>
-                    <h2 class="omni-header"><i class="fas fa-network-wired"></i> Omnichannel Experience</h2>
-                    <p>Connect with us: <a href="tel:+27111234567"><i class="fas fa-phone"></i></a> <a href="mailto:info@ibridge.co.za"><i class="fas fa-envelope"></i></a> <a href="contact.html#chat"><i class="fas fa-comments"></i></a> <a href="https://wa.me/27111234567" target="_blank"><i class="fab fa-whatsapp"></i></a> <a href="#"><i class="fab fa-facebook"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-linkedin"></i></a></p>
+        </div>
+        <!-- Social icons added to header -->
+        <div class="header-social">
+            <div class="container">
+                <div class="social-icons">
+                    <a href="tel:+27111234567" aria-label="Call us"><i class="fas fa-phone"></i></a>
+                    <a href="mailto:info@ibridge.co.za" aria-label="Email us"><i class="fas fa-envelope"></i></a>
+                    <a href="contact.html#chat" aria-label="Chat with us"><i class="fas fa-comments"></i></a>
+                    <a href="https://wa.me/27111234567" target="_blank" aria-label="WhatsApp us"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" aria-label="Visit our Facebook page"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Connect with us on LinkedIn"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
         </div>
-    </section>
+    </header>
 
     <!-- Main Content -->
     <main id="main-content">
         <!-- Hero Section -->
-        <section class="hero">
+        <section class="hero contactcenter-hero" style="background: linear-gradient(135deg, rgba(161,196,79,0.85) 0%, rgba(255,255,255,0.95) 100%), url('images/contactcenter-hero.jpg') center/cover no-repeat; min-height: 400px; display: flex; align-items: center;">
             <div class="container">
-                <div class="hero-content">
+                <div class="hero-content" style="text-align: left; max-width: 600px;">
                     <h1 class="hero-title">Contact Center Solutions</h1>
                     <p class="hero-text">Comprehensive customer engagement solutions to enhance your business</p>
                 </div>
             </div>
-        </section>        <!-- Service Details -->
-        <section class="section service-details">
+            <div class="hero-image" style="position:absolute;right:0;bottom:0;max-width:50vw;z-index:1;">
+                <img src="images/contactcenter-illustration.png" alt="Contact Center Solutions" style="width:100%;max-width:500px;opacity:0.95;">
+            </div>
+        </section>
+        <!-- Visual Separator -->
+        <div style="height:32px;background:linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);opacity:0.12;"></div>
+        <!-- Service Details -->
+        <section class="section service-details" style="background:#fff;">
             <div class="container">
                 <h2 class="section-title">Strategic Contact Center Solutions</h2>
                 <p class="section-subtitle">iBridge Solutions delivers customized contact center solutions designed to optimize customer interactions, improve satisfaction rates, and drive business growth through exceptional service delivery.</p>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
+                <div class="features-grid" style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;">
+                    <div class="feature-card" style="background:#f9f9f9;border-radius:16px;box-shadow:0 4px 24px rgba(161,196,79,0.08);padding:32px;max-width:340px;flex:1 1 300px;">
+                        <div class="feature-icon"><i class="fas fa-headset"></i></div>
                         <h3>Omnichannel Support</h3>
                         <p>Seamless customer interactions across phone, email, chat, social media, and WhatsApp with consistent quality and personalization.</p>
+                        <img src="images/feature-omnichannel.jpg" alt="Omnichannel Support" class="feature-image" loading="lazy" style="border-radius:12px;margin:16px 0;box-shadow:0 2px 8px rgba(161,196,79,0.10);">
                     </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
+                    <div class="feature-card" style="background:#f9f9f9;border-radius:16px;box-shadow:0 4px 24px rgba(161,196,79,0.08);padding:32px;max-width:340px;flex:1 1 300px;">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
                         <h3>Performance Analytics</h3>
                         <p>Real-time dashboards and reporting to monitor KPIs, identify trends, and continuously improve contact center operations.</p>
+                        <img src="images/feature-analytics.jpg" alt="Performance Analytics" class="feature-image" loading="lazy" style="border-radius:12px;margin:16px 0;box-shadow:0 2px 8px rgba(161,196,79,0.10);">
                     </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
+                    <div class="feature-card" style="background:#f9f9f9;border-radius:16px;box-shadow:0 4px 24px rgba(161,196,79,0.08);padding:32px;max-width:340px;flex:1 1 300px;">
+                        <div class="feature-icon"><i class="fas fa-users"></i></div>
                         <h3>Skilled Agents</h3>
-                        <p>Professionally trained, multilingual support specialists who deliver exceptional customer experiences with every interaction.</p>
+                        <p>Highly trained, empathetic agents focused on delivering exceptional customer experiences.</p>
+                        <img src="images/feature-agents.jpg" alt="Skilled Agents" class="feature-image" loading="lazy" style="border-radius:12px;margin:16px 0;box-shadow:0 2px 8px rgba(161,196,79,0.10);">
                     </div>
                 </div>
             </div>

@@ -24,15 +24,19 @@ function Commit-EssentialFiles {
     
     Write-Host "Committing only essential Contact Center page changes..." -ForegroundColor Yellow
     
-    # Essential files that were modified for Contact Center Solutions change
+    # Essential files that were modified for website style updates and omnichannel additions
     $essentialFiles = @(
         "index.html",
+        "omnichannel.html",
         "about.html", 
         "services.html",
         "contact.html",
         "contact-center.html",
         "it-support.html",
-        "ai-automation.html"
+        "ai-automation.html",
+        "css/styles-fixed.css",
+        "css/style-enhancements.css",
+        "sync-to-aws.ps1"
     )
     
     # Check which files exist and add them individually to staging
@@ -46,11 +50,12 @@ function Commit-EssentialFiles {
     
     # Commit only the staged changes
     Write-Host "Committing changes with message: $CommitMessage" -ForegroundColor Yellow
-    git commit -m "$CommitMessage"
+    git commit -m "$CommitMessage"    # Get current branch
+    $currentBranch = (git rev-parse --abbrev-ref HEAD).Trim()
     
     # Push to remote repository
-    Write-Host "Pushing to GitHub..." -ForegroundColor Yellow
-    git push origin gh-pages
+    Write-Host "Pushing to GitHub on branch $currentBranch..." -ForegroundColor Yellow
+    git push origin $currentBranch
     
     # Show status after push
     Write-Host "GitHub commit status:" -ForegroundColor Yellow
@@ -62,9 +67,8 @@ if (Check-GitInstalled) {
     # Show current status
     Write-Host "Current Git Status:" -ForegroundColor Yellow
     git status
-    
-    # Get commit message from user
-    $defaultMessage = "Update Contact Center Solutions to standalone page and update navigation links"
+      # Get commit message from user
+    $defaultMessage = "Improve website styling and move Omnichannel Experience to header navigation"
     $commitMessage = Read-Host "Enter commit message (default: '$defaultMessage')"
     
     if ([string]::IsNullOrWhiteSpace($commitMessage)) {
@@ -73,11 +77,20 @@ if (Check-GitInstalled) {
     
     # Confirm before proceeding
     $confirmation = Read-Host "Ready to commit only essential HTML files to GitHub? (y/n)"
-    if ($confirmation -eq 'y' -or $confirmation -eq 'Y') {
-        Commit-EssentialFiles -CommitMessage $commitMessage
+    if ($confirmation -eq 'y' -or $confirmation -eq 'Y') {        Commit-EssentialFiles -CommitMessage $commitMessage
         Write-Host "`n=================================================" -ForegroundColor Cyan
         Write-Host " GITHUB COMMIT COMPLETED!" -ForegroundColor Cyan
         Write-Host "=================================================" -ForegroundColor Cyan
+        
+        # Ask if user wants to sync to AWS
+        $syncAWS = Read-Host "Would you like to sync changes to AWS S3? (y/n)"
+        if ($syncAWS -eq 'y' -or $syncAWS -eq 'Y') {
+            Write-Host "Syncing to AWS S3..." -ForegroundColor Yellow
+            & .\sync-to-aws.ps1
+            Write-Host "`n=================================================" -ForegroundColor Cyan
+            Write-Host " AWS SYNC COMPLETED!" -ForegroundColor Cyan
+            Write-Host "=================================================" -ForegroundColor Cyan
+        }
     } else {
         Write-Host "Operation cancelled." -ForegroundColor Yellow
     }

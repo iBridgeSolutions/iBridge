@@ -11,17 +11,16 @@
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
+      <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
       <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles-fixed.css">
+    <link rel="stylesheet" href="css/style-enhancements.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <!-- Header -->
-    <header class="header">
+    <!-- Header -->    <header class="header">
         <div class="container">
             <nav class="nav">
                 <a href="index.html" class="logo" aria-label="iBridge Home">
@@ -36,6 +35,7 @@
                     <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="omnichannel.html" class="nav-link highlight-nav"><i class="fas fa-network-wired"></i> Omnichannel Experience</a></li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="services-dropdown" tabindex="0">
                             More <i class="fas fa-chevron-down" aria-hidden="true"></i>
@@ -45,43 +45,60 @@
                             <li><a href="ai-automation.html" class="dropdown-item"><i class="fas fa-robot"></i> AI & Automation</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
                     <li class="nav-item"><a href="tel:+27111234567" class="nav-link nav-cta"><i class="fas fa-phone" aria-hidden="true"></i> <span>+27 11 123 4567</span></a></li>
                 </ul>
             </nav>
         </div>
-    </header>
-
-    <!-- Omnichannel Section -->
-    <section class="omnichannel-section">
-        <div class="container">
-            <div>
-                <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
-                <div>
-                    <h2 class="omni-header"><i class="fas fa-network-wired"></i> Omnichannel Experience</h2>
-                    <p>Connect with us: <a href="tel:+27111234567"><i class="fas fa-phone"></i></a> <a href="mailto:info@ibridge.co.za"><i class="fas fa-envelope"></i></a> <a href="contact.html#chat"><i class="fas fa-comments"></i></a> <a href="https://wa.me/27111234567" target="_blank"><i class="fab fa-whatsapp"></i></a> <a href="#"><i class="fab fa-facebook"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-linkedin"></i></a></p>
+        <!-- Social icons added to header -->
+        <div class="header-social">
+            <div class="container">
+                <div class="social-icons">
+                    <a href="tel:+27111234567" aria-label="Call us"><i class="fas fa-phone"></i></a>
+                    <a href="mailto:info@ibridge.co.za" aria-label="Email us"><i class="fas fa-envelope"></i></a>
+                    <a href="contact.html#chat" aria-label="Chat with us"><i class="fas fa-comments"></i></a>
+                    <a href="https://wa.me/27111234567" target="_blank" aria-label="WhatsApp us"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" aria-label="Visit our Facebook page"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Connect with us on LinkedIn"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
         </div>
-    </section>
+    </header>
 
     <!-- Main Content -->
     <main id="main-content">
         <!-- Contact Hero -->
-        <section class="hero contact-hero">
+        <section class="hero contact-hero" style="background: linear-gradient(135deg, rgba(161,196,79,0.85) 0%, rgba(255,255,255,0.95) 100%), url('images/contact-hero.jpg') center/cover no-repeat; min-height: 400px; display: flex; align-items: center;">
             <div class="container">
-                <div class="hero-content">
+                <div class="hero-content" style="text-align: left; max-width: 600px;">
                     <h1 class="hero-title">Contact Us</h1>
                     <p class="hero-text">Reach Out to iBridge for Your BPO & BPaaS Solutions</p>
                 </div>
             </div>
+            <div class="hero-image" style="position:absolute;right:0;bottom:0;max-width:50vw;z-index:1;">
+                <img src="images/contact-illustration.png" alt="Contact iBridge" style="width:100%;max-width:500px;opacity:0.95;">
+            </div>
         </section>
-
+        <!-- Visual Separator -->
+        <div style="height:32px;background:linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);opacity:0.12;"></div>
         <!-- Contact Introduction -->
-        <section class="section contact-intro">
+        <section class="section contact-intro" style="background:#fff;">
             <div class="container">
-                <h2>Let's Start a Conversation</h2>
-                <p>Whether you have a specific business challenge or just want to explore how our BPO and BPaaS solutions can benefit your organization, we're here to help. Our team of experts is ready to discuss your needs and create a tailored solution for your business.</p>
+                <div class="contact-content" style="display:flex;flex-wrap:wrap;align-items:center;gap:40px;">
+                    <div class="contact-text" style="flex:1 1 320px;min-width:280px;">
+                        <h2>Let's Start a Conversation</h2>
+                        <p>Whether you have a specific business challenge or just want to explore how our BPO and BPaaS solutions can benefit your organization, we're here to help. Our team of experts is ready to discuss your needs and create a tailored solution for your business.</p>
+                        <div class="contact-info">
+                            <div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:info@ibridgegroup.co.za">info@ibridgegroup.co.za</a></div>
+                            <div class="contact-item"><i class="fas fa-phone"></i> <a href="tel:+27111234567">+27 11 123 4567</a></div>
+                            <div class="contact-item"><i class="fas fa-map-marker-alt"></i> Head Office: Randburg, South Africa</div>
+                        </div>
+                    </div>
+                    <div class="contact-image" style="flex:1 1 320px;min-width:260px;">
+                        <img src="images/contact-graphic.png" alt="Contact iBridge" class="contact-img" loading="lazy" style="border-radius:16px;box-shadow:0 8px 32px rgba(161,196,79,0.12);">
+                    </div>
+                </div>
             </div>
         </section>
 
