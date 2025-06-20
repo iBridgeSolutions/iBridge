@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Redirect Checker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #0066cc;
+        }
+        .container {
+            background: #f5f5f5;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .result-container {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            background: white;
+        }
+        .button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background: #0052a3;
+        }
+        #results {
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .info {
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #cc0000;
+        }
+        .success {
+            color: #008800;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Domain Redirect Checker</h1>
+        <p>This tool will help you analyze where your domain is redirecting to.</p>
+        
+        <div>
+            <label for="domain">Domain to check:</label>
+            <input type="text" id="domain" value="https://ibridgesolutions.co.za" style="width: 300px; padding: 8px; margin: 5px 0;">
+            <button id="check-btn" class="button">Check Domain</button>
+        </div>
+        
+        <div class="result-container">
+            <h2>Results</h2>
+            <div id="loading" style="display: none;">Checking... please wait.</div>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('check-btn').addEventListener('click', checkDomain);
+
+        function checkDomain() {
+            const domain = document.getElementById('domain').value.trim();
+            if (!domain) {
+                alert('Please enter a domain');
+                return;
+            }
+
+            const resultsDiv = document.getElementById('results');
+            const loadingDiv = document.getElementById('loading');
+            
+            resultsDiv.innerHTML = '';
+            loadingDiv.style.display = 'block';
+
+            // Create an iframe to test for client-side redirects
+            const iframe = document.createElement('iframe');
+            iframe.style.width = '1px';
+            iframe.style.height = '1px';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '-100px';
+            iframe.addEventListener('load', function() {
+                try {
+                    // Wait a moment for any redirects to happen
+                    setTimeout(() => {
+                        const finalUrl = iframe.contentWindow.location.href;
+                        document.body.removeChild(iframe);
+                        loadingDiv.style.display = 'none';
+                        
+                        // Display results
+                        const html = `
+                            <div class="success">Check completed</div>
+                            <table>
+                                <tr>
+                                    <th>Original URL</th>
+                                    <td>${domain}</td>
+                                </tr>
+                                <tr>
+                                    <th>Final URL</th>
+                                    <td>${finalUrl}</td>
+                                </tr>
+                                <tr>
+                                    <th>Redirect?</th>
+                                    <td>${domain !== finalUrl ? 'YES - The domain redirects' : 'NO - No client-side redirect detected'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Path</th>
+                                    <td>${new URL(finalUrl).pathname}</td>
+                                </tr>
+                            </table>
+                            
+                            <h3>What to do next:</h3>
+                            <ul>
+                                <li>If you see a redirect to '/lander', check your GitHub Pages repository for a _redirects file or custom 404.html.</li>
+                                <li>Look for JavaScript code that might be modifying window.location.</li>
+                                <li>Check for meta refresh tags in your HTML head section.</li>
+                            </ul>
+                        `;
+                        resultsDiv.innerHTML = html;
+                    }, 2000);
+                } catch (e) {
+                    loadingDiv.style.display = 'none';
+                    resultsDiv.innerHTML = `<div class="error">Error reading iframe location: ${e.message}</div>
+                        <div class="info">This might be due to cross-origin restrictions. Try using a browser's Network tab to check redirects.</div>`;
+                    document.body.removeChild(iframe);
+                }
+            });
+            
+            iframe.src = domain;
+            document.body.appendChild(iframe);
+        }
+    </script>
+</body>
+</html>

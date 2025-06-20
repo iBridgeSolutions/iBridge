@@ -44,13 +44,13 @@ try {
 # Check S3 Bucket
 Write-Host "`nChecking S3 bucket ($s3BucketName)..." -ForegroundColor Yellow
 try {
-    $bucketCheck = aws s3api head-bucket --bucket $s3BucketName 2>&1
+    aws s3api head-bucket --bucket $s3BucketName 2>&1
     if ($LASTEXITCODE -eq 0) {
         Write-Host "✓ S3 bucket exists" -ForegroundColor Green
         
         # Check for website configuration
         try {
-            $websiteConfig = aws s3api get-bucket-website --bucket $s3BucketName 2>&1
+            aws s3api get-bucket-website --bucket $s3BucketName 2>&1
             if ($LASTEXITCODE -eq 0) {
                 Write-Host "✓ S3 bucket is configured for website hosting" -ForegroundColor Green
             } else {
@@ -70,7 +70,7 @@ try {
         
         # Check for index.html
         try {
-            $indexCheck = aws s3api head-object --bucket $s3BucketName --key "index.html" 2>&1
+            aws s3api head-object --bucket $s3BucketName --key "index.html" 2>&1
             if ($LASTEXITCODE -eq 0) {
                 Write-Host "✓ index.html exists in bucket" -ForegroundColor Green
             } else {
@@ -93,7 +93,7 @@ $distributionDomain = ""
 
 try {
     $distributions = aws cloudfront list-distributions 2>&1
-    if ($distributions -match $domainName) {
+    if ($distributions -match [regex]::Escape($domainName)) {
         Write-Host "✓ CloudFront distribution found for $domainName" -ForegroundColor Green
         $foundDistribution = $true
         
@@ -103,7 +103,7 @@ try {
             Write-Host "  Distribution ID: $distributionId" -ForegroundColor Cyan
         }
         
-        if ($distributions -match "DomainName: ([a-z0-9.]+\.cloudfront\.net)") {
+        if ($distributions -match "DomainName: ([a-z0-9.]+\\.cloudfront\\.net)") {
             $distributionDomain = $Matches[1]
             Write-Host "  Distribution Domain: $distributionDomain" -ForegroundColor Cyan
         }
@@ -126,7 +126,7 @@ try {
         Write-Host "  Run the deployment script to request an SSL certificate" -ForegroundColor Yellow
     }
 } catch {
-    Write-Host "✗ Error checking SSL certificates: $_" -ForegroundColor Red
+    Write-Host "✗ Error checking SSL certificate: $_" -ForegroundColor Red
 }
 
 # Check DNS Settings
@@ -221,17 +221,14 @@ function Show-Header {
     Write-Host
 }
 
-function Check-AwsCli {
+function Test-AwsCli {
     Write-Host "Checking AWS CLI installation..." -ForegroundColor Yellow
-    
     try {
         $awsVersion = aws --version
         Write-Host "✓ AWS CLI is installed: $awsVersion" -ForegroundColor Green
-        
         # Check if credentials are configured
         Write-Host "Checking AWS credentials..."
         $configStatus = aws configure list 2>&1
-        
         if ($configStatus -match "access_key") {
             Write-Host "✓ AWS credentials are configured." -ForegroundColor Green
             return $true
@@ -250,19 +247,15 @@ function Check-AwsCli {
     }
 }
 
-function Check-S3Bucket {
+function Test-S3Bucket {
     Write-Host "`nChecking S3 bucket..." -ForegroundColor Yellow
-    
     try {
         # Check if bucket exists
-        $bucketExists = aws s3api head-bucket --bucket $s3BucketName 2>&1
-        
+        aws s3api head-bucket --bucket $s3BucketName 2>&1
         if ($LASTEXITCODE -eq 0) {
             Write-Host "✓ S3 bucket '$s3BucketName' exists" -ForegroundColor Green
-            
             # Check if bucket is configured for website hosting
-            $websiteConfig = aws s3api get-bucket-website --bucket $s3BucketName 2>&1
-            
+            aws s3api get-bucket-website --bucket $s3BucketName 2>&1
             if ($LASTEXITCODE -eq 0) {
                 Write-Host "✓ S3 bucket is configured for website hosting" -ForegroundColor Green
                 $s3WebsiteUrl = "http://$s3BucketName.s3-website-$region.amazonaws.com"
@@ -270,17 +263,13 @@ function Check-S3Bucket {
             } else {
                 Write-Host "✗ S3 bucket is not configured for website hosting" -ForegroundColor Red
             }
-            
             # Check for website files
             $objects = aws s3 ls s3://$s3BucketName --recursive 2>&1
-            
             if ($objects) {
                 $objectCount = ($objects | Measure-Object -Line).Lines
                 Write-Host "✓ S3 bucket contains $objectCount object(s)" -ForegroundColor Green
-                
                 # Check for index.html
-                $indexCheck = aws s3api head-object --bucket $s3BucketName --key "index.html" 2>&1
-                
+                aws s3api head-object --bucket $s3BucketName --key "index.html" 2>&1
                 if ($LASTEXITCODE -eq 0) {
                     Write-Host "✓ index.html file exists in bucket" -ForegroundColor Green
                 } else {
@@ -289,64 +278,41 @@ function Check-S3Bucket {
             } else {
                 Write-Host "✗ S3 bucket appears to be empty" -ForegroundColor Red
             }
-            
-            return @{
-                Exists = $true
-                WebsiteUrl = $s3WebsiteUrl
-            }
         } else {
             Write-Host "✗ S3 bucket '$s3BucketName' does not exist" -ForegroundColor Red
             Write-Host "  Run the deployment script to create the bucket:" -ForegroundColor Yellow
             Write-Host "  PowerShell -ExecutionPolicy Bypass -File .\deploy-with-account-id.ps1" -ForegroundColor White
-            
-            return @{
-                Exists = $false
-                WebsiteUrl = $null
-            }
         }
     } catch {
         Write-Host "✗ Error checking S3 bucket: $_" -ForegroundColor Red
-        return @{
-            Exists = $false
-            WebsiteUrl = $null
-        }
     }
 }
 
-function Check-CloudFrontDistribution {
+function Test-CloudFrontDistribution {
     Write-Host "`nChecking CloudFront distribution..." -ForegroundColor Yellow
-    
     try {
-        # List all distributions
-        $distributions = aws cloudfront list-distributions 2>&1 | ConvertFrom-Json
-        
+        $distributions = aws cloudfront list-distributions 2>&1
         if ($distributions.DistributionList.Items) {
-            $foundDistribution = $null
-            
             foreach ($dist in $distributions.DistributionList.Items) {
                 # Check for domain in aliases
                 if ($dist.Aliases.Items -and ($dist.Aliases.Items.Contains($domainName) -or $dist.Aliases.Items.Contains($wwwDomainName))) {
                     $foundDistribution = $dist
                     break
                 }
-                
                 # Check origin domain for our S3 bucket
                 if ($dist.Origins.Items.DomainName -match $s3BucketName) {
                     $foundDistribution = $dist
                     break
                 }
             }
-            
             if ($foundDistribution) {
                 Write-Host "✓ CloudFront distribution found" -ForegroundColor Green
                 Write-Host "  Distribution ID: $($foundDistribution.Id)" -ForegroundColor Cyan
                 Write-Host "  Distribution Domain: $($foundDistribution.DomainName)" -ForegroundColor Cyan
                 Write-Host "  Status: $($foundDistribution.Status)" -ForegroundColor (if ($foundDistribution.Status -eq "Deployed") { "Green" } else { "Yellow" })
-                
                 if ($foundDistribution.Status -ne "Deployed") {
                     Write-Host "  Distribution is currently deploying. This can take 15-30 minutes." -ForegroundColor Yellow
                 }
-                
                 # Check if HTTPS is enabled
                 $viewerProtocolPolicy = $foundDistribution.DefaultCacheBehavior.ViewerProtocolPolicy
                 if ($viewerProtocolPolicy -eq "redirect-to-https") {
@@ -354,27 +320,22 @@ function Check-CloudFrontDistribution {
                 } else {
                     Write-Host "! HTTPS configuration: $viewerProtocolPolicy" -ForegroundColor Yellow
                 }
-                
                 # Check SSL certificate
                 if ($foundDistribution.ViewerCertificate.ACMCertificateArn) {
                     Write-Host "✓ SSL certificate is configured" -ForegroundColor Green
                 } else {
                     Write-Host "✗ Custom SSL certificate is not configured" -ForegroundColor Red
                 }
-                
                 # Check domain aliases
                 if ($foundDistribution.Aliases.Items) {
                     Write-Host "  Configured domains: $($foundDistribution.Aliases.Items -join ', ')" -ForegroundColor Cyan
-                    
                     $hasApexDomain = $foundDistribution.Aliases.Items.Contains($domainName)
                     $hasWwwDomain = $foundDistribution.Aliases.Items.Contains($wwwDomainName)
-                    
                     if ($hasApexDomain) {
                         Write-Host "✓ Apex domain ($domainName) is configured" -ForegroundColor Green
                     } else {
                         Write-Host "✗ Apex domain ($domainName) is not configured" -ForegroundColor Red
                     }
-                    
                     if ($hasWwwDomain) {
                         Write-Host "✓ WWW domain ($wwwDomainName) is configured" -ForegroundColor Green
                     } else {
@@ -383,7 +344,6 @@ function Check-CloudFrontDistribution {
                 } else {
                     Write-Host "✗ No custom domain aliases configured" -ForegroundColor Red
                 }
-                
                 return @{
                     Exists = $true
                     Id = $foundDistribution.Id
@@ -394,7 +354,6 @@ function Check-CloudFrontDistribution {
                 Write-Host "✗ No CloudFront distribution found for $domainName or $s3BucketName" -ForegroundColor Red
                 Write-Host "  Run the deployment script to create a CloudFront distribution:" -ForegroundColor Yellow
                 Write-Host "  PowerShell -ExecutionPolicy Bypass -File .\deploy-with-account-id.ps1" -ForegroundColor White
-                
                 return @{
                     Exists = $false
                     Id = $null
@@ -406,7 +365,6 @@ function Check-CloudFrontDistribution {
             Write-Host "✗ No CloudFront distributions found in your account" -ForegroundColor Red
             Write-Host "  Run the deployment script to create a CloudFront distribution:" -ForegroundColor Yellow
             Write-Host "  PowerShell -ExecutionPolicy Bypass -File .\deploy-with-account-id.ps1" -ForegroundColor White
-            
             return @{
                 Exists = $false
                 Id = $null
@@ -425,7 +383,7 @@ function Check-CloudFrontDistribution {
     }
 }
 
-function Check-SSLCertificate {
+function Test-SSLCertificate {
     Write-Host "`nChecking SSL certificate..." -ForegroundColor Yellow
     
     try {
@@ -495,7 +453,7 @@ function Check-SSLCertificate {
     }
 }
 
-function Check-Route53 {
+function Test-Route53 {
     Write-Host "`nChecking Route 53 configuration..." -ForegroundColor Yellow
     
     try {
@@ -582,83 +540,18 @@ function Check-Route53 {
     }
 }
 
-function Check-DomainDNS {
-    param (
-        [object]$cloudFront
-    )
-    
-    Write-Host "`nChecking domain DNS settings..." -ForegroundColor Yellow
-    
-    if (-not $cloudFront.Exists) {
-        Write-Host "  Skipping DNS check (CloudFront distribution not found)" -ForegroundColor Yellow
-        return
-    }
-    
-    $cfDomain = $cloudFront.DomainName
-    
-    # Check apex domain
-    Write-Host "Checking DNS for apex domain ($domainName)..." -ForegroundColor Yellow
-    
+function Test-DomainDNS {
+    Write-Host "`nChecking DNS settings for domain..." -ForegroundColor Yellow
     try {
         $dnsResults = Resolve-DnsName -Name $domainName -ErrorAction SilentlyContinue
-        
         if ($dnsResults) {
-            $resolvedIPs = @($dnsResults | Where-Object { $_.Type -eq "A" } | Select-Object -ExpandProperty IPAddress)
-            $resolvedCNAME = @($dnsResults | Where-Object { $_.Type -eq "CNAME" } | Select-Object -ExpandProperty NameHost)
-            
-            if ($resolvedCNAME.Count -gt 0) {
-                Write-Host "✓ Apex domain has CNAME record: $($resolvedCNAME[0])" -ForegroundColor Green
-                
-                if ($resolvedCNAME[0] -like "*$cfDomain*") {
-                    Write-Host "✓ CNAME correctly points to CloudFront" -ForegroundColor Green
-                } else {
-                    Write-Host "✗ CNAME does not point to CloudFront" -ForegroundColor Red
-                    Write-Host "  Current: $($resolvedCNAME[0])" -ForegroundColor Red
-                    Write-Host "  Should be: $cfDomain" -ForegroundColor Yellow
-                }
-            }
-            elseif ($resolvedIPs.Count -gt 0) {
-                Write-Host "✓ Apex domain resolves to IP(s): $($resolvedIPs -join ', ')" -ForegroundColor Yellow
-                Write-Host "  Note: Cannot verify if these are CloudFront IPs" -ForegroundColor Yellow
-                Write-Host "  If using Route 53, you should see A records with an alias to CloudFront" -ForegroundColor Yellow
-            }
-            else {
-                Write-Host "✗ Apex domain does not resolve to IP or CNAME" -ForegroundColor Red
-            }
+            Write-Host "✓ Domain $domainName resolves successfully" -ForegroundColor Green
         } else {
-            Write-Host "✗ Apex domain does not resolve" -ForegroundColor Red
+            Write-Host "✗ Domain $domainName does not resolve" -ForegroundColor Red
+            Write-Host "  Update your DNS settings to point to CloudFront" -ForegroundColor Yellow
         }
     } catch {
-        Write-Host "✗ Error checking apex domain DNS: $_" -ForegroundColor Red
-    }
-    
-    # Check www subdomain
-    Write-Host "`nChecking DNS for www subdomain ($wwwDomainName)..." -ForegroundColor Yellow
-    
-    try {
-        $dnsResults = Resolve-DnsName -Name $wwwDomainName -ErrorAction SilentlyContinue
-        
-        if ($dnsResults) {
-            $resolvedCNAME = @($dnsResults | Where-Object { $_.Type -eq "CNAME" } | Select-Object -ExpandProperty NameHost)
-            
-            if ($resolvedCNAME.Count -gt 0) {
-                Write-Host "✓ WWW subdomain has CNAME record: $($resolvedCNAME[0])" -ForegroundColor Green
-                
-                if ($resolvedCNAME[0] -like "*$cfDomain*") {
-                    Write-Host "✓ CNAME correctly points to CloudFront" -ForegroundColor Green
-                } else {
-                    Write-Host "✗ CNAME does not point to CloudFront" -ForegroundColor Red
-                    Write-Host "  Current: $($resolvedCNAME[0])" -ForegroundColor Red
-                    Write-Host "  Should be: $cfDomain" -ForegroundColor Yellow
-                }
-            } else {
-                Write-Host "✗ WWW subdomain does not have CNAME record" -ForegroundColor Red
-            }
-        } else {
-            Write-Host "✗ WWW subdomain does not resolve" -ForegroundColor Red
-        }
-    } catch {
-        Write-Host "✗ Error checking www subdomain DNS: $_" -ForegroundColor Red
+        Write-Host "✗ Error checking DNS: $_" -ForegroundColor Red
     }
 }
 
@@ -833,15 +726,15 @@ function Show-NextSteps {
 
 # Main execution flow
 Show-Header
-$awsCliOK = Check-AwsCli
+$awsCliOK = Test-AwsCli
 
 if ($awsCliOK) {
-    $s3Status = Check-S3Bucket
-    $cloudFrontStatus = Check-CloudFrontDistribution
-    $sslStatus = Check-SSLCertificate
-    $route53Status = Check-Route53
+    $s3Status = Test-S3Bucket
+    $cloudFrontStatus = Test-CloudFrontDistribution
+    $sslStatus = Test-SSLCertificate
+    $route53Status = Test-Route53
     
-    Check-DomainDNS -cloudFront $cloudFrontStatus
+    Test-DomainDNS
     Test-Websites -cloudFront $cloudFrontStatus
     
     Show-NextSteps -s3 $s3Status -cloudFront $cloudFrontStatus -ssl $sslStatus -route53 $route53Status
