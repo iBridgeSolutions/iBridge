@@ -1,8 +1,0 @@
-{
-  "Name": "ibridgesolutions.co.za",
-  "CallerReference": "ibridgesolutions-20250618080304",
-  "HostedZoneConfig": {
-    "Comment": "Hosted zone for ibridgesolutions.co.za",
-    "PrivateZone": false
-  }
-}
