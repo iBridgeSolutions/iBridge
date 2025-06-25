@@ -58,3 +58,21 @@
     border-radius: 8px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
+
+/* Hero section height adjustment */
+.hero, .hero__container, .hero-section {
+  min-height: 60vh !important; /* Reduced height for better landing page experience */
+}
+
+/* Responsive hero adjustments */
+@media (max-width: 900px) {
+  .hero, .hero__container, .hero-section {
+    min-height: 50vh !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero, .hero__container, .hero-section {
+    min-height: 40vh !important;
+  }
+}

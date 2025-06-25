@@ -3,25 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore iBridge's comprehensive range of BPO & BPaaS solutions including Omnichannel Customer Support, Call Centre Solutions, and Business Process Consulting.">
-    <title>Our Services | iBridge - Strategic Partner in BPO & BPaaS Solutions</title>
+    <meta name="description" content="Discover iBridge's comprehensive BPO & BPaaS solutions including contact center services, IT support, and AI-driven automation for your business needs.">
+    <title>Services | iBridge - Strategic Partner in BPO & BPaaS Solutions</title>
     
     <!-- Standard includes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
+    
+    <!-- Additional SEO and Professional Enhancements -->
+    <meta name="author" content="iBridge Contact Solutions">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#a1c44f">
+    
+    <!-- Structured Data for Services page -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Business Process Outsourcing",
+      "provider": {
+        "@type": "Organization",
+        "name": "iBridge",
+        "url": "https://ibridge.co.za"
+      },
+      "description": "Comprehensive BPO & BPaaS solutions including contact center services, IT support, and AI-driven automation.",
+      "areaServed": "South Africa"
+    }
+    </script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <!-- Header -->
-    <!-- Navigation bar included from partials/header.html -->
+    <!-- Standard Header with Navigation -->
     <header class="header">
         <div class="container">
             <nav class="nav">
                 <a href="index.html" class="logo" aria-label="iBridge Home">
-                    <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" width="100" height="33">
+                    <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" width="120" height="40">
                 </a>
                 <!-- Mobile nav toggle button -->
                 <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu" type="button" tabindex="0">
@@ -36,11 +56,11 @@
                         <a href="about.html" class="nav-link">About</a>
                     </li>
                     <li class="nav-item">
-                        <a href="services.html" class="nav-link">Services</a>
+                        <a href="services.html" class="nav-link active">Services</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="services-dropdown" tabindex="0">
-                            More <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                            Solutions <i class="fas fa-chevron-down" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu" id="services-dropdown">
                             <li><a href="services.html#contact-center" class="dropdown-item">Contact Center Solutions</a></li>
@@ -63,17 +83,21 @@
     </header>
 
     <main id="main-content">
-        <!-- Services Hero -->
+        <!-- Enhanced Hero Section -->
         <section class="hero services-hero">
+            <div class="hero-overlay"></div>
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-title">Our Services</h1>
-                    <p class="hero-text">Comprehensive BPO & BPaaS Solutions for Your Business</p>
+                    <h1 class="hero-title">Our <span class="primary">Services</span></h1>
+                    <p class="hero-text">Comprehensive BPO & BPaaS solutions tailored to your business needs.</p>
+                    <div class="hero-image">
+                        <img src="images/iBridge_IMG_3.png" alt="iBridge Services" loading="lazy">
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Service Introduction -->
+        <!-- Services Overview -->
         <section class="section service-intro">
             <div class="container">
                 <h2>Strategic BPO & BPaaS Solutions</h2>
