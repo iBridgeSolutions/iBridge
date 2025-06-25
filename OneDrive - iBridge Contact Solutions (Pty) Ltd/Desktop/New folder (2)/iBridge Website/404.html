@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Not Found | iBridge</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body { display: flex; align-items: center; justify-content: center; height: 100vh; background: #f8f9fa; }
+    .notfound-container { text-align: center; }
+    .notfound-title { font-size: 4rem; color: var(--primary, #a1c44f); font-family: 'Playfair Display', serif; }
+    .notfound-desc { font-size: 1.2rem; color: var(--text-light, #6c757d); margin-bottom: 2rem; }
+    .notfound-btn { background: var(--primary, #a1c44f); color: #fff; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; }
+    .notfound-btn:hover { background: var(--primary-dark, #8ab03a); }
+    .error-img { max-width: 100%; height: auto; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div id="header-placeholder"></div>
+    <main id="main-content" class="notfound-container" tabindex="-1">
+    <h1 class="notfound-title">404</h1>
+    <p class="notfound-desc">Sorry, the page you are looking for could not be found.</p>
+    <img src="images/iBridge_IMG_1.png" alt="404 Not Found" class="error-img">
+    <img src="images/iBridge_IMG_2.png" alt="Lost in the Cloud" class="error-img">
+    <img src="images/iBridge_IMG_3.png" alt="Page Not Found" class="error-img">
+    <img src="images/iBridge_IMG_10.png" alt="Error Illustration" class="error-img">
+    <img src="images/iBridge_IMG_11.png" alt="Error Illustration 2" class="error-img">
+    <a href="index.html" class="notfound-btn">Back to Home</a>
+    </main>
+    <div id="footer-placeholder"></div>
+    <script src="js/main.js"></script>
+    <script>
+      // Dynamically load header and footer partials
+      function loadPartial(id, url) {
+        fetch(url)
+          .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.text();
+          })
+          .then(html => {
+            document.getElementById(id).innerHTML = html;
+          })
+          .catch(error => {
+            console.error('Error loading partial:', url, error);
+          });
+      }
+      loadPartial('header-placeholder', 'partials/header.html');
+      loadPartial('footer-placeholder', 'partials/footer.html');
+    </script>
+</body>
+</html>
