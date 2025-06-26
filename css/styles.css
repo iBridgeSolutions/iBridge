@@ -262,7 +262,7 @@ p {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: #ffffff;
+    background-color: #ffffff !important; /* Force white background */
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }

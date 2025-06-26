@@ -3,6 +3,26 @@
  * Only one definition for each selector, all unique properties merged.
  */
 
+/* Force white header with dark links - with highest specificity */
+header.header,
+.header,
+body .header,
+html body .header {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+    color: var(--text-dark) !important;
+}
+
+.nav-link {
+    color: var(--text-dark) !important;
+    font-weight: 500 !important;
+}
+
+.nav-link:hover, .nav-link:focus {
+    color: var(--primary) !important;
+}
+
 .hero {
     position: relative;
     padding-top: 120px; /* Account for fixed header */
