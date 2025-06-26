@@ -84,6 +84,22 @@ window.addEventListener('scroll', () => {
     handleScrollButton();
 });
 
+// Lazy Loading Images
+function lazyLoadImages() {
+    // Skip the header logo for immediate loading
+    const images = document.querySelectorAll('img:not([loading="lazy"]):not([src*="iBridge_Logo-removebg-preview.png"])');
+    
+    images.forEach(img => {
+        // Only add lazy loading to images that don't already have it
+        if (!img.hasAttribute('loading')) {
+            img.setAttribute('loading', 'lazy');
+        }
+    });
+}
+
+// Call lazy loading function after DOM is fully loaded
+document.addEventListener('DOMContentLoaded', lazyLoadImages);
+
 // Enhanced Animation Observer for Services Page
 const observerOptions = {
     root: null,
@@ -130,10 +146,28 @@ function animateOnScroll() {
     });
 }
 
-// Form validation
+// Enhanced Form validation with real-time feedback
 const contactForm = document.querySelector('.contact-form');
 
 if (contactForm) {
+    const formInputs = contactForm.querySelectorAll('input, textarea');
+    
+    // Add real-time validation feedback
+    formInputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            validateInput(this);
+        });
+        
+        // Clear error when user starts typing again
+        input.addEventListener('input', function() {
+            const errorMessage = this.parentNode.querySelector('.form-error-message');
+            if (errorMessage) {
+                errorMessage.remove();
+                this.classList.remove('error');
+            }
+        });
+    });
+    
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -146,30 +180,21 @@ if (contactForm) {
         // Clear previous error messages
         document.querySelectorAll('.form-error-message').forEach(el => el.remove());
         
-        // Validate name
-        if (!name.value.trim()) {
-            addErrorMessage(name, 'Please enter your name');
-            isValid = false;
-        }
-        
-        // Validate email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email.value.trim() || !emailRegex.test(email.value)) {
-            addErrorMessage(email, 'Please enter a valid email address');
-            isValid = false;
-        }
-        
-        // Validate message
-        if (!message.value.trim()) {
-            addErrorMessage(message, 'Please enter your message');
-            isValid = false;
-        }
+        // Validate each input
+        if (!validateInput(name)) isValid = false;
+        if (!validateInput(email)) isValid = false;
+        if (!validateInput(message)) isValid = false;
         
         if (isValid) {
             // Show success message
             const successMessage = document.createElement('div');
             successMessage.className = 'form-success';
-            successMessage.textContent = 'Your message has been sent. We will contact you soon!';
+            successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Your message has been sent. We will contact you soon!';
+            successMessage.style.color = '#28a745';
+            successMessage.style.padding = '10px';
+            successMessage.style.marginBottom = '15px';
+            successMessage.style.borderLeft = '4px solid #28a745';
+            successMessage.style.backgroundColor = '#f8f9fa';
             contactForm.prepend(successMessage);
             
             // Reset form
@@ -183,16 +208,67 @@ if (contactForm) {
     });
 }
 
+// Enhanced validation function
+function validateInput(input) {
+    let isValid = true;
+    const errorMessage = input.parentNode.querySelector('.form-error-message');
+    const value = input.value.trim();
+    
+    // Remove existing error message
+    if (errorMessage) errorMessage.remove();
+    
+    // Check for empty required fields
+    if (input.required && !value) {
+        const fieldName = input.name.charAt(0).toUpperCase() + input.name.slice(1);
+        addErrorMessage(input, `Please enter your ${input.name}`);
+        isValid = false;
+    }
+    // Additional validation based on input type
+    else {
+        isValid = validateByInputType(input, value);
+    }
+    
+    // Toggle error class
+    input.classList.toggle('error', !isValid);
+    
+    return isValid;
+}
+
+// Separate function to validate by input type
+function validateByInputType(input, value) {
+    if (input.name === 'email' && value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            addErrorMessage(input, 'Please enter a valid email address');
+            return false;
+        }
+    } else if (input.name === 'message' && value) {
+        if (value.length < 10) {
+            addErrorMessage(input, 'Your message should be at least 10 characters');
+            return false;
+        }
+    } else if (input.name === 'phone' && value) {
+        const phoneRegex = /^[\d\s+\-()]{7,20}$/;
+        if (!phoneRegex.test(value)) {
+            addErrorMessage(input, 'Please enter a valid phone number');
+            return false;
+        }
+    }
+    return true;
+}
+
 // Helper function to add error message
 function addErrorMessage(element, message) {
     const errorMessage = document.createElement('div');
     errorMessage.className = 'form-error-message';
-    errorMessage.textContent = message;
-    errorMessage.style.color = 'red';
+    errorMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+    errorMessage.style.color = '#dc3545';
     errorMessage.style.fontSize = '0.8rem';
     errorMessage.style.marginTop = '5px';
+    errorMessage.style.display = 'flex';
+    errorMessage.style.alignItems = 'center';
+    errorMessage.style.gap = '5px';
     element.parentNode.appendChild(errorMessage);
-    element.classList.add('error');
 }
 
 // Tab functionality
@@ -219,277 +295,8 @@ tabButtons.forEach(button => {
         // Show corresponding panel
         const panelId = button.getAttribute('aria-controls');
         const panel = document.getElementById(panelId);
-        if (panel) panel.hidden = false;
+        if (panel) {
+            panel.hidden = false;
+        }
     });
 });
-
-// Comprehensive DOMContentLoaded handler
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('iBridge Website Loaded');
-    
-    // Initialize all functionality
-    initScrollAnimations();
-    initSmoothScrolling();
-    initHeaderScrollEffect();
-    initScrollToTop();
-    initMobileNavigation();
-    
-    // Add error handling
-    window.addEventListener('error', function(e) {
-        console.warn('Non-critical error:', e.message);
-    });
-});
-
-// Enhanced Scroll Animations with Intersection Observer
-function initScrollAnimations() {
-    // Create intersection observer for animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                // Don't unobserve to allow re-animation if needed
-            }
-        });
-    }, observerOptions);
-    
-    // Observe all sections and animated elements
-    const elementsToAnimate = document.querySelectorAll('.section, .animate-on-scroll, .team-member, .service-card, .feature-item');
-    
-    elementsToAnimate.forEach(element => {
-        // Ensure elements start invisible for animation
-        if (!element.classList.contains('visible')) {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(40px)';
-            element.style.transition = 'opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1)';
-        }
-        observer.observe(element);
-    });
-    
-    // Fallback for elements that should always be visible
-    setTimeout(() => {
-        const stillHidden = document.querySelectorAll('.section:not(.visible), .animate-on-scroll:not(.visible)');
-        stillHidden.forEach(element => {
-            const rect = element.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                element.classList.add('visible');
-            }
-        });
-    }, 1000);
-}
-
-// Smooth Scrolling for Navigation Links
-function initSmoothScrolling() {
-    const navLinks = document.querySelectorAll('a[href^="#"]');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                const headerHeight = document.querySelector('.header')?.offsetHeight || 70;
-                const targetPosition = targetElement.offsetTop - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-// Header Scroll Effect
-function initHeaderScrollEffect() {
-    const header = document.querySelector('.header');
-    const nav = document.querySelector('.nav');
-    
-    if (!header) return;
-    
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-    
-    function updateHeader() {
-        const scrollY = window.scrollY;
-        
-        if (scrollY > 50) {
-            header.classList.add('scrolled');
-            if (nav) nav.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-            if (nav) nav.classList.remove('scrolled');
-        }
-        
-        lastScrollY = scrollY;
-        ticking = false;
-    }
-    
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(updateHeader);
-            ticking = true;
-        }
-    }
-    
-    window.addEventListener('scroll', requestTick, { passive: true });
-}
-
-// Scroll to Top Button
-function initScrollToTop() {
-    const scrollTopButton = document.querySelector('.scroll-top');
-    
-    if (!scrollTopButton) {
-        // Create scroll to top button if it doesn't exist
-        const button = document.createElement('button');
-        button.className = 'scroll-top';
-        button.innerHTML = '↑';
-        button.setAttribute('aria-label', 'Scroll to top');
-        document.body.appendChild(button);
-        scrollTopButton = button;
-    }
-    
-    let ticking = false;
-    
-    function updateScrollButton() {
-        const scrollY = window.scrollY;
-        
-        if (scrollY > 300) {
-            scrollTopButton.classList.add('visible');
-        } else {
-            scrollTopButton.classList.remove('visible');
-        }
-        
-        ticking = false;
-    }
-    
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(updateScrollButton);
-            ticking = true;
-        }
-    }
-    
-    window.addEventListener('scroll', requestTick, { passive: true });
-    
-    scrollTopButton.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-}
-
-// Mobile Navigation
-function initMobileNavigation() {
-    const mobileToggle = document.querySelector('.mobile-nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (mobileToggle && navMenu) {
-        mobileToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            document.body.classList.toggle('nav-open');
-        });
-        
-        // Close mobile nav when clicking on a link
-        const navLinks = navMenu.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                mobileToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.classList.remove('nav-open');
-            });
-        });
-        
-        // Close mobile nav when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
-                mobileToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.classList.remove('nav-open');
-            }
-        });
-    }
-}
-
-// Form Handling (if forms exist)
-function initFormHandling() {
-    const forms = document.querySelectorAll('form');
-    
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Add your form submission logic here
-            console.log('Form submitted');
-            
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'alert alert-success';
-            successMessage.textContent = 'Thank you for your message! We will get back to you soon.';
-            
-            form.appendChild(successMessage);
-            
-            setTimeout(() => {
-                successMessage.remove();
-            }, 5000);
-        });
-    });
-}
-
-// Initialize forms if they exist
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(initFormHandling, 100);
-});
-
-// Utility Functions
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Performance optimization
-const throttle = (func, delay) => {
-    let inProgress = false;
-    return (...args) => {
-        if (inProgress) return;
-        inProgress = true;
-        setTimeout(() => {
-            func(...args);
-            inProgress = false;
-        }, delay);
-    };
-};
-
-// Error handling for missing elements
-function safeQuerySelector(selector) {
-    try {
-        return document.querySelector(selector);
-    } catch (e) {
-        console.warn(`Element not found: ${selector}`);
-        return null;
-    }
-}
-
-function safeQuerySelectorAll(selector) {
-    try {
-        return document.querySelectorAll(selector);
-    } catch (e) {
-        console.warn(`Elements not found: ${selector}`);
-        return [];
-    }
-}
