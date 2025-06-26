@@ -5,10 +5,9 @@
 
 // DOM Elements
 const nav = document.querySelector('.nav');
-const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
 const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-const yearSpan = document.querySelector('.current-year');
+const yearSpan = document.getElementById('currentYear');
 const scrollTopBtn = document.querySelector('.scroll-top');
 
 // Set current year in footer
@@ -16,28 +15,8 @@ if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
 }
 
-// Mobile Menu Toggle
-if (navToggle) {
-    const toggleMenu = () => {
-        const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
-        navToggle.setAttribute('aria-expanded', !expanded);
-        navMenu.classList.toggle('active');
-        document.body.classList.toggle('menu-open');
-    };
-    navToggle.addEventListener('click', toggleMenu);
-    navToggle.addEventListener('touchstart', function(e) { e.preventDefault(); toggleMenu(); }, { passive: false });
-
-    // Close menu when a nav link is clicked (mobile UX)
-    navMenu.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            if (navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                navToggle.setAttribute('aria-expanded', 'false');
-                document.body.classList.remove('menu-open');
-            }
-        });
-    });
-}
+// Navigation code
+// No mobile menu toggle needed as it's been removed
 
 // Dropdown Menus
 dropdownToggles.forEach(toggle => {

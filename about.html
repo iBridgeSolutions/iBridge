@@ -3,67 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn about iBridge - Your Strategic Partner in BPO & BPaaS Solutions. Founded on principles of excellence and innovation in business process outsourcing.">
-    <title>About Us | iBridge - Strategic Partner in BPO & BPaaS Solutions</title>
+    <meta name="description" content="Discover our story, values, and leadership. iBridge: People-first, performance-driven, and committed to your business growth.">
+    <title>About Us | iBridge - BPO & BPaaS Solutions</title>
     
-    <!-- Standard includes -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/png" href="images/favicon.png">
-    
-    <!-- Additional SEO and Professional Enhancements -->
-    <meta name="author" content="iBridge Contact Solutions">
-    <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#a1c44f">
-    
-    <!-- Structured Data for About page -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "iBridge",
-      "url": "https://ibridge.co.za",
-      "logo": "https://ibridge.co.za/images/logo.png",
-      "founder": "iBridge Founder",
-      "foundingDate": "2005",
-      "description": "Your Strategic Partner in BPO & BPaaS Solutions"
-    }
-    </script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    
-    <!-- Standard Header with Navigation -->
+    <!-- Header with enhanced accessibility and mobile compatibility -->
     <header class="header">
         <div class="container">
             <nav class="nav">
                 <a href="index.html" class="logo" aria-label="iBridge Home">
-                    <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" width="120" height="40">
+                    <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" width="100" height="33">
                 </a>
-                <!-- Mobile nav toggle button -->
-                <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu" type="button" tabindex="0">
-                    <span class="hamburger"></span>
-                    <span class="visually-hidden">Menu</span>
-                </button>
                 <ul class="nav-menu" id="nav-menu">
                     <li class="nav-item">
                         <a href="index.html" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="about.html" class="nav-link active">About</a>
+                        <a href="about.html" class="nav-link">About</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="services.html" class="nav-link">Services</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="services-dropdown" tabindex="0">
-                            Solutions <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu" id="services-dropdown">
-                            <li><a href="services.html#contact-center" class="dropdown-item">Contact Center Solutions</a></li>
-                            <li><a href="services.html#it-support" class="dropdown-item">IT Support & Cloud Services</a></li>
-                            <li><a href="services.html#ai-automation" class="dropdown-item">AI & Automation</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="services.html" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item"><a href="contact-center.html" class="nav-link">Contact Centre</a></li>
+                            <li class="dropdown-item"><a href="it-support.html" class="nav-link">IT Support</a></li>
+                            <li class="dropdown-item"><a href="ai-automation.html" class="nav-link">AI & Automation</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -79,35 +55,36 @@
             </nav>
         </div>
     </header>
-    
+
+    <!-- Main Content -->
     <main id="main-content">
-        <!-- Enhanced Hero Section -->
+        <!-- About Hero -->
         <section class="hero about-hero">
             <div class="hero-overlay"></div>
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-title">About <span class="primary">iBridge</span></h1>
-                    <p class="hero-text">Discover our story, vision, and the people behind our BPO excellence.</p>
-                    <div class="hero-image">
-                        <img src="images/iBridge_IMG_1.png" alt="iBridge Team" loading="lazy">
-                    </div>
+                    <h1 class="hero-title">About Us</h1>
+                    <p class="hero-slogan">Founder-led excellence in BPO & BPaaS for South African business growth.</p>
+                    <a href="contact.html" class="btn btn-primary">Contact Us</a>
                 </div>
             </div>
         </section>
 
-        <!-- About Introduction -->
+        <!-- About Us Section -->
         <section class="section about-section">
             <div class="container">
-                <h2>1. About iBridge</h2>
-                <p>Founded with a vision to transform business process outsourcing, iBridge builds strategic, scalable BPO and BPaaS solutions that match your operational needs. We are founder-led and people-first, working hand-in-hand with your teams to unlock performance, customer experience, and business growth.</p>
                 <div class="about-content">
                     <div class="about-text">
-                        <h3>Our Approach</h3>
-                        <p>We believe that successful business partnerships are built on trust, transparency, and tangible results. Our founder-led approach ensures direct accountability and a commitment to excellence in every project we undertake.</p>
-                        <p>Unlike traditional outsourcing providers, we focus on creating tailored solutions that align with your business goals and KPIs, ensuring that every interaction contributes to your overall success.</p>
+                        <h2 class="about-title">About <span class="about-ibridge-blue">iBridge</span></h2>
+                        <p class="about-text">At iBridge, we build strategic, scalable BPO and BPaaS solutions that match your operational needs. We are founder-led and people-first, working hand-in-hand with your teams to unlock performance, customer experience, and business growth.</p>
+                        <div class="about-stats">
+                            <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">Years Experience</div></div>
+                            <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Customer Satisfaction</div></div>
+                            <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Support Available</div></div>
+                        </div>
                     </div>
                     <div class="about-image">
-                        <img src="images/iBridge_IMG_1.png" alt="iBridge Team" class="about-img">
+                        <img src="images/iBridge_IMG_2.png" alt="iBridge Team" class="about-img">
                     </div>
                 </div>
             </div>
@@ -118,7 +95,7 @@
             <div class="container">
                 <div class="about-content">
                     <div class="about-image">
-                        <img src="images/iBridge_IMG_2.png" alt="iBridge Mission" class="about-img">
+                        <img src="images/iBridge_IMG_3.png" alt="iBridge Mission" class="about-img">
                     </div>
                     <div class="about-text">
                         <h2>Our Mission & Vision</h2>
@@ -138,7 +115,7 @@
         <!-- Why Choose iBridge? -->
         <section class="section why-choose">
             <div class="container">
-                <h2>2. Why Choose iBridge?</h2>
+                <h2>Why Choose iBridge?</h2>
                 <ul class="feature-list">
                     <li><i class="fas fa-check-circle"></i> Customized for your KPIs: CX, retention, market expansion</li>
                     <li><i class="fas fa-check-circle"></i> Multilingual service delivery</li>
@@ -147,28 +124,14 @@
                     <li><i class="fas fa-check-circle"></i> Rapid proof of concept deployments</li>
                     <li><i class="fas fa-check-circle"></i> Compatible with your platforms or guided solutioning</li>
                 </ul>
-                <div class="about-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">6+</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Client Satisfaction</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Support Available</div>
-                    </div>
-                </div>
             </div>
         </section>
 
         <!-- Our Core Values Section -->
         <section class="section values-section">
             <div class="container">
-                <h2 class="section-title">3. Our Core Values</h2>
-                <div class="values-grid">
+                <h2 class="section-title">Our Core Values</h2>
+                <div class="values-.grid">
                     <div class="value-card fade-in">
                         <i class="fas fa-handshake"></i>
                         <h3>Integrity</h3>
@@ -185,6 +148,7 @@
                         <p>Our focus is on delivering measurable outcomes that drive tangible business growth.</p>
                     </div>
                     <div class="value-card fade-in">
+        
                         <i class="fas fa-lightbulb"></i>
                         <h3>Innovation</h3>
                         <p>We continuously explore new technologies and methodologies to improve our service delivery.</p>
@@ -196,13 +160,13 @@
         <!-- Our Leadership Team -->
         <section class="section team-section">
             <div class="container">
-                <h2 class="section-title">4. Our Leadership Team</h2>
+                <h2 class="section-title">Our Leadership Team</h2>
                 <p class="section-subtitle">Meet the experienced professionals guiding our strategic vision</p>
                 
                 <div class="team-grid">
                     <div class="team-member fade-in">
                         <div class="team-photo">
-                            <img src="images/iBridge_IMG_3.png" alt="Leadership Team Member">
+                            <img src="images/iBridge_IMG_4.png" alt="Leadership Team Member">
                             <div class="team-social">
                                 <a href="#" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                                 <a href="#" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
@@ -217,7 +181,7 @@
                     
                     <div class="team-member fade-in">
                         <div class="team-photo">
-                            <img src="images/iBridge_IMG_4.png" alt="Leadership Team Member">
+                            <img src="images/iBridge_IMG_5.png" alt="Leadership Team Member">
                             <div class="team-social">
                                 <a href="#" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                                 <a href="#" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
@@ -236,12 +200,18 @@
         <!-- Company History Timeline -->
         <section class="section history-section">
             <div class="container">
-                <h2 class="section-title">5. Our Journey</h2>
+                <h2 class="section-title">Our Journey</h2>
                 <p class="section-subtitle">The story of our growth and evolution</p>
                 
                 <div class="timeline">
                     <div class="timeline-container left">
                         <div class="timeline-content">
+                            <div class="timeline-icon">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <div class="timeline-image">
+                                <img src="images/iBridge_IMG_6.png" alt="iBridge Founding" loading="lazy">
+                            </div>
                             <h3>Founded</h3>
                             <p class="timeline-date">2019</p>
                             <p>iBridge was established in Randburg with a vision to provide innovative BPO solutions.</p>
@@ -249,30 +219,28 @@
                     </div>
                     <div class="timeline-container right">
                         <div class="timeline-content">
-                            <h3>Initial Growth</h3>
-                            <p class="timeline-date">2020</p>
-                            <p>Expanded our client base and built our first core team of BPO specialists.</p>
+                            <div class="timeline-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="timeline-image">
+                                <img src="images/iBridge_IMG_7.png" alt="iBridge Expansion" loading="lazy">
+                            </div>
+                            <h3>Expansion</h3>
+                            <p class="timeline-date">2021</p>
+                            <p>Expanded our operations to a new state-of-the-art facility to accommodate our growing team.</p>
                         </div>
                     </div>
                     <div class="timeline-container left">
                         <div class="timeline-content">
-                            <h3>Technology Integration</h3>
+                            <div class="timeline-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="timeline-image">
+                                <img src="images/iBridge_IMG_8.png" alt="iBridge Award" loading="lazy">
+                            </div>
+                            <h3>Awarded</h3>
                             <p class="timeline-date">2022</p>
-                            <p>Implemented advanced CRM integrations and launched our multichannel support capabilities.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-container right">
-                        <div class="timeline-content">
-                            <h3>Market Expansion</h3>
-                            <p class="timeline-date">2023</p>
-                            <p>Extended our service offerings to new industries and introduced AI-powered solutions.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-container left">
-                        <div class="timeline-content">
-                            <h3>Present Day</h3>
-                            <p class="timeline-date">2025</p>
-                            <p>Celebrating 6 years as a rapidly growing provider of strategic BPO & BPaaS solutions across South Africa.</p>
+                            <p>Recognized as the "BPO of the Year" for our commitment to excellence and client satisfaction.</p>
                         </div>
                     </div>
                 </div>
@@ -280,31 +248,82 @@
         </section>
 
         <!-- Call to Action -->
-        <section class="section cta">
+        <section class="section cta-section">
             <div class="container">
-                <div class="cta-content">
-                    <h2>Ready to Partner with iBridge?</h2>
-                    <p>Let's discuss how our tailored BPO and BPaaS solutions can help your business thrive.</p>
-                    <div class="cta-buttons">
-                        <a href="contact.html" class="btn">Contact Us</a>
-                        <a href="services.html" class="btn btn-outline">Explore Our Services</a>
-                    </div>
-                </div>
+                <h2>Ready to Grow Your Business?</h2>
+                <p>Let us build a strategic BPO solution that drives results.</p>
+                <a href="contact.html" class="btn btn-primary">Get in Touch</a>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <!-- Footer content will be included -->
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" width="150" height="50">
+                    </div>
+                    <p>Leading provider of contact center solutions and business process outsourcing services in South Africa.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Follow us on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact-center.html">Contact Center Solutions</a></li>
+                        <li><a href="it-support.html">IT Support & Cloud Services</a></li>
+                        <li><a href="ai-automation.html">AI & Automation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            332 Kent Ave, Ferndale, Randburg, 2194
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+27111234567">+27 11 123 4567</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@ibridge.co.za"><span class="primary">info@ibridge.co.za</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> <span class="primary">iBridge</span> Contact Solutions. All rights reserved.</p>
+                <ul class="footer-legal">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
     </footer>
 
-    <!-- WhatsApp Button -->
-    <a href="https://wa.me/27111234567" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- Custom JavaScript -->
+    <!-- Scripts -->
     <script src="js/main.js"></script>
 </body>
 </html>
