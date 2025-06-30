@@ -1,0 +1,14 @@
+{
+  "name": "minification",
+  "version": "1.0.0",
+  "description": "CSS and JS minification for iBridge website",
+  "scripts": {
+    "minify-css": "cleancss -o ./css/styles.min.css ./css/styles.css && cleancss -o ./css/style-enhancements.min.css ./css/style-enhancements.css",
+    "minify-js": "uglifyjs ./js/main.js -c -m -o ./js/main.min.js && uglifyjs ./js/accessibility.js -c -m -o ./js/accessibility.min.js",
+    "minify": "npm run minify-css && npm run minify-js"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.0",
+    "uglify-js": "^3.17.0"
+  }
+}

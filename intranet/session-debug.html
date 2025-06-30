@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Debug | iBridge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #4a8522;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .debug-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .actions {
+            margin-top: 20px;
+        }
+        button {
+            background: #4a8522;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #3d6e1c;
+        }
+        .test-button {
+            background: #f39c12;
+        }
+        .test-button:hover {
+            background: #e67e22;
+        }
+        .clear-button {
+            background: #e74c3c;
+        }
+        .clear-button:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <h1>iBridge Session Debugger</h1>
+    <p>This tool examines and debugs session and authentication issues.</p>
+
+    <div class="debug-box">
+        <h2>Session Storage</h2>
+        <pre id="sessionStorageContent">Loading...</pre>
+    </div>
+
+    <div class="debug-box">
+        <h2>Local Storage</h2>
+        <pre id="localStorageContent">Loading...</pre>
+    </div>
+    
+    <div class="debug-box">
+        <h2>Cookies</h2>
+        <pre id="cookieContent">Loading...</pre>
+    </div>
+
+    <div class="debug-box">
+        <h2>Authentication Check Simulation</h2>
+        <div id="authCheckResult"></div>
+    </div>
+
+    <div class="debug-box">
+        <h2>Current URL Information</h2>
+        <pre id="urlInfo">Loading...</pre>
+    </div>
+
+    <div class="actions">
+        <h2>Test Actions</h2>
+        <button id="testAuth" class="test-button">Test Authentication Check</button>
+        <button id="createMockSession">Create Mock Session</button>
+        <button id="clearStorage" class="clear-button">Clear All Storage</button>
+        <button id="goToLogin">Go to Login Page</button>
+        <button id="goToIndex">Go to Index Page</button>
+    </div>
+
+    <script>
+        // Display session storage
+        function displaySessionStorage() {
+            try {
+                let sessionContent = {};
+                for (let i = 0; i < sessionStorage.length; i++) {
+                    const key = sessionStorage.key(i);
+                    const value = sessionStorage.getItem(key);
+                    try {
+                        // For user object, parse and display
+                        if (key === 'user') {
+                            const userData = JSON.parse(value);
+                            sessionContent[key] = userData;
+                        } else {
+                            // For other items, just show if they exist
+                            sessionContent[key] = value.length > 50 ? 
+                                value.substring(0, 47) + '...' : value;
+                        }
+                    } catch (e) {
+                        sessionContent[key] = "[Error parsing]";
+                    }
+                }
+                
+                if (Object.keys(sessionContent).length === 0) {
+                    document.getElementById('sessionStorageContent').textContent = "No items in Session Storage";
+                } else {
+                    document.getElementById('sessionStorageContent').textContent = 
+                        JSON.stringify(sessionContent, null, 2);
+                }
+            } catch (e) {
+                document.getElementById('sessionStorageContent').textContent = 
+                    "Error reading Session Storage: " + e.message;
+            }
+        }
+
+        // Display local storage
+        function displayLocalStorage() {
+            try {
+                let localContent = {};
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    const value = localStorage.getItem(key);
+                    localContent[key] = value.length > 50 ? 
+                        value.substring(0, 47) + '...' : value;
+                }
+                
+                if (Object.keys(localContent).length === 0) {
+                    document.getElementById('localStorageContent').textContent = "No items in Local Storage";
+                } else {
+                    document.getElementById('localStorageContent').textContent = 
+                        JSON.stringify(localContent, null, 2);
+                }
+            } catch (e) {
+                document.getElementById('localStorageContent').textContent = 
+                    "Error reading Local Storage: " + e.message;
+            }
+        }
+
+        // Display URL information
+        function displayUrlInfo() {
+            const urlInfo = {
+                href: window.location.href,
+                origin: window.location.origin,
+                protocol: window.location.protocol,
+                hostname: window.location.hostname,
+                port: window.location.port,
+                pathname: window.location.pathname,
+                search: window.location.search,
+                hash: window.location.hash
+            };
+            
+            document.getElementById('urlInfo').textContent = JSON.stringify(urlInfo, null, 2);
+        }
+
+        // Test authentication check function
+        function testAuthCheck() {
+            const resultDiv = document.getElementById('authCheckResult');
+            
+            try {
+                // This simulates the check from intranet.js
+                const userData = JSON.parse(sessionStorage.getItem('user') || '{}');
+                
+                if (!userData.username) {
+                    resultDiv.innerHTML = `
+                        <p style="color: red;">❌ Authentication would fail.</p>
+                        <p>No user data found in session storage.</p>
+                        <p>Would redirect to: ${window.location.origin}/intranet/login.html</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p style="color: green;">✅ Authentication would succeed.</p>
+                        <p>User authenticated as: ${userData.username}</p>
+                        <p>Admin status: ${userData.isAdmin ? 'Yes' : 'No'}</p>
+                    `;
+                }
+            } catch (e) {
+                resultDiv.innerHTML = `
+                    <p style="color: red;">❌ Error during authentication check: ${e.message}</p>
+                    <p>Would redirect to login page.</p>
+                `;
+            }
+        }
+
+        // Create a mock session for testing
+        function createMockSession() {
+            const userData = {
+                name: "Lwandile Gasela",
+                username: "lwandile.gasela@ibridge.co.za",
+                email: "lwandile.gasela@ibridge.co.za",
+                isAdmin: true,
+                lastLogin: new Date().toISOString(),
+                domain: "ibridge.co.za",
+                authMethod: "debug-tool"
+            };
+            
+            sessionStorage.setItem('user', JSON.stringify(userData));
+            alert('Mock session created for Lwandile Gasela with admin rights.');
+            // Update displays
+            displaySessionStorage();
+            testAuthCheck();
+        }
+
+        // Clear all storage
+        function clearAllStorage() {
+            sessionStorage.clear();
+            localStorage.clear();
+            alert('All storage cleared.');
+            // Update displays
+            displaySessionStorage();
+            displayLocalStorage();
+            testAuthCheck();
+        }
+
+        // Display cookie information
+        function displayCookieInfo() {
+            try {
+                const cookieObj = {};
+                document.cookie.split(';').forEach(cookie => {
+                    const [key, value] = cookie.trim().split('=');
+                    if (key) cookieObj[key] = value;
+                });
+                
+                document.getElementById('cookieContent').textContent = 
+                    Object.keys(cookieObj).length > 0 ? 
+                    JSON.stringify(cookieObj, null, 2) : 
+                    "No cookies found";
+            } catch (e) {
+                document.getElementById('cookieContent').textContent = 
+                    "Error reading cookies: " + e.message;
+            }
+        }
+        
+        // Initialize
+        displaySessionStorage();
+        displayLocalStorage();
+        displayCookieInfo();
+        displayUrlInfo();
+        testAuthCheck();
+
+        // Add event listeners
+        document.getElementById('testAuth').addEventListener('click', testAuthCheck);
+        document.getElementById('createMockSession').addEventListener('click', createMockSession);
+        document.getElementById('clearStorage').addEventListener('click', function() {
+            clearAllStorage();
+            // Also clear cookies when clearing storage
+            document.cookie.split(";").forEach(function(c) {
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+            displayCookieInfo();
+        });
+        document.getElementById('goToLogin').addEventListener('click', () => {
+            window.location.href = window.location.origin + '/intranet/login.html';
+        });
+        document.getElementById('goToIndex').addEventListener('click', () => {
+            window.location.href = window.location.origin + '/intranet/index.html';
+        });
+    </script>
+</body>
+</html>

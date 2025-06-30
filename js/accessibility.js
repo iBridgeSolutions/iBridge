@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add skip to content functionality
     setupSkipToContent();
+    
+    // Create skip link if it doesn't exist
+    createSkipLinkIfNeeded();
 });
 
 /**
@@ -122,5 +125,60 @@ function setupSkipToContent() {
                 target.focus();
             }
         });
+    }
+}
+
+/**
+ * Create a skip link if it doesn't exist in the DOM
+ * This helps keyboard users navigate directly to the main content
+ */
+function createSkipLinkIfNeeded() {
+    // Check if skip link already exists
+    if (!document.querySelector('.skip-link')) {
+        // Check for main content landmark
+        const mainContent = document.querySelector('main') || document.querySelector('#main-content') || document.querySelector('.main-content');
+        
+        if (mainContent) {
+            // Ensure the main content has an ID
+            if (!mainContent.id) {
+                mainContent.id = 'main-content';
+            }
+            
+            // Create the skip link
+            const skipLink = document.createElement('a');
+            skipLink.href = `#${mainContent.id}`;
+            skipLink.className = 'skip-link';
+            skipLink.textContent = 'Skip to main content';
+            
+            // Style the skip link (will be hidden by default and visible on focus)
+            skipLink.style.position = 'absolute';
+            skipLink.style.top = '-40px';
+            skipLink.style.left = '0';
+            skipLink.style.padding = '8px 15px';
+            skipLink.style.backgroundColor = '#0066cc';
+            skipLink.style.color = '#ffffff';
+            skipLink.style.zIndex = '100';
+            skipLink.style.transition = 'top 0.3s ease';
+            skipLink.style.fontWeight = 'bold';
+            
+            // Make visible on focus
+            skipLink.addEventListener('focus', function() {
+                this.style.top = '0';
+            });
+            
+            skipLink.addEventListener('blur', function() {
+                this.style.top = '-40px';
+            });
+            
+            // Add to the beginning of the body
+            document.body.insertBefore(skipLink, document.body.firstChild);
+            
+            // Make sure the skip link functionality works
+            setupSkipToContent();
+            
+            console.log('Skip link created successfully');
+        } else {
+            console.warn('No main content element found to link the skip link to');
+        }
     }
 }

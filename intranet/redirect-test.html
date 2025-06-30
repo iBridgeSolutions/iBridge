@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure AD Redirect Test Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        h1 { color: #0078d4; }
+        h2 { margin-top: 20px; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .result {
+            background: #f8f8f8;
+            border-left: 4px solid #0078d4;
+            padding: 10px 15px;
+            margin: 10px 0;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        button {
+            background: #0078d4;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #106ebe;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        .error {
+            color: #d83b01;
+        }
+    </style>
+</head>
+<body>
+    <h1>Azure AD Redirect Test Tool</h1>
+    <p>This tool helps diagnose "No reply address registered" errors by showing exactly what URL needs to be registered in Azure AD.</p>
+    
+    <div class="container">
+        <h2>Current URL Information</h2>
+        <p>These values should match exactly what's registered in your Azure AD application:</p>
+        
+        <table>
+            <tr>
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Full URL</td>
+                <td id="fullUrl"></td>
+            </tr>
+            <tr>
+                <td>Origin (protocol + domain + port)</td>
+                <td id="origin"></td>
+            </tr>
+            <tr>
+                <td>Path</td>
+                <td id="path"></td>
+            </tr>
+            <tr>
+                <td>Recommended Redirect URI</td>
+                <td id="redirectUri"></td>
+            </tr>
+        </table>
+        
+        <h2>Azure AD Configuration</h2>
+        <p>Your Azure AD application should have these redirect URIs registered:</p>
+        <div id="recommendedUris" class="result"></div>
+        
+        <h2>Test Authentication Configuration</h2>
+        <p>Click the button below to see exactly what redirect URI your code is using:</p>
+        <button id="testButton">Test Configuration</button>
+        <div id="testResult" class="result" style="display: none;"></div>
+    </div>
+    
+    <div class="container">
+        <h2>Solution Steps</h2>
+        <ol>
+            <li>Copy the recommended redirect URIs above</li>
+            <li>Go to <a href="https://portal.azure.com" target="_blank">Azure Portal</a></li>
+            <li>Navigate to Azure AD &gt; App Registrations &gt; iBridge Portal</li>
+            <li>Click on "Authentication" in the left menu</li>
+            <li>Add each recommended URI to the list of redirect URIs</li>
+            <li>Make sure "Access tokens" and "ID tokens" are checked</li>
+            <li>Click "Save"</li>
+            <li>Wait a few minutes for changes to propagate</li>
+            <li>Return to the intranet login page and try again</li>
+        </ol>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fullUrl = window.location.href;
+            const origin = window.location.origin;
+            const path = window.location.pathname;
+            
+            // Set the values in the table
+            document.getElementById('fullUrl').textContent = fullUrl;
+            document.getElementById('origin').textContent = origin;
+            document.getElementById('path').textContent = path;
+            
+            // Generate redirect URI recommendations
+            const basePathForIntranet = path.includes('intranet') 
+                ? path.substring(0, path.indexOf('intranet') + 'intranet'.length) + '/'
+                : '/intranet/';
+                
+            const redirectUri = origin + path;
+            document.getElementById('redirectUri').textContent = redirectUri;
+            
+            // Generate recommended URIs
+            const currentHost = origin;
+            const recommendations = [
+                // The URI that's causing the current error
+                `${currentHost}/login.html`,
+                // Correct URIs with /intranet/ path
+                `${currentHost}${basePathForIntranet}login.html`,
+                `${currentHost}${basePathForIntranet}`,
+                `${currentHost}${basePathForIntranet}index.html`
+            ];
+            
+            // Display recommendations
+            document.getElementById('recommendedUris').innerHTML = recommendations.map(uri => 
+                `<code>${uri}</code><br>`
+            ).join('');
+            
+            // Test button functionality
+            document.getElementById('testButton').addEventListener('click', function() {
+                const result = document.getElementById('testResult');
+                result.style.display = 'block';
+                
+                try {
+                    // Show what the app would use as redirect URI
+                    const currentUrl = window.location.href;
+                    const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "/");
+                    const exactPath = window.location.origin + window.location.pathname;
+                    
+                    result.innerHTML = `
+                        <p>Current full URL: <code>${currentUrl}</code></p>
+                        <p>Available redirect URIs:</p>
+                        <ul>
+                            <li>Exact page URI: <code>${exactPath}</code></li>
+                            <li>Base directory URI: <code>${baseUrl}</code></li>
+                        </ul>
+                        <p><strong>Make sure one of these is registered in Azure AD!</strong></p>
+                    `;
+                } catch (e) {
+                    result.innerHTML = `<p class="error">Error: ${e.message}</p>`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

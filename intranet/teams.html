@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="iBridge Intranet Teams Directory - Find team information, staff contacts and departments">
+    <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing of internal pages -->
+    <title>Teams | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/intranet-styles.css">
+</head>
+<body class="intranet-page teams-page">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header will be loaded dynamically -->
+    <div id="header-container"></div>
+    
+    <div class="intranet-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <img src="../images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item">
+                    <a href="index.html" class="sidebar-menu-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="news.html" class="sidebar-menu-link">
+                        <i class="fas fa-newspaper"></i> Newsboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="teams.html" class="sidebar-menu-link active">
+                        <i class="fas fa-users"></i> Teams
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="resources.html" class="sidebar-menu-link">
+                        <i class="fas fa-folder-open"></i> Resources
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="calendar.html" class="sidebar-menu-link">
+                        <i class="fas fa-calendar-alt"></i> Calendar
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="directory.html" class="sidebar-menu-link">
+                        <i class="fas fa-address-book"></i> Directory
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="help.html" class="sidebar-menu-link">
+                        <i class="fas fa-question-circle"></i> Help & Support
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <img src="images/default-avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="user-details">
+                    <div class="user-name">John Smith</div>
+                    <div class="user-role">Customer Support</div>
+                </div>
+                <div class="user-actions">
+                    <a href="profile.html" aria-label="User Profile">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="main-content" id="main-content">
+            <section class="page-header">
+                <div class="container-fluid">
+                    <h1 class="page-title"><i class="fas fa-users"></i> Our Teams</h1>
+                    <p class="page-description">Explore our company structure, teams, and departments at iBridge Contact Solutions.</p>
+                
+                    <div class="teams-search">
+                        <div class="search-container">
+                            <form class="search-bar">
+                                <input type="text" class="search-input" placeholder="Search teams or members..." aria-label="Search teams">
+                                <button type="submit" class="search-button" aria-label="Search">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="organization-chart">
+                <div class="container-fluid">
+                    <div class="card">
+                        <h2 class="card-title"><i class="fas fa-sitemap"></i> Company Structure</h2>
+                        
+                        <div class="org-chart-container">
+                            <div class="org-chart">
+                                <div class="org-level level-1">
+                                    <div class="org-box ceo">
+                                        <div class="org-avatar">
+                                            <img src="images/sarah-johnson.jpg" alt="Sarah Johnson" loading="lazy">
+                                        </div>
+                                        <h3 class="org-name">Sarah Johnson</h3>
+                                        <p class="org-title">Chief Executive Officer</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="org-level level-2">
+                                    <div class="org-box executive">
+                                        <div class="org-avatar">
+                                            <img src="images/michael-smith.jpg" alt="Michael Smith" loading="lazy">
+                                        </div>
+                                        <h3 class="org-name">Michael Smith</h3>
+                                        <p class="org-title">Chief Operations Officer</p>
+                                    </div>
+                                    
+                                    <div class="org-box executive">
+                                        <div class="org-avatar">
+                                            <img src="images/priya-patel.jpg" alt="Priya Patel" loading="lazy">
+                                        </div>
+                                        <h3 class="org-name">Priya Patel</h3>
+                                        <p class="org-title">Chief Technology Officer</p>
+                                    </div>
+                                    
+                                    <div class="org-box executive">
+                                        <div class="org-avatar">
+                                            <img src="images/david-nkosi.jpg" alt="David Nkosi" loading="lazy">
+                                        </div>
+                                        <h3 class="org-name">David Nkosi</h3>
+                                        <p class="org-title">Chief Financial Officer</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="org-level level-3">
+                                    <!-- Directors level will be expanded on click -->
+                                </div>
+                            </div>
+                            
+                            <div class="org-controls">
+                                <button id="expandAll" class="btn btn-sm btn-outline">Expand All</button>
+                                <button id="collapseAll" class="btn btn-sm btn-outline">Collapse All</button>
+                                <button id="downloadOrgChart" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-download"></i> Download Chart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="department-grid">
+                <div class="container-fluid">
+                    <h2 class="section-title">Departments & Teams</h2>
+                    
+                    <div class="teams-grid">
+                        <!-- Contact Center Team -->
+                        <div class="team-card">
+                            <div class="team-header" style="background-color: var(--primary);">
+                                <div class="team-icon">
+                                    <i class="fas fa-headset"></i>
+                                </div>
+                                <h3 class="team-name">Contact Center</h3>
+                                <p class="team-stats">42 team members</p>
+                            </div>
+                            <div class="team-body">
+                                <div class="team-leader">
+                                    <div class="leader-avatar">
+                                        <img src="images/james-wilson.jpg" alt="James Wilson" loading="lazy">
+                                    </div>
+                                    <div class="leader-info">
+                                        <h4 class="leader-name">James Wilson</h4>
+                                        <p class="leader-title">Director of Contact Center Operations</p>
+                                    </div>
+                                </div>
+                                <div class="team-description">
+                                    <p>Our frontline customer experience team handling client interactions across multiple channels including voice, email, and chat support.</p>
+                                </div>
+                                <div class="team-members-preview">
+                                    <div class="avatar-group">
+                                        <div class="avatar-sm"><img src="images/team-member-1.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-2.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-3.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm more-avatars">+39</div>
+                                    </div>
+                                </div>
+                                <a href="team-details.html?id=contact-center" class="btn btn-outline full-width">View Team</a>
+                            </div>
+                        </div>
+                        
+                        <!-- IT Support Team -->
+                        <div class="team-card">
+                            <div class="team-header" style="background-color: var(--accent);">
+                                <div class="team-icon">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <h3 class="team-name">IT Support</h3>
+                                <p class="team-stats">18 team members</p>
+                            </div>
+                            <div class="team-body">
+                                <div class="team-leader">
+                                    <div class="leader-avatar">
+                                        <img src="images/thabo-mokoena.jpg" alt="Thabo Mokoena" loading="lazy">
+                                    </div>
+                                    <div class="leader-info">
+                                        <h4 class="leader-name">Thabo Mokoena</h4>
+                                        <p class="leader-title">IT Operations Manager</p>
+                                    </div>
+                                </div>
+                                <div class="team-description">
+                                    <p>Providing technical expertise and support to both internal teams and external clients with infrastructure, cloud solutions, and helpdesk services.</p>
+                                </div>
+                                <div class="team-members-preview">
+                                    <div class="avatar-group">
+                                        <div class="avatar-sm"><img src="images/team-member-4.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-5.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-6.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm more-avatars">+15</div>
+                                    </div>
+                                </div>
+                                <a href="team-details.html?id=it-support" class="btn btn-outline full-width">View Team</a>
+                            </div>
+                        </div>
+                        
+                        <!-- AI & Automation Team -->
+                        <div class="team-card">
+                            <div class="team-header" style="background-color: var(--intranet-info);">
+                                <div class="team-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <h3 class="team-name">AI & Automation</h3>
+                                <p class="team-stats">12 team members</p>
+                            </div>
+                            <div class="team-body">
+                                <div class="team-leader">
+                                    <div class="leader-avatar">
+                                        <img src="images/lisa-zhang.jpg" alt="Lisa Zhang" loading="lazy">
+                                    </div>
+                                    <div class="leader-info">
+                                        <h4 class="leader-name">Lisa Zhang</h4>
+                                        <p class="leader-title">Head of AI Innovation</p>
+                                    </div>
+                                </div>
+                                <div class="team-description">
+                                    <p>Creating intelligent automation solutions using advanced AI technologies to improve efficiency and customer experience for our clients.</p>
+                                </div>
+                                <div class="team-members-preview">
+                                    <div class="avatar-group">
+                                        <div class="avatar-sm"><img src="images/team-member-7.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-8.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-9.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm more-avatars">+9</div>
+                                    </div>
+                                </div>
+                                <a href="team-details.html?id=ai-automation" class="btn btn-outline full-width">View Team</a>
+                            </div>
+                        </div>
+                        
+                        <!-- HR Team -->
+                        <div class="team-card">
+                            <div class="team-header" style="background-color: var(--intranet-warning);">
+                                <div class="team-icon">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <h3 class="team-name">Human Resources</h3>
+                                <p class="team-stats">8 team members</p>
+                            </div>
+                            <div class="team-body">
+                                <div class="team-leader">
+                                    <div class="leader-avatar">
+                                        <img src="images/nomsa-dlamini.jpg" alt="Nomsa Dlamini" loading="lazy">
+                                    </div>
+                                    <div class="leader-info">
+                                        <h4 class="leader-name">Nomsa Dlamini</h4>
+                                        <p class="leader-title">HR Director</p>
+                                    </div>
+                                </div>
+                                <div class="team-description">
+                                    <p>Supporting our people with recruitment, talent development, employee relations, and creating a positive workplace culture.</p>
+                                </div>
+                                <div class="team-members-preview">
+                                    <div class="avatar-group">
+                                        <div class="avatar-sm"><img src="images/team-member-10.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-11.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-12.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm more-avatars">+5</div>
+                                    </div>
+                                </div>
+                                <a href="team-details.html?id=hr" class="btn btn-outline full-width">View Team</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Sales & Marketing Team -->
+                        <div class="team-card">
+                            <div class="team-header" style="background-color: var(--intranet-success);">
+                                <div class="team-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h3 class="team-name">Sales & Marketing</h3>
+                                <p class="team-stats">15 team members</p>
+                            </div>
+                            <div class="team-body">
+                                <div class="team-leader">
+                                    <div class="leader-avatar">
+                                        <img src="images/robert-jones.jpg" alt="Robert Jones" loading="lazy">
+                                    </div>
+                                    <div class="leader-info">
+                                        <h4 class="leader-name">Robert Jones</h4>
+                                        <p class="leader-title">Sales & Marketing Director</p>
+                                    </div>
+                                </div>
+                                <div class="team-description">
+                                    <p>Driving business growth through strategic marketing initiatives, lead generation, and developing client relationships.</p>
+                                </div>
+                                <div class="team-members-preview">
+                                    <div class="avatar-group">
+                                        <div class="avatar-sm"><img src="images/team-member-13.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-14.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-15.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm more-avatars">+12</div>
+                                    </div>
+                                </div>
+                                <a href="team-details.html?id=sales-marketing" class="btn btn-outline full-width">View Team</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Finance Team -->
+                        <div class="team-card">
+                            <div class="team-header" style="background-color: var(--intranet-primary);">
+                                <div class="team-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <h3 class="team-name">Finance</h3>
+                                <p class="team-stats">7 team members</p>
+                            </div>
+                            <div class="team-body">
+                                <div class="team-leader">
+                                    <div class="leader-avatar">
+                                        <img src="images/emily-watson.jpg" alt="Emily Watson" loading="lazy">
+                                    </div>
+                                    <div class="leader-info">
+                                        <h4 class="leader-name">Emily Watson</h4>
+                                        <p class="leader-title">Finance Manager</p>
+                                    </div>
+                                </div>
+                                <div class="team-description">
+                                    <p>Managing the company's financial health through accounting, financial planning and analysis, and ensuring compliance.</p>
+                                </div>
+                                <div class="team-members-preview">
+                                    <div class="avatar-group">
+                                        <div class="avatar-sm"><img src="images/team-member-16.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-17.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm"><img src="images/team-member-18.jpg" alt="Team member" loading="lazy"></div>
+                                        <div class="avatar-sm more-avatars">+4</div>
+                                    </div>
+                                </div>
+                                <a href="team-details.html?id=finance" class="btn btn-outline full-width">View Team</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Footer will be loaded dynamically -->
+    <div id="footer-container"></div>
+    
+    <!-- JavaScript -->
+    <script src="js/intranet.js"></script>
+</body>
+</html>

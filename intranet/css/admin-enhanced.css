@@ -1,0 +1,128 @@
+/* Admin panel specific styles */
+.admin-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--intranet-primary);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+}
+
+.admin-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Admin dashboard stats */
+.admin-stats-container {
+    margin-bottom: 30px;
+}
+
+/* System logs */
+.log-entry {
+    border-left: 4px solid transparent;
+    padding: 8px 15px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+
+.log-entry.error {
+    border-left-color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.log-entry.warning {
+    border-left-color: #f39c12;
+    background-color: rgba(243, 156, 18, 0.1);
+}
+
+.log-entry.info {
+    border-left-color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.log-time {
+    font-size: 12px;
+    color: var(--intranet-text-muted);
+}
+
+.log-message {
+    font-family: monospace;
+    font-size: 14px;
+}
+
+/* User profile styles */
+.user-skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.user-skill {
+    background-color: var(--intranet-primary-light);
+    color: var(--intranet-primary-dark);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.user-skill .remove-skill {
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+}
+
+.user-skill .remove-skill:hover {
+    opacity: 1;
+}
+
+/* Preferences page specific styles */
+.theme-preview {
+    width: 100%;
+    height: 60px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.theme-light .theme-preview {
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    border: 1px solid #dee2e6;
+}
+
+.theme-dark .theme-preview {
+    background: linear-gradient(to right, #343a40, #212529);
+    border: 1px solid #495057;
+}
+
+.theme-system .theme-preview {
+    background: linear-gradient(to right, #f8f9fa 50%, #343a40 50%);
+    border: 1px solid #dee2e6;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .admin-nav-tabs {
+        flex-direction: column;
+    }
+    
+    .admin-nav-tabs .nav-item {
+        margin-bottom: 5px;
+        margin-right: 0;
+    }
+    
+    .quick-access {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+}

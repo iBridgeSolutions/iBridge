@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iBridge Redirect Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #4a8522;
+        }
+        .info-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4a8522;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #3d6e1c;
+        }
+    </style>
+</head>
+<body>
+    <h1>iBridge Portal Redirect Test</h1>
+    
+    <div class="info-box">
+        <h2>Current URL Information:</h2>
+        <p><strong>Full URL:</strong> <code id="fullUrl"></code></p>
+        <p><strong>Origin:</strong> <code id="origin"></code></p>
+        <p><strong>Base Path:</strong> <code id="basePath"></code></p>
+        <p><strong>Directory:</strong> <code id="directory"></code></p>
+    </div>
+
+    <div class="info-box">
+        <h2>Test Redirects:</h2>
+        <button onclick="testRedirect('index.html')">Relative to index.html</button>
+        <button onclick="testRedirect('./index.html')">Relative with ./ to index.html</button>
+        <button onclick="testRedirect('/intranet/index.html')">Absolute to /intranet/index.html</button>
+        <button onclick="testBaseUrl()">Using baseUrl variable</button>
+    </div>
+
+    <div id="log" class="info-box">
+        <h2>Log:</h2>
+        <pre id="logContent"></pre>
+    </div>
+
+    <script>
+        // Log URL info
+        document.getElementById('fullUrl').textContent = window.location.href;
+        document.getElementById('origin').textContent = window.location.origin;
+        document.getElementById('basePath').textContent = window.location.origin + "/intranet/";
+        document.getElementById('directory').textContent = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+        
+        // Log function
+        function log(message) {
+            const logElement = document.getElementById('logContent');
+            logElement.textContent += message + '\n';
+        }
+
+        // Test redirect
+        function testRedirect(path) {
+            log(`Testing redirect to: ${path}`);
+            
+            // Instead of actually redirecting, we'll just log what would happen
+            const resolvedUrl = new URL(path, window.location.href).href;
+            log(`Would redirect to: ${resolvedUrl}`);
+            
+            // Check if this URL would be valid
+            fetch(resolvedUrl, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        log(`✅ URL is accessible (status ${response.status})`);
+                    } else {
+                        log(`❌ URL returns error (status ${response.status})`);
+                    }
+                })
+                .catch(error => {
+                    log(`❌ Error checking URL: ${error.message}`);
+                });
+        }
+        
+        // Test baseUrl redirect
+        function testBaseUrl() {
+            const baseUrl = window.location.origin + "/intranet/";
+            log(`Testing redirect using baseUrl: ${baseUrl}index.html`);
+            
+            // Check if this URL would be valid
+            fetch(baseUrl + 'index.html', { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        log(`✅ baseUrl + index.html is accessible (status ${response.status})`);
+                    } else {
+                        log(`❌ baseUrl + index.html returns error (status ${response.status})`);
+                    }
+                })
+                .catch(error => {
+                    log(`❌ Error checking URL: ${error.message}`);
+                });
+        }
+    </script>
+</body>
+</html>

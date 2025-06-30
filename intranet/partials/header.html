@@ -1,0 +1,45 @@
+<!-- Intranet Header -->
+<header class="intranet-header">
+    <div class="container">
+        <div class="intranet-nav">
+            <div class="logo">
+                <a href="/intranet/index.html">
+                    <img src="/intranet/images/iBridge_Logo-removebg-preview.png" alt="iBridge Intranet" loading="lazy">
+                </a>
+            </div>
+            
+            <div class="intranet-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search intranet...">
+            </div>
+            
+            <div class="intranet-nav-links">
+                <a href="/intranet/index.html" class="intranet-nav-link">Dashboard</a>
+                <a href="/intranet/news.html" class="intranet-nav-link">News</a>
+                <a href="/intranet/teams.html" class="intranet-nav-link">Teams</a>
+                <a href="/intranet/resources.html" class="intranet-nav-link">Resources</a>
+                <a href="/intranet/calendar.html" class="intranet-nav-link">Calendar</a>
+            </div>
+            
+            <div class="user-profile dropdown">
+                <div class="user-avatar"></div>
+                <div class="user-info">
+                    <div class="user-name">Loading...</div>
+                    <div class="user-role">Staff</div>
+                </div>
+                <div class="user-dropdown">
+                    <ul class="user-dropdown-menu">
+                        <li><a href="profile.html"><i class="fas fa-user-circle"></i> My Profile</a></li>
+                        <li><a href="preferences.html"><i class="fas fa-cog"></i> Preferences</a></li>
+                        <li class="admin-only"><a href="admin-panel.html"><i class="fas fa-shield-alt"></i> Admin Panel</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Skip Link for Accessibility -->
+<a href="#main-content" class="skip-link">Skip to main content</a>

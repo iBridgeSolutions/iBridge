@@ -1,21 +1,93 @@
-# Enable GZIP compression and caching
-AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css text/javascript application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript
+# iBridge Website - Optimized .htaccess
+# Performance and security enhancements
+
+# Enable rewriting
+RewriteEngine On
+
+# Special rule to allow authenticated intranet access
+# This ensures users with valid authentication cookies aren't redirected
+RewriteCond %{HTTP_COOKIE} (user_authenticated|intranet_session) [NC]
+RewriteRule ^intranet/(.*)$ intranet/$1 [L]
+
+# Redirect non-www to www (uncomment after domain is pointing to server)
+# RewriteCond %{HTTP_HOST} ^ibridgebpo\.com [NC]
+# RewriteRule ^(.*)$ http://www.ibridgebpo.com/$1 [L,R=301]
+
+# Redirect HTTP to HTTPS (uncomment after SSL is set up)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # Set index.html as the default landing page
 DirectoryIndex index.html
 
+# MIME types
+<IfModule mod_mime.c>
+    # JavaScript
+    AddType application/javascript js mjs
+    
+    # CSS
+    AddType text/css css
+    
+    # Images
+    AddType image/svg+xml svg svgz
+    AddEncoding gzip svgz
+    
+    # Web fonts
+    AddType font/ttf ttf
+    AddType font/otf otf
+    AddType font/woff woff
+    AddType font/woff2 woff2
+    AddType image/webp webp
+</IfModule>
+
+# Enable GZIP compression
+<IfModule mod_deflate.c>
+    # Active compression
+    SetOutputFilter DEFLATE
+    
+    # Compress all output labeled with one of the following MIME-types
+    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css text/javascript 
+    AddOutputFilterByType DEFLATE application/xml application/xhtml+xml application/rss+xml 
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE application/x-font
+    AddOutputFilterByType DEFLATE application/x-font-opentype
+    AddOutputFilterByType DEFLATE application/x-font-otf
+    AddOutputFilterByType DEFLATE application/x-font-truetype
+    AddOutputFilterByType DEFLATE application/x-font-ttf
+    AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE image/x-icon
+</IfModule>
+
 # Set browser caching
 <IfModule mod_expires.c>
     ExpiresActive On
+    
+    # Images
     ExpiresByType image/jpg 'access plus 1 year'
     ExpiresByType image/jpeg 'access plus 1 year'
     ExpiresByType image/gif 'access plus 1 year'
     ExpiresByType image/png 'access plus 1 year'
-    ExpiresByType text/css 'access plus 1 month'
-    ExpiresByType text/javascript 'access plus 1 month'
-    ExpiresByType application/javascript 'access plus 1 month'
-    ExpiresByType application/x-javascript 'access plus 1 month'
+    ExpiresByType image/webp 'access plus 1 year'
+    ExpiresByType image/svg+xml 'access plus 1 year'
     ExpiresByType image/x-icon 'access plus 1 year'
+    
+    # CSS, JavaScript
+    ExpiresByType text/css 'access plus 1 year'
+    ExpiresByType text/javascript 'access plus 1 year'
+    ExpiresByType application/javascript 'access plus 1 year'
+    ExpiresByType application/x-javascript 'access plus 1 year'
+    
+    # Fonts
+    ExpiresByType font/ttf 'access plus 1 year'
+    ExpiresByType font/otf 'access plus 1 year'
+    ExpiresByType font/woff 'access plus 1 year'
+    ExpiresByType font/woff2 'access plus 1 year'
+    
     ExpiresDefault 'access plus 1 month'
 </IfModule>
 
@@ -25,3 +97,27 @@ Options -Indexes
 # Custom error pages
 ErrorDocument 404 /404.html
 ErrorDocument 500 /500.html
+
+# Security headers
+<IfModule mod_headers.c>
+    # XSS Protection
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Prevent MIME-type sniffing
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Frames control - prevent clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # Content Security Policy (basic, customize as needed)
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self';"
+    
+    # Referrer Policy
+    Header set Referrer-Policy "no-referrer-when-downgrade"
+    
+    # Permissions Policy (formerly Feature Policy)
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Remove server signature
+ServerSignature Off

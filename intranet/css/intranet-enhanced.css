@@ -1,0 +1,311 @@
+/**
+ * iBridge Intranet - Enhanced Styles
+ * This file contains additional styles for the intranet portal
+ * to complement the main intranet-styles.css file
+ */
+
+/* Common button styles */
+.btn-primary-lime {
+    background-color: var(--intranet-primary);
+    border-color: var(--intranet-primary);
+    color: white;
+}
+
+.btn-primary-lime:hover,
+.btn-primary-lime:focus {
+    background-color: var(--intranet-secondary);
+    border-color: var(--intranet-secondary);
+    color: white;
+}
+
+/* Profile buttons in directory */
+.staff-profile-btn {
+    background-color: var(--intranet-primary);
+    color: white;
+}
+
+.staff-profile-btn:hover,
+.staff-profile-btn:focus {
+    background-color: var(--intranet-secondary);
+    color: white;
+}
+
+/* Event modal buttons */
+.event-edit-btn,
+.event-create-btn,
+.btn-add-event,
+.view-profile-btn {
+    background-color: var(--intranet-primary);
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.event-edit-btn:hover,
+.event-edit-btn:focus,
+.event-create-btn:hover,
+.event-create-btn:focus,
+.btn-add-event:hover,
+.btn-add-event:focus,
+.view-profile-btn:hover,
+.view-profile-btn:focus {
+    background-color: var(--intranet-secondary);
+    color: white;
+}
+.event-create-btn:focus {
+    background-color: var(--intranet-secondary);
+    color: white;
+}
+
+/* Search button positioning */
+.search-button-position {
+    top: 5px;
+    border-radius: 50px;
+    z-index: 5;
+}
+
+/* Help Search Button */
+.help-search-button {
+    top: 5px;
+    border-radius: 50px; 
+    z-index: 5;
+}
+
+/* Admin-only item display control */
+.sidebar-menu-item--admin {
+    display: none;
+}
+
+/* Admin users will see this when JS adds the 'show-admin' class */
+.sidebar-menu-item--admin.show-admin {
+    display: block;
+}
+
+/* Directory page styles */
+.directory-filters {
+    background-color: var(--intranet-card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--intranet-border);
+}
+
+.staff-card {
+    background-color: var(--intranet-card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--intranet-border);
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+}
+
+.staff-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.staff-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid var(--intranet-primary);
+}
+
+.staff-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--intranet-text-dark);
+}
+
+.staff-title {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--intranet-text-light);
+    margin-bottom: 15px;
+}
+
+.staff-contact a {
+    color: var(--intranet-primary);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.staff-contact a:hover {
+    color: var(--intranet-secondary);
+}
+
+.search-input {
+    border: 2px solid var(--intranet-border);
+    border-radius: 50px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: var(--intranet-primary);
+    box-shadow: 0 0 0 0.2rem rgba(161, 196, 79, 0.25);
+}
+
+.department-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--intranet-primary);
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.department-filter-btn {
+    background-color: white;
+    border: 1px solid var(--intranet-border);
+    color: var(--intranet-text-dark);
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.department-filter-btn:hover,
+.department-filter-btn.active {
+    background-color: var(--intranet-primary);
+    border-color: var(--intranet-primary);
+    color: white;
+}
+
+/* Calendar page styles */
+.calendar-container {
+    background-color: var(--intranet-card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--intranet-border);
+    min-height: 700px;
+}
+
+.event-filters {
+    background-color: var(--intranet-card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--intranet-border);
+}
+
+.fc .fc-button-primary {
+    background-color: var(--intranet-primary);
+    border-color: var(--intranet-primary);
+}
+
+.fc .fc-button-primary:hover {
+    background-color: var(--intranet-secondary);
+    border-color: var(--intranet-secondary);
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active, 
+.fc .fc-button-primary:not(:disabled):active {
+    background-color: var(--intranet-accent);
+    border-color: var(--intranet-accent);
+}
+
+.fc-daygrid-day.fc-day-today {
+    background-color: rgba(161, 196, 79, 0.1) !important;
+}
+
+.fc-event {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.fc-event:hover {
+    transform: scale(1.02);
+}
+
+/* Help page styles */
+.help-hero {
+    background: linear-gradient(135deg, var(--intranet-primary) 0%, var(--intranet-secondary) 100%);
+    color: white;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.search-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.help-search-input {
+    border: none;
+    border-radius: 50px;
+    padding: 15px 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-size: 16px;
+    width: 100%;
+}
+
+.help-search-input:focus {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    outline: none;
+}
+
+/* Insights page styles */
+.insights-container {
+    background-color: var(--intranet-card-bg);
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid var(--intranet-border);
+}
+
+.metric-card {
+    background-color: var(--intranet-card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--intranet-primary);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    opacity: 0.2;
+    color: var(--intranet-primary);
+}
+
+/* Admin-only elements */
+.admin-only {
+    display: none; /* Hidden by default, shown via JS for admin users */
+}
+
+.is-admin .admin-only {
+    display: block; /* Show when user is admin */
+}
+
+.is-admin .admin-only.btn,
+.is-admin .admin-only.sidebar-menu-item {
+    display: inline-block;
+}
+
+/* Fix for the sidebar admin menu item */
+/* Already defined earlier in the CSS */
+
+/* Department badges - already defined earlier in the CSS */
+
+/* Fix for Font Awesome font-family */
+.fa, .fas, .far, .fal, .fab {
+    font-family: 'Font Awesome 5 Free', sans-serif;
+}

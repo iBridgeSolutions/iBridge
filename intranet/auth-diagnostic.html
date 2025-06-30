@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iBridge Auth Diagnostic</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #4a8522;
+        }
+        .info-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4a8522;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #3d6e1c;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>iBridge Authentication Diagnostic Tool</h1>
+    
+    <div class="info-box">
+        <h2>Current Environment</h2>
+        <table>
+            <tr>
+                <th>Page URL</th>
+                <td id="currentUrl"></td>
+            </tr>
+            <tr>
+                <th>Origin</th>
+                <td id="origin"></td>
+            </tr>
+            <tr>
+                <th>Base Path</th>
+                <td id="basePath"></td>
+            </tr>
+            <tr>
+                <th>Local Storage</th>
+                <td id="localStorage"></td>
+            </tr>
+            <tr>
+                <th>Session Storage</th>
+                <td id="sessionStorage"></td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="info-box">
+        <h2>Authentication Status</h2>
+        <div id="authStatus">Checking...</div>
+        <pre id="userData">No user data found</pre>
+    </div>
+    
+    <div class="info-box">
+        <h2>Path Tests</h2>
+        <p>Click the buttons to test different paths and see if they're accessible:</p>
+        <button onclick="testPath('index.html')">Test /intranet/index.html</button>
+        <button onclick="testPath('login.html')">Test /intranet/login.html</button>
+        <button onclick="testPath('')">Test /intranet/ (root)</button>
+        <pre id="pathTestResults"></pre>
+    </div>
+    
+    <div class="info-box">
+        <h2>Debug Actions</h2>
+        <button onclick="clearAllStorage()">Clear All Storage</button>
+        <button onclick="simulateLogin()">Simulate Dev Login</button>
+        <button onclick="goToIndex()">Go To Index Page</button>
+        <button onclick="goToLogin()">Go To Login Page</button>
+    </div>
+    
+    <script>
+        // Populate environment info
+        document.getElementById('currentUrl').textContent = window.location.href;
+        document.getElementById('origin').textContent = window.location.origin;
+        document.getElementById('basePath').textContent = window.location.origin + '/intranet/';
+        
+        // Show localStorage summary
+        try {
+            const localStorageItems = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                try {
+                    if (key.includes('msal') || key.includes('clientInfo')) {
+                        localStorageItems[key] = '(auth token, hidden for security)';
+                    } else {
+                        const value = localStorage.getItem(key);
+                        localStorageItems[key] = value.length > 50 ? value.substring(0, 47) + '...' : value;
+                    }
+                } catch (e) {
+                    localStorageItems[key] = '(error reading value)';
+                }
+            }
+            document.getElementById('localStorage').innerHTML = '<pre>' + JSON.stringify(localStorageItems, null, 2) + '</pre>';
+        } catch (e) {
+            document.getElementById('localStorage').textContent = 'Error reading localStorage: ' + e.message;
+        }
+        
+        // Show sessionStorage summary
+        try {
+            const sessionStorageItems = {};
+            for (let i = 0; i < sessionStorage.length; i++) {
+                const key = sessionStorage.key(i);
+                try {
+                    if (key.includes('msal') || key.includes('clientInfo')) {
+                        sessionStorageItems[key] = '(auth token, hidden for security)';
+                    } else {
+                        const value = sessionStorage.getItem(key);
+                        sessionStorageItems[key] = value.length > 50 ? value.substring(0, 47) + '...' : value;
+                    }
+                } catch (e) {
+                    sessionStorageItems[key] = '(error reading value)';
+                }
+            }
+            document.getElementById('sessionStorage').innerHTML = '<pre>' + JSON.stringify(sessionStorageItems, null, 2) + '</pre>';
+        } catch (e) {
+            document.getElementById('sessionStorage').textContent = 'Error reading sessionStorage: ' + e.message;
+        }
+        
+        // Check authentication status
+        function checkAuthStatus() {
+            try {
+                const userData = JSON.parse(sessionStorage.getItem('user') || '{}');
+                
+                if (userData.username) {
+                    document.getElementById('authStatus').innerHTML = 
+                        '<div class="info-box success">✅ Authenticated as: ' + userData.username + '</div>';
+                    document.getElementById('userData').textContent = JSON.stringify(userData, null, 2);
+                } else {
+                    document.getElementById('authStatus').innerHTML = 
+                        '<div class="info-box warning">⚠️ Not authenticated</div>';
+                }
+            } catch (e) {
+                document.getElementById('authStatus').innerHTML = 
+                    '<div class="info-box error">❌ Error checking authentication: ' + e.message + '</div>';
+            }
+        }
+        checkAuthStatus();
+        
+        // Test if paths are accessible
+        function testPath(path) {
+            const fullPath = window.location.origin + '/intranet/' + path;
+            const resultElem = document.getElementById('pathTestResults');
+            
+            resultElem.textContent += 'Testing ' + fullPath + '...\n';
+            
+            fetch(fullPath, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        resultElem.textContent += '✅ ' + fullPath + ' is accessible (status ' + response.status + ')\n';
+                    } else {
+                        resultElem.textContent += '❌ ' + fullPath + ' returns error (status ' + response.status + ')\n';
+                    }
+                })
+                .catch(error => {
+                    resultElem.textContent += '❌ Error checking ' + fullPath + ': ' + error.message + '\n';
+                });
+        }
+        
+        // Clear all storage
+        function clearAllStorage() {
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            // Also clear cookies
+            document.cookie.split(";").forEach(function(c) {
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+            
+            alert('All storage cleared. Page will reload.');
+            window.location.reload();
+        }
+        
+        // Simulate login with development credentials
+        function simulateLogin() {
+            const userData = {
+                name: 'Lwandile Gasela',
+                username: 'lwandile.gasela@ibridge.co.za',
+                email: 'lwandile.gasela@ibridge.co.za',
+                isAdmin: true,
+                lastLogin: new Date().toISOString(),
+                domain: 'ibridge.co.za',
+                authMethod: 'development-diagnostic'
+            };
+            
+            sessionStorage.setItem('user', JSON.stringify(userData));
+            alert('Development login simulated. Check authentication status.');
+            window.location.reload();
+        }
+        
+        // Navigation functions
+        function goToIndex() {
+            window.location.href = window.location.origin + '/intranet/index.html';
+        }
+        
+        function goToLogin() {
+            window.location.href = window.location.origin + '/intranet/login.html';
+        }
+    </script>
+</body>
+</html>

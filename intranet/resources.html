@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="iBridge Intranet Resources - Access company documents, forms, and work resources">
+    <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing of internal pages -->
+    <title>Resources | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/intranet-styles.css">
+</head>
+<body class="intranet-page resources-page">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header will be loaded dynamically -->
+    <div id="header-container"></div>
+    
+    <div class="intranet-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <img src="../images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item">
+                    <a href="index.html" class="sidebar-menu-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="news.html" class="sidebar-menu-link">
+                        <i class="fas fa-newspaper"></i> Newsboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="teams.html" class="sidebar-menu-link">
+                        <i class="fas fa-users"></i> Teams
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="resources.html" class="sidebar-menu-link active">
+                        <i class="fas fa-folder-open"></i> Resources
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="calendar.html" class="sidebar-menu-link">
+                        <i class="fas fa-calendar-alt"></i> Calendar
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="directory.html" class="sidebar-menu-link">
+                        <i class="fas fa-address-book"></i> Directory
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="help.html" class="sidebar-menu-link">
+                        <i class="fas fa-question-circle"></i> Help & Support
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <img src="images/default-avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="user-details">
+                    <div class="user-name">John Smith</div>
+                    <div class="user-role">Customer Support</div>
+                </div>
+                <div class="user-actions">
+                    <a href="profile.html" aria-label="User Profile">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="main-content" id="main-content">
+            <section class="page-header">
+                <div class="container-fluid">
+                    <h1 class="page-title"><i class="fas fa-folder-open"></i> Company Resources</h1>
+                    <p class="page-description">Access policies, forms, templates, and other work resources needed for your role.</p>
+                
+                    <div class="resources-search-filters">
+                        <div class="search-container">
+                            <form class="search-bar">
+                                <input type="text" class="search-input" placeholder="Search resources..." aria-label="Search resources">
+                                <button type="submit" class="search-button" aria-label="Search">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div class="filter-controls">
+                            <div class="filter-group">
+                                <label for="resourceType">Resource Type:</label>
+                                <select id="resourceType" class="filter-select">
+                                    <option value="all">All Types</option>
+                                    <option value="policy">Policies</option>
+                                    <option value="form">Forms</option>
+                                    <option value="template">Templates</option>
+                                    <option value="guide">Guides</option>
+                                    <option value="software">Software</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="resourceDepartment">Department:</label>
+                                <select id="resourceDepartment" class="filter-select">
+                                    <option value="all">All Departments</option>
+                                    <option value="hr">Human Resources</option>
+                                    <option value="it">IT</option>
+                                    <option value="finance">Finance</option>
+                                    <option value="operations">Operations</option>
+                                    <option value="marketing">Marketing</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="resource-categories">
+                <div class="container-fluid">
+                    <h2 class="section-title">Resource Categories</h2>
+                    
+                    <div class="category-grid">
+                        <div class="category-card" data-category="hr">
+                            <div class="category-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <h3 class="category-title">HR & Personnel</h3>
+                            <p class="category-count">24 resources</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="it">
+                            <div class="category-icon">
+                                <i class="fas fa-laptop"></i>
+                            </div>
+                            <h3 class="category-title">IT & Systems</h3>
+                            <p class="category-count">18 resources</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="training">
+                            <div class="category-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="category-title">Training</h3>
+                            <p class="category-count">15 resources</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="finance">
+                            <div class="category-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <h3 class="category-title">Finance</h3>
+                            <p class="category-count">12 resources</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="operations">
+                            <div class="category-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h3 class="category-title">Operations</h3>
+                            <p class="category-count">20 resources</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="marketing">
+                            <div class="category-icon">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <h3 class="category-title">Marketing</h3>
+                            <p class="category-count">9 resources</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="frequently-accessed">
+                <div class="container-fluid">
+                    <div class="card">
+                        <h2 class="card-title"><i class="fas fa-star"></i> Frequently Accessed</h2>
+                        
+                        <div class="resource-table-container">
+                            <table class="table resource-table">
+                                <thead>
+                                    <tr>
+                                        <th>Resource Name</th>
+                                        <th>Type</th>
+                                        <th>Department</th>
+                                        <th>Last Updated</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="resource-name">
+                                                <i class="far fa-file-pdf text-danger"></i>
+                                                <span>Employee Handbook 2025</span>
+                                                <span class="badge badge-primary">New</span>
+                                            </div>
+                                        </td>
+                                        <td>Policy</td>
+                                        <td>HR</td>
+                                        <td>June 15, 2025</td>
+                                        <td>
+                                            <div class="resource-actions">
+                                                <a href="resources/employee-handbook-2025.pdf" class="btn btn-sm btn-outline" download>
+                                                    <i class="fas fa-download"></i> Download
+                                                </a>
+                                                <button class="btn btn-sm btn-icon">
+                                                    <i class="fas fa-star" title="Favorite"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="resource-name">
+                                                <i class="far fa-file-word text-primary"></i>
+                                                <span>Expense Claim Form</span>
+                                            </div>
+                                        </td>
+                                        <td>Form</td>
+                                        <td>Finance</td>
+                                        <td>May 28, 2025</td>
+                                        <td>
+                                            <div class="resource-actions">
+                                                <a href="resources/expense-claim-form.docx" class="btn btn-sm btn-outline" download>
+                                                    <i class="fas fa-download"></i> Download
+                                                </a>
+                                                <button class="btn btn-sm btn-icon">
+                                                    <i class="far fa-star" title="Add to favorites"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="resource-name">
+                                                <i class="far fa-file-excel text-success"></i>
+                                                <span>Monthly Report Template</span>
+                                            </div>
+                                        </td>
+                                        <td>Template</td>
+                                        <td>Operations</td>
+                                        <td>June 1, 2025</td>
+                                        <td>
+                                            <div class="resource-actions">
+                                                <a href="resources/monthly-report-template.xlsx" class="btn btn-sm btn-outline" download>
+                                                    <i class="fas fa-download"></i> Download
+                                                </a>
+                                                <button class="btn btn-sm btn-icon">
+                                                    <i class="far fa-star" title="Add to favorites"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="resource-name">
+                                                <i class="fas fa-link text-accent"></i>
+                                                <span>IT Support Portal</span>
+                                            </div>
+                                        </td>
+                                        <td>Link</td>
+                                        <td>IT</td>
+                                        <td>June 20, 2025</td>
+                                        <td>
+                                            <div class="resource-actions">
+                                                <a href="https://support.ibridge.co.za" target="_blank" class="btn btn-sm btn-outline">
+                                                    <i class="fas fa-external-link-alt"></i> Visit
+                                                </a>
+                                                <button class="btn btn-sm btn-icon">
+                                                    <i class="fas fa-star" title="Favorite"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="resource-name">
+                                                <i class="far fa-file-powerpoint text-warning"></i>
+                                                <span>Company Introduction Slides</span>
+                                            </div>
+                                        </td>
+                                        <td>Presentation</td>
+                                        <td>Marketing</td>
+                                        <td>May 15, 2025</td>
+                                        <td>
+                                            <div class="resource-actions">
+                                                <a href="resources/company-intro-2025.pptx" class="btn btn-sm btn-outline" download>
+                                                    <i class="fas fa-download"></i> Download
+                                                </a>
+                                                <button class="btn btn-sm btn-icon">
+                                                    <i class="far fa-star" title="Add to favorites"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="recently-added">
+                <div class="container-fluid">
+                    <h2 class="section-title">Recently Added Resources</h2>
+                    
+                    <div class="resources-grid">
+                        <!-- Resource Item -->
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="far fa-file-pdf"></i>
+                            </div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">Health & Safety Guidelines 2025</h3>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-folder"></i> HR</span>
+                                    <span><i class="fas fa-calendar-alt"></i> Added: June 22, 2025</span>
+                                </div>
+                                <p class="resource-description">Updated health and safety guidelines with new workplace protocols and emergency procedures.</p>
+                                <div class="resource-actions">
+                                    <a href="resources/health-safety-guidelines-2025.pdf" class="btn btn-primary btn-sm" download>
+                                        <i class="fas fa-download"></i> Download
+                                    </a>
+                                    <span class="resource-size">2.4 MB</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resource Item -->
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="far fa-file-alt"></i>
+                            </div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">Client Interaction Scripts</h3>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-folder"></i> Operations</span>
+                                    <span><i class="fas fa-calendar-alt"></i> Added: June 20, 2025</span>
+                                </div>
+                                <p class="resource-description">Standard scripts for handling various client interactions and frequently asked questions.</p>
+                                <div class="resource-actions">
+                                    <a href="resources/client-interaction-scripts.docx" class="btn btn-primary btn-sm" download>
+                                        <i class="fas fa-download"></i> Download
+                                    </a>
+                                    <span class="resource-size">756 KB</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resource Item -->
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">New CRM System Tutorial</h3>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-folder"></i> IT</span>
+                                    <span><i class="fas fa-calendar-alt"></i> Added: June 18, 2025</span>
+                                </div>
+                                <p class="resource-description">Step-by-step video tutorial on using the new CRM system features and functions.</p>
+                                <div class="resource-actions">
+                                    <a href="resources/crm-tutorial-video.mp4" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-play"></i> Watch Video
+                                    </a>
+                                    <span class="resource-duration">12:45</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resource Item -->
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">Microsoft 365 Learning Portal</h3>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-folder"></i> Training</span>
+                                    <span><i class="fas fa-calendar-alt"></i> Added: June 15, 2025</span>
+                                </div>
+                                <p class="resource-description">Access to the Microsoft 365 learning resources with company-specific training content.</p>
+                                <div class="resource-actions">
+                                    <a href="https://learn.microsoft.com" target="_blank" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-external-link-alt"></i> Visit Site
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resource Item -->
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="far fa-file-excel"></i>
+                            </div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">Budget Planning Worksheet</h3>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-folder"></i> Finance</span>
+                                    <span><i class="fas fa-calendar-alt"></i> Added: June 12, 2025</span>
+                                </div>
+                                <p class="resource-description">Excel template for department budget planning with automated calculations and forecasting.</p>
+                                <div class="resource-actions">
+                                    <a href="resources/budget-planning-worksheet.xlsx" class="btn btn-primary btn-sm" download>
+                                        <i class="fas fa-download"></i> Download
+                                    </a>
+                                    <span class="resource-size">1.2 MB</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resource Item -->
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">Remote Desktop Access Guide</h3>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-folder"></i> IT</span>
+                                    <span><i class="fas fa-calendar-alt"></i> Added: June 10, 2025</span>
+                                </div>
+                                <p class="resource-description">Instructions for setting up and using secure remote desktop access for work-from-home scenarios.</p>
+                                <div class="resource-actions">
+                                    <a href="resources/remote-desktop-guide.pdf" class="btn btn-primary btn-sm" download>
+                                        <i class="fas fa-download"></i> Download
+                                    </a>
+                                    <span class="resource-size">3.5 MB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Footer will be loaded dynamically -->
+    <div id="footer-container"></div>
+    
+    <!-- JavaScript -->
+    <script src="js/intranet.js"></script>
+</body>
+</html>

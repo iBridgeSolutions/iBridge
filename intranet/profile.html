@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My Profile - iBridge Staff Portal">
+    <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing of internal pages -->
+    <title>My Profile | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/intranet-styles.css">
+    <link rel="stylesheet" href="css/intranet-enhanced.css">
+    <link rel="stylesheet" href="css/user-enhanced.css">
+    
+    <style>
+        .profile-container {
+            background-color: var(--intranet-card-bg);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, var(--intranet-primary) 0%, var(--intranet-secondary) 100%);
+            color: white;
+            padding: 40px 30px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            position: relative;
+        }
+        
+        .profile-avatar-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .avatar-edit {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            background-color: white;
+            color: var(--intranet-primary);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .avatar-edit:hover {
+            background-color: var(--intranet-primary);
+            color: white;
+        }
+        
+        .profile-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .profile-title {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        
+        .profile-department {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-bottom: 15px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .profile-stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        
+        .profile-content {
+            padding: 30px;
+        }
+        
+        .profile-section {
+            margin-bottom: 30px;
+        }
+        
+        .profile-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--intranet-text-dark);
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: var(--intranet-text-dark);
+        }
+        
+        .form-control {
+            border-radius: 6px;
+            padding: 10px 15px;
+        }
+        
+        .form-control:focus {
+            border-color: var(--intranet-primary);
+            box-shadow: 0 0 0 0.2rem rgba(161, 196, 79, 0.25);
+        }
+        
+        .bio-textarea {
+            min-height: 120px;
+        }
+        
+        .skill-badge {
+            background-color: rgba(161, 196, 79, 0.1);
+            color: var(--intranet-primary);
+            border: 1px solid var(--intranet-primary);
+            border-radius: 20px;
+            padding: 5px 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            display: inline-block;
+            font-size: 14px;
+        }
+        
+        .password-toggle {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="intranet-page profile-page">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header will be loaded dynamically -->
+    <div id="header-placeholder"></div>
+    
+    <div class="intranet-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item">
+                    <a href="index.html" class="sidebar-menu-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="news.html" class="sidebar-menu-link">
+                        <i class="fas fa-newspaper"></i> Newsboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="teams.html" class="sidebar-menu-link">
+                        <i class="fas fa-users"></i> Teams
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="directory.html" class="sidebar-menu-link">
+                        <i class="fas fa-address-book"></i> Directory
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="resources.html" class="sidebar-menu-link">
+                        <i class="fas fa-folder-open"></i> Resources
+                    </a>
+                </li>
+                <li class="sidebar-menu-item sidebar-menu-item--admin">
+                    <a href="insights.html" class="sidebar-menu-link">
+                        <i class="fas fa-chart-line"></i> Insights
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="calendar.html" class="sidebar-menu-link">
+                        <i class="fas fa-calendar"></i> Calendar
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="help.html" class="sidebar-menu-link">
+                        <i class="fas fa-question-circle"></i> Help
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-user">
+                <div class="sidebar-user-info">
+                    <img src="images/default-avatar.jpg" alt="User Avatar" class="sidebar-user-avatar">
+                    <div class="sidebar-user-details">
+                        <h5 class="sidebar-user-name">Loading...</h5>
+                        <p class="sidebar-user-role">Loading...</p>
+                    </div>
+                </div>
+                <button class="btn btn-outline-light btn-sm sidebar-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+        
+        <main class="main-content" id="main-content">
+            <div class="content-header">
+                <h1 class="page-title"><i class="fas fa-user-circle"></i> My Profile</h1>
+                <p class="page-description">View and manage your personal information</p>
+            </div>
+            
+            <!-- Profile Container -->
+            <div class="profile-container">
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <div class="profile-avatar-wrapper">
+                        <img src="images/default-avatar.jpg" alt="Your Profile Picture" class="profile-avatar" id="profileAvatar">
+                        <div class="avatar-edit" title="Change profile picture">
+                            <i class="fas fa-camera"></i>
+                            <input type="file" id="avatarUpload" style="display: none;" accept="image/*">
+                        </div>
+                    </div>
+                    <h2 class="profile-name" id="profileName">Loading...</h2>
+                    <p class="profile-title" id="profileTitle">Loading...</p>
+                    <p class="profile-department" id="profileDepartment">Loading...</p>
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Years at iBridge</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="stat-value">96%</div>
+                            <div class="stat-label">Performance</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Content -->
+                <div class="profile-content">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <!-- Personal Information -->
+                            <div class="profile-section">
+                                <h3 class="profile-section-title">Personal Information</h3>
+                                <form class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstName">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="jobTitle" class="form-label">Job Title</label>
+                                        <input type="text" class="form-control" id="jobTitle" disabled>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="department" class="form-label">Department</label>
+                                        <input type="text" class="form-control" id="department" disabled>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="bio" class="form-label">Bio</label>
+                                        <textarea class="form-control bio-textarea" id="bio" placeholder="Tell us a bit about yourself..."></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <!-- Skills -->
+                            <div class="profile-section">
+                                <h3 class="profile-section-title">Skills & Expertise</h3>
+                                <div class="mb-3">
+                                    <div id="skillsList">
+                                        <span class="skill-badge">Customer Service</span>
+                                        <span class="skill-badge">Communication</span>
+                                        <span class="skill-badge">Problem Solving</span>
+                                        <span class="skill-badge">Microsoft Office</span>
+                                        <span class="skill-badge">Team Collaboration</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="newSkill" placeholder="Add a new skill">
+                                    <button class="btn btn-primary-lime" type="button" id="addSkill">
+                                        <i class="fas fa-plus"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-4">
+                            <!-- Change Password -->
+                            <div class="profile-section">
+                                <h3 class="profile-section-title">Change Password</h3>
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="currentPassword" class="form-label">Current Password</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="currentPassword">
+                                            <span class="input-group-text password-toggle">
+                                                <i class="fas fa-eye"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="newPassword" class="form-label">New Password</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="newPassword">
+                                            <span class="input-group-text password-toggle">
+                                                <i class="fas fa-eye"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="confirmPassword">
+                                            <span class="input-group-text password-toggle">
+                                                <i class="fas fa-eye"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button class="btn btn-primary-lime" type="button">Update Password</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <!-- Contact Information -->
+                            <div class="profile-section">
+                                <h3 class="profile-section-title">Contact Information</h3>
+                                <p><i class="fas fa-envelope me-2"></i> <span id="contactEmail">Loading...</span></p>
+                                <p><i class="fas fa-phone me-2"></i> <span id="contactPhone">Loading...</span></p>
+                                <p><i class="fas fa-map-marker-alt me-2"></i> Floor 3, East Wing</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Save Changes Button -->
+                    <div class="mt-4 text-center">
+                        <button class="btn btn-primary-lime btn-lg">
+                            <i class="fas fa-save me-2"></i> Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Footer will be loaded dynamically -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- MSAL -->
+    <script src="https://alcdn.msauth.net/browser/2.30.0/js/msal-browser.js"></script>
+    <!-- iBridge Intranet JavaScript -->
+    <script src="js/intranet.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize profile page data
+            setTimeout(function() {
+                // This would be replaced with actual user data from API or session
+                // For demo purposes, we're just faking it with the session data
+                const userData = JSON.parse(sessionStorage.getItem('user') || '{}');
+                
+                // Set user data
+                document.getElementById('profileName').innerText = userData.name || 'Your Name';
+                document.getElementById('profileTitle').innerText = userData.title || 'Your Job Title';
+                document.getElementById('profileDepartment').innerText = userData.department || 'Your Department';
+                document.getElementById('firstName').value = userData.name ? userData.name.split(' ')[0] : '';
+                document.getElementById('lastName').value = userData.name ? userData.name.split(' ')[1] || '' : '';
+                document.getElementById('email').value = userData.username || 'your.email@ibridge.co.za';
+                document.getElementById('phone').value = userData.phone || '(+27) 12 345 6789';
+                document.getElementById('jobTitle').value = userData.title || 'Your Job Title';
+                document.getElementById('department').value = userData.department || 'Your Department';
+                document.getElementById('contactEmail').innerText = userData.username || 'your.email@ibridge.co.za';
+                document.getElementById('contactPhone').innerText = userData.phone || '(+27) 12 345 6789';
+            }, 500);
+            
+            // Password toggle visibility
+            const toggles = document.querySelectorAll('.password-toggle');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const input = this.previousElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+            
+            // Add skill functionality
+            document.getElementById('addSkill').addEventListener('click', function() {
+                const skillInput = document.getElementById('newSkill');
+                const skillText = skillInput.value.trim();
+                
+                if (skillText) {
+                    const skillBadge = document.createElement('span');
+                    skillBadge.className = 'skill-badge';
+                    skillBadge.textContent = skillText;
+                    document.getElementById('skillsList').appendChild(skillBadge);
+                    skillInput.value = '';
+                }
+            });
+            
+            // Profile photo upload
+            document.querySelector('.avatar-edit').addEventListener('click', function() {
+                document.getElementById('avatarUpload').click();
+            });
+            
+            document.getElementById('avatarUpload').addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('profileAvatar').src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="User Preferences - iBridge Staff Portal">
+    <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing of internal pages -->
+    <title>Preferences | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/intranet-styles.css">
+    <link rel="stylesheet" href="css/intranet-enhanced.css">
+    <link rel="stylesheet" href="css/user-enhanced.css">
+    
+    <style>
+        .preferences-container {
+            background-color: var(--intranet-card-bg);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .preferences-header {
+            background: linear-gradient(135deg, var(--intranet-primary) 0%, var(--intranet-secondary) 100%);
+            color: white;
+            padding: 30px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        
+        .preferences-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .preferences-content {
+            padding: 30px;
+        }
+        
+        .preferences-section {
+            margin-bottom: 30px;
+        }
+        
+        .preferences-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--intranet-text-dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .preferences-section-title i {
+            margin-right: 10px;
+            color: var(--intranet-primary);
+        }
+        
+        .form-check-label {
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .form-switch .form-check-input {
+            width: 3em;
+            height: 1.5em;
+            cursor: pointer;
+        }
+        
+        .form-switch .form-check-input:checked {
+            background-color: var(--intranet-primary);
+            border-color: var(--intranet-primary);
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .theme-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid var(--intranet-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-option.active {
+            border-color: var(--intranet-primary);
+            background-color: rgba(161, 196, 79, 0.1);
+        }
+        
+        .theme-preview {
+            width: 100%;
+            height: 100px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        
+        .theme-light {
+            background: linear-gradient(to right, #ffffff 0%, #f0f0f0 100%);
+            border: 1px solid #ddd;
+        }
+        
+        .theme-dark {
+            background: linear-gradient(to right, #2c3e50 0%, #1a2533 100%);
+            border: 1px solid #1a1a1a;
+        }
+        
+        .theme-blue {
+            background: linear-gradient(to right, #3498db 0%, #2980b9 100%);
+            border: 1px solid #2980b9;
+        }
+        
+        .theme-green {
+            background: linear-gradient(to right, #a1c44f 0%, #86a63f 100%);
+            border: 1px solid #86a63f;
+        }
+    </style>
+</head>
+<body class="intranet-page preferences-page">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header will be loaded dynamically -->
+    <div id="header-placeholder"></div>
+    
+    <div class="intranet-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item">
+                    <a href="index.html" class="sidebar-menu-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="news.html" class="sidebar-menu-link">
+                        <i class="fas fa-newspaper"></i> Newsboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="teams.html" class="sidebar-menu-link">
+                        <i class="fas fa-users"></i> Teams
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="directory.html" class="sidebar-menu-link">
+                        <i class="fas fa-address-book"></i> Directory
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="resources.html" class="sidebar-menu-link">
+                        <i class="fas fa-folder-open"></i> Resources
+                    </a>
+                </li>
+                <li class="sidebar-menu-item sidebar-menu-item--admin">
+                    <a href="insights.html" class="sidebar-menu-link">
+                        <i class="fas fa-chart-line"></i> Insights
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="calendar.html" class="sidebar-menu-link">
+                        <i class="fas fa-calendar"></i> Calendar
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="help.html" class="sidebar-menu-link">
+                        <i class="fas fa-question-circle"></i> Help
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-user">
+                <div class="sidebar-user-info">
+                    <img src="images/default-avatar.jpg" alt="User Avatar" class="sidebar-user-avatar">
+                    <div class="sidebar-user-details">
+                        <h5 class="sidebar-user-name">Loading...</h5>
+                        <p class="sidebar-user-role">Loading...</p>
+                    </div>
+                </div>
+                <button class="btn btn-outline-light btn-sm sidebar-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+        
+        <main class="main-content" id="main-content">
+            <div class="content-header">
+                <h1 class="page-title"><i class="fas fa-cog"></i> User Preferences</h1>
+                <p class="page-description">Customize your intranet experience</p>
+            </div>
+            
+            <!-- Preferences Container -->
+            <div class="preferences-container">
+                <!-- Preferences Header -->
+                <div class="preferences-header">
+                    <h2 class="preferences-title">Personalize Your Experience</h2>
+                    <p>Customize how the iBridge Staff Portal works for you</p>
+                </div>
+                
+                <!-- Preferences Content -->
+                <div class="preferences-content">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <!-- Display Settings -->
+                            <div class="preferences-section">
+                                <h3 class="preferences-section-title">
+                                    <i class="fas fa-desktop"></i> Display Settings
+                                </h3>
+                                
+                                <h4 class="mb-3">Theme Options</h4>
+                                <div class="row mb-4">
+                                    <div class="col-sm-6 col-md-3 mb-3">
+                                        <div class="theme-option active" data-theme="light">
+                                            <div class="theme-preview theme-light"></div>
+                                            <span>Light (Default)</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3 mb-3">
+                                        <div class="theme-option" data-theme="dark">
+                                            <div class="theme-preview theme-dark"></div>
+                                            <span>Dark</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3 mb-3">
+                                        <div class="theme-option" data-theme="blue">
+                                            <div class="theme-preview theme-blue"></div>
+                                            <span>Blue</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3 mb-3">
+                                        <div class="theme-option" data-theme="green">
+                                            <div class="theme-preview theme-green"></div>
+                                            <span>Green</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h4 class="mb-3">Layout Options</h4>
+                                <div class="mb-4">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="compactSidebar" checked>
+                                        <label class="form-check-label" for="compactSidebar">
+                                            Compact Sidebar
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="stickySidebar" checked>
+                                        <label class="form-check-label" for="stickySidebar">
+                                            Sticky Sidebar
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="largeText">
+                                        <label class="form-check-label" for="largeText">
+                                            Large Text (Accessibility)
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="highContrast">
+                                        <label class="form-check-label" for="highContrast">
+                                            High Contrast (Accessibility)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Settings -->
+                            <div class="preferences-section">
+                                <h3 class="preferences-section-title">
+                                    <i class="fas fa-bell"></i> Notification Preferences
+                                </h3>
+                                
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="enableNotifications" checked>
+                                    <label class="form-check-label" for="enableNotifications">
+                                        <strong>Enable Browser Notifications</strong>
+                                    </label>
+                                </div>
+                                
+                                <h4 class="mb-3">Notify Me About:</h4>
+                                <div class="checkbox-group">
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="newsNotifications" checked>
+                                        <label class="form-check-label" for="newsNotifications">
+                                            News & Announcements
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="eventNotifications" checked>
+                                        <label class="form-check-label" for="eventNotifications">
+                                            Calendar Events
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="teamNotifications" checked>
+                                        <label class="form-check-label" for="teamNotifications">
+                                            Team Updates
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="messageNotifications" checked>
+                                        <label class="form-check-label" for="messageNotifications">
+                                            Direct Messages
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="systemNotifications">
+                                        <label class="form-check-label" for="systemNotifications">
+                                            System Updates
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="weeklyDigest" checked>
+                                        <label class="form-check-label" for="weeklyDigest">
+                                            Weekly Digest Email
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-4">
+                            <!-- Dashboard Settings -->
+                            <div class="preferences-section">
+                                <h3 class="preferences-section-title">
+                                    <i class="fas fa-home"></i> Dashboard Widgets
+                                </h3>
+                                <p class="mb-3">Choose which widgets appear on your dashboard:</p>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="widgetNews" checked>
+                                    <label class="form-check-label" for="widgetNews">
+                                        Latest News
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="widgetEvents" checked>
+                                    <label class="form-check-label" for="widgetEvents">
+                                        Upcoming Events
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="widgetBirthdays" checked>
+                                    <label class="form-check-label" for="widgetBirthdays">
+                                        Team Birthdays
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="widgetMetrics" checked>
+                                    <label class="form-check-label" for="widgetMetrics">
+                                        Performance Metrics
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="widgetTasks" checked>
+                                    <label class="form-check-label" for="widgetTasks">
+                                        My Tasks
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="widgetWeather">
+                                    <label class="form-check-label" for="widgetWeather">
+                                        Weather
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Language Settings -->
+                            <div class="preferences-section">
+                                <h3 class="preferences-section-title">
+                                    <i class="fas fa-language"></i> Language Settings
+                                </h3>
+                                <div class="mb-3">
+                                    <label for="languageSelect" class="form-label">Preferred Language</label>
+                                    <select class="form-select" id="languageSelect">
+                                        <option value="en" selected>English</option>
+                                        <option value="af">Afrikaans</option>
+                                        <option value="zu">Zulu</option>
+                                        <option value="xh">Xhosa</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="dateFormatSelect" class="form-label">Date Format</label>
+                                    <select class="form-select" id="dateFormatSelect">
+                                        <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                        <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
+                                        <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="timeFormatSelect" class="form-label">Time Format</label>
+                                    <select class="form-select" id="timeFormatSelect">
+                                        <option value="12" selected>12-hour (AM/PM)</option>
+                                        <option value="24">24-hour</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Save Settings Button -->
+                    <div class="mt-4 text-center">
+                        <button class="btn btn-primary-lime btn-lg">
+                            <i class="fas fa-save me-2"></i> Save Preferences
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Footer will be loaded dynamically -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- MSAL -->
+    <script src="https://alcdn.msauth.net/browser/2.30.0/js/msal-browser.js"></script>
+    <!-- iBridge Intranet JavaScript -->
+    <script src="js/intranet.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme Selection
+            const themeOptions = document.querySelectorAll('.theme-option');
+            
+            themeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active class from all options
+                    themeOptions.forEach(opt => opt.classList.remove('active'));
+                    
+                    // Add active class to selected option
+                    this.classList.add('active');
+                    
+                    // Get theme value
+                    const theme = this.getAttribute('data-theme');
+                    
+                    // Store theme preference (would be used to apply theme)
+                    localStorage.setItem('intranetTheme', theme);
+                    
+                    // Here you could add code to actually apply the theme
+                    // For demo purposes we'll just show a toast notification
+                    showToast(`Theme changed to ${theme}`);
+                });
+            });
+            
+            // Mock function to show toast notification
+            function showToast(message) {
+                // Create toast element
+                const toastEl = document.createElement('div');
+                toastEl.className = 'toast align-items-center text-white bg-primary border-0 position-fixed';
+                toastEl.setAttribute('role', 'alert');
+                toastEl.setAttribute('aria-live', 'assertive');
+                toastEl.setAttribute('aria-atomic', 'true');
+                toastEl.style.bottom = '20px';
+                toastEl.style.right = '20px';
+                toastEl.style.zIndex = '1050';
+                
+                // Toast content
+                toastEl.innerHTML = `
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            ${message}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                `;
+                
+                // Add to document
+                document.body.appendChild(toastEl);
+                
+                // Initialize toast
+                const toast = new bootstrap.Toast(toastEl, {
+                    autohide: true,
+                    delay: 3000
+                });
+                
+                // Show toast
+                toast.show();
+                
+                // Remove from DOM after hidden
+                toastEl.addEventListener('hidden.bs.toast', function () {
+                    document.body.removeChild(toastEl);
+                });
+            }
+            
+            // Save preferences button
+            document.querySelector('.btn-primary-lime').addEventListener('click', function() {
+                // Collect all preference settings
+                const preferences = {
+                    theme: document.querySelector('.theme-option.active').getAttribute('data-theme'),
+                    compactSidebar: document.getElementById('compactSidebar').checked,
+                    stickySidebar: document.getElementById('stickySidebar').checked,
+                    largeText: document.getElementById('largeText').checked,
+                    highContrast: document.getElementById('highContrast').checked,
+                    notifications: {
+                        enabled: document.getElementById('enableNotifications').checked,
+                        news: document.getElementById('newsNotifications').checked,
+                        events: document.getElementById('eventNotifications').checked,
+                        team: document.getElementById('teamNotifications').checked,
+                        messages: document.getElementById('messageNotifications').checked,
+                        system: document.getElementById('systemNotifications').checked,
+                        weeklyDigest: document.getElementById('weeklyDigest').checked
+                    },
+                    dashboard: {
+                        news: document.getElementById('widgetNews').checked,
+                        events: document.getElementById('widgetEvents').checked,
+                        birthdays: document.getElementById('widgetBirthdays').checked,
+                        metrics: document.getElementById('widgetMetrics').checked,
+                        tasks: document.getElementById('widgetTasks').checked,
+                        weather: document.getElementById('widgetWeather').checked
+                    },
+                    language: document.getElementById('languageSelect').value,
+                    dateFormat: document.getElementById('dateFormatSelect').value,
+                    timeFormat: document.getElementById('timeFormatSelect').value
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('intranetPreferences', JSON.stringify(preferences));
+                
+                // Show confirmation
+                showToast('Preferences saved successfully');
+            });
+            
+            // Load existing preferences if available
+            const savedPreferences = JSON.parse(localStorage.getItem('intranetPreferences') || '{}');
+            
+            if (Object.keys(savedPreferences).length > 0) {
+                // Apply theme
+                if (savedPreferences.theme) {
+                    document.querySelectorAll('.theme-option').forEach(opt => {
+                        if (opt.getAttribute('data-theme') === savedPreferences.theme) {
+                            opt.classList.add('active');
+                        } else {
+                            opt.classList.remove('active');
+                        }
+                    });
+                }
+                
+                // Apply checkbox settings
+                if (savedPreferences.compactSidebar !== undefined) 
+                    document.getElementById('compactSidebar').checked = savedPreferences.compactSidebar;
+                if (savedPreferences.stickySidebar !== undefined)
+                    document.getElementById('stickySidebar').checked = savedPreferences.stickySidebar;
+                if (savedPreferences.largeText !== undefined)
+                    document.getElementById('largeText').checked = savedPreferences.largeText;
+                if (savedPreferences.highContrast !== undefined)
+                    document.getElementById('highContrast').checked = savedPreferences.highContrast;
+                
+                // Apply notification settings
+                if (savedPreferences.notifications) {
+                    const n = savedPreferences.notifications;
+                    if (n.enabled !== undefined) document.getElementById('enableNotifications').checked = n.enabled;
+                    if (n.news !== undefined) document.getElementById('newsNotifications').checked = n.news;
+                    if (n.events !== undefined) document.getElementById('eventNotifications').checked = n.events;
+                    if (n.team !== undefined) document.getElementById('teamNotifications').checked = n.team;
+                    if (n.messages !== undefined) document.getElementById('messageNotifications').checked = n.messages;
+                    if (n.system !== undefined) document.getElementById('systemNotifications').checked = n.system;
+                    if (n.weeklyDigest !== undefined) document.getElementById('weeklyDigest').checked = n.weeklyDigest;
+                }
+                
+                // Apply dashboard widget settings
+                if (savedPreferences.dashboard) {
+                    const d = savedPreferences.dashboard;
+                    if (d.news !== undefined) document.getElementById('widgetNews').checked = d.news;
+                    if (d.events !== undefined) document.getElementById('widgetEvents').checked = d.events;
+                    if (d.birthdays !== undefined) document.getElementById('widgetBirthdays').checked = d.birthdays;
+                    if (d.metrics !== undefined) document.getElementById('widgetMetrics').checked = d.metrics;
+                    if (d.tasks !== undefined) document.getElementById('widgetTasks').checked = d.tasks;
+                    if (d.weather !== undefined) document.getElementById('widgetWeather').checked = d.weather;
+                }
+                
+                // Apply language settings
+                if (savedPreferences.language) document.getElementById('languageSelect').value = savedPreferences.language;
+                if (savedPreferences.dateFormat) document.getElementById('dateFormatSelect').value = savedPreferences.dateFormat;
+                if (savedPreferences.timeFormat) document.getElementById('timeFormatSelect').value = savedPreferences.timeFormat;
+            }
+        });
+    </script>
+</body>
+</html>

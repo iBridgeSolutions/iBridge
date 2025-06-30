@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="iBridge Intranet Newsboard - Company announcements, updates and news">
+    <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing of internal pages -->
+    <title>Newsboard | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/intranet-styles.css">
+</head>
+<body class="intranet-page news-page">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header will be loaded dynamically -->
+    <div id="header-container"></div>
+    
+    <div class="intranet-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <img src="../images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item">
+                    <a href="index.html" class="sidebar-menu-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="news.html" class="sidebar-menu-link active">
+                        <i class="fas fa-newspaper"></i> Newsboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="teams.html" class="sidebar-menu-link">
+                        <i class="fas fa-users"></i> Teams
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="resources.html" class="sidebar-menu-link">
+                        <i class="fas fa-folder-open"></i> Resources
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="calendar.html" class="sidebar-menu-link">
+                        <i class="fas fa-calendar-alt"></i> Calendar
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="directory.html" class="sidebar-menu-link">
+                        <i class="fas fa-address-book"></i> Directory
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="help.html" class="sidebar-menu-link">
+                        <i class="fas fa-question-circle"></i> Help & Support
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <img src="images/default-avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="user-details">
+                    <div class="user-name">John Smith</div>
+                    <div class="user-role">Customer Support</div>
+                </div>
+                <div class="user-actions">
+                    <a href="profile.html" aria-label="User Profile">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="main-content" id="main-content">
+            <section class="page-header">
+                <div class="container-fluid">
+                    <h1 class="page-title"><i class="fas fa-newspaper"></i> Company Newsboard</h1>
+                    <p class="page-description">Stay updated with the latest announcements, news, and developments at iBridge.</p>
+                
+                    <div class="news-filters">
+                        <div class="filter-group">
+                            <label for="newsCategory">Category:</label>
+                            <select id="newsCategory" class="filter-select">
+                                <option value="all">All Categories</option>
+                                <option value="company">Company</option>
+                                <option value="hr">HR</option>
+                                <option value="it">IT</option>
+                                <option value="projects">Projects</option>
+                                <option value="events">Events</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="newsSort">Sort by:</label>
+                            <select id="newsSort" class="filter-select">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="popular">Most Popular</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="internal-comms-tools">
+                <div class="container-fluid">
+                    <div class="comms-tools-grid">
+                        <div class="comms-tool-card">
+                            <div class="comms-tool-icon">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <h3>Create Announcement</h3>
+                            <p>Share important company updates with all staff members</p>
+                            <button class="btn btn-primary admin-only" data-toggle="modal" data-target="#createAnnouncementModal">
+                                <i class="fas fa-plus"></i> New Announcement
+                            </button>
+                        </div>
+                        <div class="comms-tool-card">
+                            <div class="comms-tool-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h3>Upcoming Events</h3>
+                            <p>View and manage company events and activities</p>
+                            <a href="calendar.html" class="btn btn-outline-primary">View Calendar</a>
+                        </div>
+                        <div class="comms-tool-card">
+                            <div class="comms-tool-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Insights Dashboard</h3>
+                            <p>View engagement metrics and communication stats</p>
+                            <a href="insights.html" class="btn btn-outline-primary admin-only">View Insights</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="featured-news">
+                <div class="container-fluid">
+                    <div class="card featured-news-card">
+                        <div class="featured-news-image">
+                            <img src="images/company-meeting.jpg" alt="Company Meeting" loading="lazy">
+                            <span class="news-category company">Company</span>
+                        </div>
+                        <div class="featured-news-content">
+                            <div class="featured-news-header">
+                                <div class="featured-news-badge pulse-badge">Featured</div>
+                                <div class="featured-news-actions admin-only">
+                                    <button class="btn btn-sm btn-icon" title="Edit" data-news-id="1">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-icon" title="Feature/Unfeature" data-news-id="1">
+                                        <i class="fas fa-star"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <h2 class="featured-news-title">
+                                iBridge Celebrates Record Growth in Client Satisfaction Scores
+                            </h2>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> June 24, 2025</span>
+                                <span><i class="far fa-user"></i> By: Sarah Johnson, CEO</span>
+                                <span><i class="far fa-eye"></i> 245 views</span>
+                            </div>
+                            <div class="featured-news-excerpt">
+                                <p>We're thrilled to announce that iBridge has achieved the highest client satisfaction scores in our company history this quarter. This milestone reflects the hard work and dedication of every team member across all departments.</p>
+                                <p>The results from our quarterly client satisfaction survey revealed an average satisfaction score of 4.8 out of 5, with particular praise for our responsive support teams and innovative solutions.</p>
+                            </div>
+                            <div class="news-actions">
+                                <a href="news-detail.html?id=1" class="btn btn-primary">Read Full Article</a>
+                                <div class="news-engagement">
+                                    <button class="btn btn-sm btn-icon" title="Like" data-action="like" data-news-id="1">
+                                        <i class="far fa-thumbs-up"></i> <span class="like-count">42</span>
+                                    </button>
+                                    <button class="btn btn-sm btn-icon" title="Comment" data-action="comment" data-news-id="1">
+                                        <i class="far fa-comment"></i> <span class="comment-count">18</span>
+                                    </button>
+                                    <button class="btn btn-sm btn-icon" title="Share" data-action="share" data-news-id="1">
+                                        <i class="far fa-share-square"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="news-grid">
+                <div class="container-fluid">
+                    <h2 class="section-title">Latest News & Announcements</h2>
+                    
+                    <div class="news-grid-layout">
+                        <!-- News Item 1 -->
+                        <div class="news-grid-item">
+                            <div class="news-card">
+                                <div class="news-card-image">
+                                    <img src="images/new-office.jpg" alt="New Office Space" loading="lazy">
+                                    <span class="news-category hr">HR</span>
+                                </div>
+                                <div class="news-card-content">
+                                    <h3 class="news-card-title">
+                                        <a href="news-detail.html?id=2">New Office Space Expansion Planned for Q4</a>
+                                    </h3>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-calendar-alt"></i> June 22, 2025</span>
+                                        <span><i class="far fa-comment"></i> 12 comments</span>
+                                    </div>
+                                    <div class="news-card-excerpt">
+                                        <p>To accommodate our growing team, we're excited to announce plans for a new office space expansion coming in Q4 2025. The new space will feature...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News Item 2 -->
+                        <div class="news-grid-item">
+                            <div class="news-card">
+                                <div class="news-card-image">
+                                    <img src="images/tech-update.jpg" alt="Technology Update" loading="lazy">
+                                    <span class="news-category it">IT</span>
+                                </div>
+                                <div class="news-card-content">
+                                    <h3 class="news-card-title">
+                                        <a href="news-detail.html?id=3">System Upgrade Scheduled for Next Weekend</a>
+                                    </h3>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-calendar-alt"></i> June 21, 2025</span>
+                                        <span><i class="far fa-comment"></i> 8 comments</span>
+                                    </div>
+                                    <div class="news-card-excerpt">
+                                        <p>The IT department will be performing a major system upgrade next weekend to enhance our CRM capabilities. Expect system downtime from Friday evening...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News Item 3 -->
+                        <div class="news-grid-item">
+                            <div class="news-card">
+                                <div class="news-card-image">
+                                    <img src="images/team-building.jpg" alt="Team Building" loading="lazy">
+                                    <span class="news-category events">Events</span>
+                                </div>
+                                <div class="news-card-content">
+                                    <h3 class="news-card-title">
+                                        <a href="news-detail.html?id=4">Annual Team Building Retreat Announced</a>
+                                    </h3>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-calendar-alt"></i> June 18, 2025</span>
+                                        <span><i class="far fa-comment"></i> 24 comments</span>
+                                    </div>
+                                    <div class="news-card-excerpt">
+                                        <p>Mark your calendars! Our annual team building retreat is scheduled for August 12-14, 2025. This year, we'll be heading to the beautiful Drakensberg Mountains...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News Item 4 -->
+                        <div class="news-grid-item">
+                            <div class="news-card">
+                                <div class="news-card-image">
+                                    <img src="images/new-client.jpg" alt="New Client" loading="lazy">
+                                    <span class="news-category projects">Projects</span>
+                                </div>
+                                <div class="news-card-content">
+                                    <h3 class="news-card-title">
+                                        <a href="news-detail.html?id=5">New Enterprise Client Partnership</a>
+                                    </h3>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-calendar-alt"></i> June 15, 2025</span>
+                                        <span><i class="far fa-comment"></i> 5 comments</span>
+                                    </div>
+                                    <div class="news-card-excerpt">
+                                        <p>We're excited to welcome SuperTech Industries as our newest enterprise client! This partnership will focus on delivering comprehensive contact center...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News Item 5 -->
+                        <div class="news-grid-item">
+                            <div class="news-card">
+                                <div class="news-card-image">
+                                    <img src="images/benefits.jpg" alt="Employee Benefits" loading="lazy">
+                                    <span class="news-category hr">HR</span>
+                                </div>
+                                <div class="news-card-content">
+                                    <h3 class="news-card-title">
+                                        <a href="news-detail.html?id=6">Enhanced Employee Benefits Package Launching</a>
+                                    </h3>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-calendar-alt"></i> June 10, 2025</span>
+                                        <span><i class="far fa-comment"></i> 32 comments</span>
+                                    </div>
+                                    <div class="news-card-excerpt">
+                                        <p>As part of our ongoing commitment to employee wellness and satisfaction, we're thrilled to announce enhancements to our benefits package including...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News Item 6 -->
+                        <div class="news-grid-item">
+                            <div class="news-card">
+                                <div class="news-card-image">
+                                    <img src="images/training.jpg" alt="Training Program" loading="lazy">
+                                    <span class="news-category company">Company</span>
+                                </div>
+                                <div class="news-card-content">
+                                    <h3 class="news-card-title">
+                                        <a href="news-detail.html?id=7">New Professional Development Program Launch</a>
+                                    </h3>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-calendar-alt"></i> June 5, 2025</span>
+                                        <span><i class="far fa-comment"></i> 18 comments</span>
+                                    </div>
+                                    <div class="news-card-excerpt">
+                                        <p>Investing in our team's growth is a top priority. That's why we're launching a comprehensive professional development program with courses in...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pagination">
+                        <a href="#" class="pagination-item active">1</a>
+                        <a href="#" class="pagination-item">2</a>
+                        <a href="#" class="pagination-item">3</a>
+                        <a href="#" class="pagination-item next">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Footer will be loaded dynamically -->
+    <div id="footer-container"></div>
+    
+    <!-- JavaScript -->
+    <script src="js/intranet.js"></script>
+</body>
+</html>

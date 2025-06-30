@@ -300,3 +300,31 @@ tabButtons.forEach(button => {
         }
     });
 });
+
+// Mark active navigation item
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the current page URL
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    // Find all nav links
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    // Check each link against current page
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage || 
+            (currentPage === 'index.html' && href === '/') ||
+            (href !== '/' && currentPage.includes(href))) {
+            link.classList.add('active');
+            
+            // If it's in a dropdown, mark the parent too
+            const parentItem = link.closest('.has-dropdown');
+            if (parentItem) {
+                const parentLink = parentItem.querySelector('.nav-link');
+                if (parentLink) {
+                    parentLink.classList.add('parent-active');
+                }
+            }
+        }
+    });
+});

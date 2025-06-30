@@ -1,0 +1,15 @@
+{
+  "name": "image-optimization",
+  "version": "1.0.0",
+  "description": "Image optimization for iBridge website",
+  "scripts": {
+    "optimize": "node optimize-images.js"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "imagemin": "^9.0.1",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-webp": "^8.0.0",
+    "uglify-js": "^3.19.3"
+  }
+}

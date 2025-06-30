@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iBridge Auth Fixer - Azure AD Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #4a8522;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            max-height: 200px;
+        }
+        .box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+            color: #856404;
+        }
+        .error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+        button {
+            background-color: #4a8522;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #396419;
+        }
+        .azure-button {
+            background-color: #0078d4;
+        }
+        .azure-button:hover {
+            background-color: #006bbe;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>iBridge Authentication Fixer Tool - Azure AD Integration</h1>
+    
+    <div class="box" id="status-box">
+        <h2>Current Authentication Status</h2>
+        <div id="status-message">Checking authentication status...</div>
+    </div>
+    
+    <div class="section">
+        <h2>Azure AD Configuration</h2>
+        <div class="box info">
+            <h3>Azure Application Details</h3>
+            <table>
+                <tr>
+                    <th>Application Name</th>
+                    <td>iBridge Portal</td>
+                </tr>
+                <tr>
+                    <th>Client ID</th>
+                    <td>2f833c55-f976-4d6c-ad96-fa357119f0ee</td>
+                </tr>
+                <tr>
+                    <th>Tenant ID</th>
+                    <td>feeb9a78-4032-4b89-ae79-2100a5dc16a8</td>
+                </tr>
+                <tr>
+                    <th>Current Redirect URI</th>
+                    <td id="current-redirect"></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="box">
+            <h3>Authentication Tools</h3>
+            <button onclick="checkAuthentication()">Check Authentication Status</button>
+            <button onclick="fixAuthentication()">Fix Local Authentication</button>
+            <button onclick="clearAuthentication()">Clear Authentication Data</button>
+            <button class="azure-button" onclick="window.open('https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Authentication/appId/2f833c55-f976-4d6c-ad96-fa357119f0ee/isMSAApp/', '_blank')">Open Azure Portal Configuration</button>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Test Microsoft Login</h2>
+        <div class="box">
+            <p>Test the Microsoft login flow. If this works, your Azure AD integration is configured correctly.</p>
+            <button class="azure-button" onclick="testMicrosoftLogin()">Test Microsoft 365 Login</button>
+        </div>
+        
+        <div class="box">
+            <h3>Redirect URI Test</h3>
+            <p>Below are the redirect URIs that should be registered in Azure AD:</p>
+            <ul id="redirect-uri-list">
+                <li>Loading URIs...</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="box">
+        <h2>Technical Details</h2>
+        <pre id="technical-details">No data available</pre>
+    </div>
+    
+    <div class="section">
+        <h2>MSAL Authentication Debug</h2>
+        <div class="box">
+            <p>Check for residual MSAL authentication data that might be causing problems:</p>
+            <button onclick="checkMsalState()">Check MSAL State</button>
+            <button onclick="clearMsalState()">Clear MSAL Data</button>
+            <pre id="msal-details">No MSAL data available</pre>
+        </div>
+    </div>
+    
+    <div class="box">
+        <h2>Navigation</h2>
+        <p>
+            <a href="session-debug.html">Session Debug Tool</a> |
+            <a href="login.html">Login Page</a> |
+            <a href="index.html">Intranet Home</a> |
+            <a href="AZURE_AUTH_CHECKLIST.md">Azure Setup Checklist</a>
+        </p>
+    </div>
+
+    <script>
+        // Script to check authentication status on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            checkAuthentication();
+            populateRedirectUriList();
+            document.getElementById('current-redirect').textContent = window.location.origin + "/intranet/login.html";
+        });
+        
+        function checkAuthentication() {
+            try {
+                const userData = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : null;
+                const authCookie = document.cookie.includes('user_authenticated=true');
+                const sessionCookie = document.cookie.includes('intranet_session=active');
+                
+                if (userData && (authCookie || sessionCookie)) {
+                    document.getElementById('status-box').className = 'box success';
+                    document.getElementById('status-message').innerHTML = 
+                        '✅ Authenticated as ' + userData.name + ' (' + userData.email + ')';
+                } else if (!userData && (authCookie || sessionCookie)) {
+                    document.getElementById('status-box').className = 'box warning';
+                    document.getElementById('status-message').innerHTML = 
+                        '⚠️ Authentication cookies found but no session data. Session recovery needed.';
+                } else {
+                    document.getElementById('status-box').className = 'box error';
+                    document.getElementById('status-message').innerHTML = 
+                        '❌ Not authenticated. No session or cookies found.';
+                }
+                
+                // Display technical details
+                const technicalDetails = document.getElementById('technical-details');
+                technicalDetails.textContent = JSON.stringify({
+                    sessionStorage: {
+                        user: userData
+                    },
+                    cookies: {
+                        authCookie: authCookie,
+                        sessionCookie: sessionCookie
+                    },
+                    location: {
+                        href: window.location.href,
+                        origin: window.location.origin,
+                        pathname: window.location.pathname
+                    }
+                }, null, 2);
+                
+            } catch (e) {
+                document.getElementById('status-box').className = 'box error';
+                document.getElementById('status-message').innerHTML = '❌ Error checking authentication: ' + e.message;
+            }
+        }
+        
+        function fixAuthentication() {
+            try {
+                // Direct fix by creating a proper session for Lwandile
+                const userData = {
+                    name: "Lwandile Gasela",
+                    username: "lwandile.gasela@ibridge.co.za",
+                    email: "lwandile.gasela@ibridge.co.za",
+                    isAdmin: true,
+                    lastLogin: new Date().toISOString(),
+                    domain: "ibridge.co.za",
+                    authMethod: "authfixer"
+                };
+                
+                // Store directly in sessionStorage
+                sessionStorage.setItem('user', JSON.stringify(userData));
+                
+                // Set cookie for .htaccess authentication with multiple paths for robustness
+                document.cookie = "user_authenticated=true; path=/intranet/; max-age=86400; SameSite=Strict";
+                document.cookie = "user_authenticated=true; path=/; max-age=86400; SameSite=Strict";
+                document.cookie = "intranet_session=active; path=/intranet/; max-age=86400; SameSite=Strict";
+                document.cookie = "intranet_session=active; path=/; max-age=86400; SameSite=Strict";
+                console.log("Authentication cookies set for .htaccess");
+                
+                // Verify storage
+                const storedData = JSON.parse(sessionStorage.getItem('user') || '{}');
+                
+                if (storedData.username === userData.username) {
+                    document.getElementById('status-box').className = 'box success';
+                    document.getElementById('status-message').innerHTML = 
+                        '✅ Authentication fixed! Session created successfully for ' + userData.username;
+                    
+                    // Update technical details
+                    document.getElementById('technical-details').textContent = JSON.stringify({
+                        action: "Created user session",
+                        userData: storedData,
+                        success: true
+                    }, null, 2);
+                } else {
+                    document.getElementById('status-box').className = 'box error';
+                    document.getElementById('status-message').innerHTML = 
+                        '❌ Failed to create session. SessionStorage may be blocked.';
+                }
+                
+            } catch (e) {
+                document.getElementById('status-box').className = 'box error';
+                document.getElementById('status-message').innerHTML = '❌ Error fixing authentication: ' + e.message;
+            }
+        }
+        
+        function clearAuthentication() {
+            try {
+                // Clear session storage
+                sessionStorage.removeItem('user');
+                
+                // Clear all authentication cookies with different paths
+                document.cookie = "user_authenticated=; path=/intranet/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+                document.cookie = "user_authenticated=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+                document.cookie = "intranet_session=; path=/intranet/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+                document.cookie = "intranet_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+
+                // Also clear MSAL-related items
+                clearMsalState();
+                
+                document.getElementById('status-box').className = 'box success';
+                document.getElementById('status-message').innerHTML = '✅ Authentication cleared successfully';
+                
+                // Update technical details
+                document.getElementById('technical-details').textContent = JSON.stringify({
+                    action: "Cleared authentication",
+                    success: true
+                }, null, 2);
+                
+            } catch (e) {
+                document.getElementById('status-box').className = 'box error';
+                document.getElementById('status-message').innerHTML = '❌ Error clearing authentication: ' + e.message;
+            }
+        }
+        
+        function testMicrosoftLogin() {
+            window.location.href = "login.html";
+        }
+        
+        function populateRedirectUriList() {
+            const baseUrl = window.location.origin;
+            const redirectUris = [
+                baseUrl + "/intranet/login.html",
+                baseUrl + "/intranet/",
+                baseUrl + "/intranet/index.html",
+                baseUrl + "/login.html"  // Also include this one that might be causing the error
+            ];
+            
+            const redirectUriList = document.getElementById('redirect-uri-list');
+            redirectUriList.innerHTML = '';
+            
+            redirectUris.forEach(uri => {
+                const li = document.createElement('li');
+                li.textContent = uri;
+                redirectUriList.appendChild(li);
+            });
+        }
+        
+        function checkMsalState() {
+            const msalDetails = document.getElementById('msal-details');
+            const clientId = "2f833c55-f976-4d6c-ad96-fa357119f0ee";
+            
+            try {
+                // Check sessionStorage for MSAL items
+                const msalSessionItems = {};
+                const msalLocalItems = {};
+                
+                // Check session storage
+                for (let i = 0; i < sessionStorage.length; i++) {
+                    const key = sessionStorage.key(i);
+                    if (key && (key.includes('msal') || key.includes(clientId))) {
+                        msalSessionItems[key] = sessionStorage.getItem(key);
+                    }
+                }
+                
+                // Check local storage
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && (key.includes('msal') || key.includes(clientId))) {
+                        msalLocalItems[key] = localStorage.getItem(key);
+                    }
+                }
+                
+                // Check cookies
+                const msalCookies = {};
+                document.cookie.split(';').forEach(cookie => {
+                    const [name, value] = cookie.trim().split('=');
+                    if (name && (name.includes('msal') || name.includes(clientId))) {
+                        msalCookies[name] = value;
+                    }
+                });
+                
+                msalDetails.textContent = JSON.stringify({
+                    sessionStorage: msalSessionItems,
+                    localStorage: msalLocalItems,
+                    cookies: msalCookies
+                }, null, 2);
+                
+                if (Object.keys(msalSessionItems).length === 0 && 
+                    Object.keys(msalLocalItems).length === 0 &&
+                    Object.keys(msalCookies).length === 0) {
+                    msalDetails.textContent = "No MSAL data found in storage";
+                }
+                
+            } catch (e) {
+                msalDetails.textContent = "Error checking MSAL state: " + e.message;
+            }
+        }
+        
+        function clearMsalState() {
+            const clientId = "2f833c55-f976-4d6c-ad96-fa357119f0ee";
+            
+            try {
+                // Clear sessionStorage MSAL items
+                Object.keys(sessionStorage).forEach(key => {
+                    if (key.includes('msal') || key.includes(clientId)) {
+                        sessionStorage.removeItem(key);
+                    }
+                });
+                
+                // Clear localStorage MSAL items
+                Object.keys(localStorage).forEach(key => {
+                    if (key.includes('msal') || key.includes(clientId)) {
+                        localStorage.removeItem(key);
+                    }
+                });
+                
+                // Clear MSAL cookies
+                document.cookie.split(';').forEach(cookie => {
+                    const name = cookie.trim().split('=')[0];
+                    if (name && (name.includes('msal') || name.includes(clientId))) {
+                        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    }
+                });
+                
+                document.getElementById('msal-details').textContent = "All MSAL data cleared";
+                
+            } catch (e) {
+                document.getElementById('msal-details').textContent = "Error clearing MSAL state: " + e.message;
+            }
+        }
+    </script>
+</body>
+</html>

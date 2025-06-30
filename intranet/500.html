@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Server Error - iBridge Staff Portal">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Server Error | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/intranet-styles.css">
+    <link rel="stylesheet" href="css/intranet-enhanced.css">
+    
+    <style>
+        .error-page {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+        
+        .error-container {
+            text-align: center;
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .error-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--intranet-primary) 0%, var(--intranet-secondary) 100%);
+        }
+        
+        .error-icon-wrapper {
+            width: 140px;
+            height: 140px;
+            background-color: #fef5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            border: 1px solid rgba(231, 76, 60, 0.2);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.15);
+        }
+        
+        .error-icon {
+            font-size: 70px;
+            color: #e74c3c;
+        }
+        
+        .error-title {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--intranet-text-dark);
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -0.5px;
+        }
+        
+        .error-code {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--intranet-text-muted);
+            margin-bottom: 10px;
+            padding: 5px 15px;
+            background-color: #f8f9fa;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        
+        .error-message {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: var(--intranet-text-muted);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .error-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-home {
+            background-color: var(--intranet-primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(161, 196, 79, 0.3);
+            border: none;
+            min-width: 180px;
+        }
+        
+        .btn-home:hover {
+            background-color: var(--intranet-secondary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(161, 196, 79, 0.4);
+        }
+        
+        .btn-support {
+            background-color: transparent;
+            color: var(--intranet-text-dark);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid var(--intranet-border);
+            min-width: 180px;
+        }
+        
+        .btn-support:hover {
+            background-color: #f8f9fa;
+            border-color: var(--intranet-primary);
+            transform: translateY(-2px);
+        }
+        
+        .timestamp {
+            font-size: 13px;
+            color: var(--intranet-text-muted);
+            margin-top: 40px;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .error-container {
+                padding: 60px 15px;
+                margin: 20px;
+                max-width: none;
+            }
+            
+            .error-title {
+                font-size: 32px;
+            }
+            
+            .error-icon-wrapper {
+                width: 110px;
+                height: 110px;
+            }
+            
+            .error-icon {
+                font-size: 50px;
+            }
+            
+            .error-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-home, .btn-support {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="intranet error-page">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header will be loaded dynamically -->
+    <div id="header-placeholder"></div>
+    
+    <main class="container" id="main-content">
+        <div class="error-container">
+            <div class="error-icon-wrapper">
+                <i class="fas fa-exclamation-triangle error-icon"></i>
+            </div>
+            <div class="error-code">500</div>
+            <h1 class="error-title">Server Error</h1>
+            <p class="error-message">We're sorry, but something went wrong on our server. Our team has been notified and is working on fixing the issue as quickly as possible. Please try again later or contact IT support if the problem persists.</p>
+            
+            <div class="error-actions">
+                <a href="index.html" class="btn btn-home">
+                    <i class="fas fa-home me-2"></i> Return to Dashboard
+                </a>
+                <a href="help.html" class="btn btn-support">
+                    <i class="fas fa-headset me-2"></i> Contact IT Support
+                </a>
+            </div>
+            
+            <p class="timestamp">Error occurred: <span id="current-time"></span></p>
+        </div>
+    </main>
+    
+    <!-- Footer will be loaded dynamically -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/intranet.js"></script>
+    <script>
+        // Set the current time for the error timestamp
+        document.addEventListener('DOMContentLoaded', function() {
+            const timeElement = document.getElementById('current-time');
+            if (timeElement) {
+                const now = new Date();
+                const options = { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric', 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    second: '2-digit'
+                };
+                timeElement.textContent = now.toLocaleDateString('en-US', options);
+            }
+        });
+    </script>
+</body>
+</html>

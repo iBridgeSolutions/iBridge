@@ -360,6 +360,25 @@ p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Portal Login Button */
+.nav-portal-btn {
+    background-color: var(--accent);
+    color: white !important;
+    border-radius: var(--border-radius-md);
+    padding: 0.6rem 1.2rem !important;
+    margin-right: 0.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-portal-btn:hover, .nav-portal-btn:focus {
+    background-color: var(--accent-secondary);
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* Dropdown Menu */
 .has-dropdown {
     position: relative;

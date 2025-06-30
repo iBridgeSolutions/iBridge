@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path Test | iBridge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #4a8522;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .debug-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .actions {
+            margin-top: 20px;
+        }
+        button {
+            background: #4a8522;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background: #3d6e1c;
+        }
+    </style>
+</head>
+<body>
+    <h1>iBridge Path Test Tool</h1>
+    
+    <div class="debug-box">
+        <h2>URL Information</h2>
+        <pre id="urlInfo">Loading...</pre>
+    </div>
+    
+    <div class="debug-box">
+        <h2>Cookie Status</h2>
+        <pre id="cookieInfo">Loading...</pre>
+    </div>
+    
+    <div class="actions">
+        <button onclick="setAuthCookie()">Set Auth Cookie</button>
+        <button onclick="clearAuthCookie()">Clear Auth Cookie</button>
+        <button onclick="goToIndex()">Go to Index</button>
+        <button onclick="goToAuthFixer()">Go to Auth Fixer</button>
+    </div>
+    
+    <script>
+        // Display URL information
+        function displayUrlInfo() {
+            const urlInfo = {
+                href: window.location.href,
+                origin: window.location.origin,
+                protocol: window.location.protocol,
+                hostname: window.location.hostname,
+                port: window.location.port,
+                pathname: window.location.pathname,
+                search: window.location.search,
+                hash: window.location.hash,
+                baseURL: document.baseURI
+            };
+            
+            document.getElementById('urlInfo').textContent = JSON.stringify(urlInfo, null, 2);
+        }
+        
+        // Display cookie information
+        function displayCookieInfo() {
+            const cookies = document.cookie.split(';')
+                .map(cookie => cookie.trim())
+                .reduce((acc, cookie) => {
+                    if (cookie) {
+                        const [key, value] = cookie.split('=');
+                        acc[key] = value;
+                    }
+                    return acc;
+                }, {});
+            
+            document.getElementById('cookieInfo').textContent = 
+                Object.keys(cookies).length > 0 ? 
+                JSON.stringify(cookies, null, 2) : 
+                "No cookies found";
+                
+            // Check specifically for auth cookie
+            const hasAuthCookie = document.cookie
+                .split(';')
+                .some(c => c.trim().startsWith('user_authenticated=true'));
+                
+            if (hasAuthCookie) {
+                document.getElementById('cookieInfo').textContent += "\n\nAuth Cookie: Present ✓";
+            } else {
+                document.getElementById('cookieInfo').textContent += "\n\nAuth Cookie: Missing ✗";
+            }
+        }
+        
+        // Set authentication cookie
+        function setAuthCookie() {
+            document.cookie = "user_authenticated=true; path=/intranet/; max-age=3600; SameSite=Strict";
+            displayCookieInfo();
+            alert("Authentication cookie set");
+        }
+        
+        // Clear authentication cookie
+        function clearAuthCookie() {
+            document.cookie = "user_authenticated=; path=/intranet/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict";
+            displayCookieInfo();
+            alert("Authentication cookie cleared");
+        }
+        
+        // Navigation functions
+        function goToIndex() {
+            const indexPath = window.location.origin + 
+                (window.location.pathname.includes('/intranet/') ? '/intranet/index.html' : '/index.html');
+            window.location.href = indexPath;
+        }
+        
+        function goToAuthFixer() {
+            const fixerPath = window.location.origin + 
+                (window.location.pathname.includes('/intranet/') ? '/intranet/auth-fixer.html' : '/auth-fixer.html');
+            window.location.href = fixerPath;
+        }
+        
+        // Initialize
+        displayUrlInfo();
+        displayCookieInfo();
+    </script>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="iBridge Intranet Staff Directory - Find and contact colleagues across the organization">
+    <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing of internal pages -->
+    <title>Staff Directory | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/intranet-styles.css">
+    <link rel="stylesheet" href="css/intranet-enhanced.css">
+</head>
+<body class="intranet-page directory-page">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header will be loaded dynamically -->
+    <div id="header-container"></div>
+    
+    <div class="intranet-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item">
+                    <a href="index.html" class="sidebar-menu-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="news.html" class="sidebar-menu-link">
+                        <i class="fas fa-newspaper"></i> Newsboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="teams.html" class="sidebar-menu-link">
+                        <i class="fas fa-users"></i> Teams
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="directory.html" class="sidebar-menu-link active">
+                        <i class="fas fa-address-book"></i> Directory
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="resources.html" class="sidebar-menu-link">
+                        <i class="fas fa-folder-open"></i> Resources
+                    </a>
+                </li>
+                <li class="sidebar-menu-item sidebar-menu-item--admin">
+                    <a href="insights.html" class="sidebar-menu-link">
+                        <i class="fas fa-chart-line"></i> Insights
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="calendar.html" class="sidebar-menu-link">
+                        <i class="fas fa-calendar"></i> Calendar
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="help.html" class="sidebar-menu-link">
+                        <i class="fas fa-question-circle"></i> Help
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-user">
+                <div class="sidebar-user-info">
+                    <img src="images/default-avatar.jpg" alt="User Avatar" class="sidebar-user-avatar">
+                    <div class="sidebar-user-details">
+                        <h5 class="sidebar-user-name">Loading...</h5>
+                        <p class="sidebar-user-role">Loading...</p>
+                    </div>
+                </div>
+                <button class="btn btn-outline-light btn-sm sidebar-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+        
+        <main class="main-content" id="main-content">
+            <div class="content-header">
+                <h1 class="page-title"><i class="fas fa-address-book"></i> Staff Directory</h1>
+                <p class="page-description">Find and connect with colleagues across the organization</p>
+            </div>
+            
+            <div class="directory-filters">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="fas fa-search text-muted"></i>
+                            </span>
+                            <input type="text" id="directory-search" class="form-control search-input border-start-0" placeholder="Search by name, title, or email...">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="filter-section">
+                            <label class="form-label mb-2">Filter by Department:</label>
+                            <div class="department-filters">
+                                <button class="department-filter-btn active" data-department="all">All</button>
+                                <button class="department-filter-btn" data-department="executive">Executive</button>
+                                <button class="department-filter-btn" data-department="contact-center">Contact Center</button>
+                                <button class="department-filter-btn" data-department="sales">Sales</button>
+                                <button class="department-filter-btn" data-department="it">IT</button>
+                                <button class="department-filter-btn" data-department="hr">HR</button>
+                                <button class="department-filter-btn" data-department="finance">Finance</button>
+                                <button class="department-filter-btn" data-department="operations">Operations</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" id="staff-directory">
+                <!-- Executive Team -->
+                <div class="col-lg-4 col-md-6 mb-4" data-department="executive">
+                    <div class="staff-card">
+                        <div class="text-center">
+                            <img src="images/default-avatar.jpg" alt="CEO Portrait" class="staff-photo">
+                            <h3 class="staff-name">John Smith</h3>
+                            <p class="staff-title">Chief Executive Officer</p>
+                            <div class="staff-contact mb-3">
+                                <p><a href="mailto:john.smith@ibridge.co.za"><i class="fas fa-envelope me-2"></i>john.smith@ibridge.co.za</a></p>
+                                <p><a href="tel:+27123456789"><i class="fas fa-phone-alt me-2"></i>+27 12 345 6789</a></p>
+                            </div>
+                            <button class="btn btn-sm view-profile-btn">
+                                <i class="fas fa-id-card me-1"></i> View Profile
+                            </button>
+                        </div>
+                        <span class="department-badge">Executive</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4" data-department="executive">
+                    <div class="staff-card">
+                        <div class="text-center">
+                            <img src="images/default-avatar.jpg" alt="CFO Portrait" class="staff-photo">
+                            <h3 class="staff-name">Sarah Johnson</h3>
+                            <p class="staff-title">Chief Financial Officer</p>
+                            <div class="staff-contact mb-3">
+                                <p><a href="mailto:sarah.johnson@ibridge.co.za"><i class="fas fa-envelope me-2"></i>sarah.johnson@ibridge.co.za</a></p>
+                                <p><a href="tel:+27123456790"><i class="fas fa-phone-alt me-2"></i>+27 12 345 6790</a></p>
+                            </div>
+                            <button class="btn btn-sm view-profile-btn">
+                                <i class="fas fa-id-card me-1"></i> View Profile
+                            </button>
+                        </div>
+                        <span class="department-badge">Executive</span>
+                    </div>
+                </div>
+
+                <!-- Contact Center Team -->
+                <div class="col-lg-4 col-md-6 mb-4" data-department="contact-center">
+                    <div class="staff-card">
+                        <div class="text-center">
+                            <img src="images/default-avatar.jpg" alt="Contact Center Manager Portrait" class="staff-photo">
+                            <h3 class="staff-name">Michael Brown</h3>
+                            <p class="staff-title">Contact Center Manager</p>
+                            <div class="staff-contact mb-3">
+                                <p><a href="mailto:michael.brown@ibridge.co.za"><i class="fas fa-envelope me-2"></i>michael.brown@ibridge.co.za</a></p>
+                                <p><a href="tel:+27123456791"><i class="fas fa-phone-alt me-2"></i>+27 12 345 6791</a></p>
+                            </div>
+                            <button class="btn btn-sm view-profile-btn">
+                                <i class="fas fa-id-card me-1"></i> View Profile
+                            </button>
+                        </div>
+                        <span class="department-badge">Contact Center</span>
+                    </div>
+                </div>
+
+                <!-- IT Team -->
+                <div class="col-lg-4 col-md-6 mb-4" data-department="it">
+                    <div class="staff-card">
+                        <div class="text-center">
+                            <img src="images/default-avatar.jpg" alt="IT Director Portrait" class="staff-photo">
+                            <h3 class="staff-name">Lwandile Gasela</h3>
+                            <p class="staff-title">IT Director</p>
+                            <div class="staff-contact mb-3">
+                                <p><a href="mailto:lwandile.gasela@ibridge.co.za"><i class="fas fa-envelope me-2"></i>lwandile.gasela@ibridge.co.za</a></p>
+                                <p><a href="tel:+27123456792"><i class="fas fa-phone-alt me-2"></i>+27 12 345 6792</a></p>
+                            </div>
+                            <button class="btn btn-sm view-profile-btn">
+                                <i class="fas fa-id-card me-1"></i> View Profile
+                            </button>
+                        </div>
+                        <span class="department-badge">IT</span>
+                    </div>
+                </div>
+
+                <!-- HR Team -->
+                <div class="col-lg-4 col-md-6 mb-4" data-department="hr">
+                    <div class="staff-card">
+                        <div class="text-center">
+                            <img src="images/default-avatar.jpg" alt="HR Manager Portrait" class="staff-photo">
+                            <h3 class="staff-name">Thandi Mkhize</h3>
+                            <p class="staff-title">HR Manager</p>
+                            <div class="staff-contact mb-3">
+                                <p><a href="mailto:thandi.mkhize@ibridge.co.za"><i class="fas fa-envelope me-2"></i>thandi.mkhize@ibridge.co.za</a></p>
+                                <p><a href="tel:+27123456793"><i class="fas fa-phone-alt me-2"></i>+27 12 345 6793</a></p>
+                            </div>
+                            <button class="btn btn-sm view-profile-btn">
+                                <i class="fas fa-id-card me-1"></i> View Profile
+                            </button>
+                        </div>
+                        <span class="department-badge">HR</span>
+                    </div>
+                </div>
+
+                <!-- Operations Team -->
+                <div class="col-lg-4 col-md-6 mb-4" data-department="operations">
+                    <div class="staff-card">
+                        <div class="text-center">
+                            <img src="images/default-avatar.jpg" alt="Operations Director Portrait" class="staff-photo">
+                            <h3 class="staff-name">James Wilson</h3>
+                            <p class="staff-title">Operations Director</p>
+                            <div class="staff-contact mb-3">
+                                <p><a href="mailto:james.wilson@ibridge.co.za"><i class="fas fa-envelope me-2"></i>james.wilson@ibridge.co.za</a></p>
+                                <p><a href="tel:+27123456794"><i class="fas fa-phone-alt me-2"></i>+27 12 345 6794</a></p>
+                            </div>
+                            <button class="btn btn-sm view-profile-btn">
+                                <i class="fas fa-id-card me-1"></i> View Profile
+                            </button>
+                        </div>
+                        <span class="department-badge">Operations</span>
+                    </div>
+                </div>
+
+                <!-- Sales Team -->
+                <div class="col-lg-4 col-md-6 mb-4" data-department="sales">
+                    <div class="staff-card">
+                        <div class="text-center">
+                            <img src="images/default-avatar.jpg" alt="Sales Manager Portrait" class="staff-photo">
+                            <h3 class="staff-name">Lisa van Wyk</h3>
+                            <p class="staff-title">Sales Manager</p>
+                            <div class="staff-contact mb-3">
+                                <p><a href="mailto:lisa.vanwyk@ibridge.co.za"><i class="fas fa-envelope me-2"></i>lisa.vanwyk@ibridge.co.za</a></p>
+                                <p><a href="tel:+27123456795"><i class="fas fa-phone-alt me-2"></i>+27 12 345 6795</a></p>
+                            </div>
+                            <button class="btn btn-sm view-profile-btn">
+                                <i class="fas fa-id-card me-1"></i> View Profile
+                            </button>
+                        </div>
+                        <span class="department-badge">Sales</span>
+                    </div>
+                </div>
+
+                <!-- Finance Team -->
+                <div class="col-lg-4 col-md-6 mb-4" data-department="finance">
+                    <div class="staff-card">
+                        <div class="text-center">
+                            <img src="images/default-avatar.jpg" alt="Finance Manager Portrait" class="staff-photo">
+                            <h3 class="staff-name">Ahmed Patel</h3>
+                            <p class="staff-title">Finance Manager</p>
+                            <div class="staff-contact mb-3">
+                                <p><a href="mailto:ahmed.patel@ibridge.co.za"><i class="fas fa-envelope me-2"></i>ahmed.patel@ibridge.co.za</a></p>
+                                <p><a href="tel:+27123456796"><i class="fas fa-phone-alt me-2"></i>+27 12 345 6796</a></p>
+                            </div>
+                            <button class="btn btn-sm view-profile-btn">
+                                <i class="fas fa-id-card me-1"></i> View Profile
+                            </button>
+                        </div>
+                        <span class="department-badge">Finance</span>
+                    </div>
+                </div>
+
+                <!-- More staff entries will be dynamically loaded via JavaScript -->
+            </div>
+            
+            <div class="text-center py-4" id="load-more-container">
+                <button id="load-more-btn" class="btn btn-outline-secondary">
+                    <i class="fas fa-sync-alt me-2"></i> Load More Staff
+                </button>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Footer will be loaded dynamically -->
+    <div id="footer-container"></div>
+    
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- MSAL -->
+    <script src="https://alcdn.msauth.net/browser/2.30.0/js/msal-browser.js"></script>
+    <!-- iBridge Intranet JavaScript -->
+    <script src="js/intranet.js"></script>
+
+    <script>
+        // Directory specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Only run after the main intranet.js has loaded user data
+            setTimeout(initializeDirectory, 500);
+            
+            function initializeDirectory() {
+                // Filter functionality
+                const filterBtns = document.querySelectorAll('.department-filter-btn');
+                const searchInput = document.getElementById('directory-search');
+                const staffCards = document.querySelectorAll('[data-department]');
+                
+                // Department filter buttons
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const department = this.getAttribute('data-department');
+                        
+                        // Update active button
+                        filterBtns.forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Filter cards
+                        staffCards.forEach(card => {
+                            if (department === 'all' || card.getAttribute('data-department') === department) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                        
+                        // Also apply search filter
+                        applySearchFilter();
+                    });
+                });
+                
+                // Search functionality
+                searchInput.addEventListener('input', applySearchFilter);
+                
+                function applySearchFilter() {
+                    const searchValue = searchInput.value.toLowerCase();
+                    const activeDepartment = document.querySelector('.department-filter-btn.active').getAttribute('data-department');
+                    
+                    staffCards.forEach(card => {
+                        const cardContent = card.textContent.toLowerCase();
+                        const cardDepartment = card.getAttribute('data-department');
+                        const departmentMatch = activeDepartment === 'all' || cardDepartment === activeDepartment;
+                        
+                        if (departmentMatch && cardContent.includes(searchValue)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+                
+                // "Load More" button functionality
+                const loadMoreBtn = document.getElementById('load-more-btn');
+                
+                loadMoreBtn.addEventListener('click', function() {
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Loading...';
+                    
+                    // Simulate loading more staff (would be replaced with actual API call)
+                    setTimeout(function() {
+                        loadMoreBtn.innerHTML = '<i class="fas fa-check me-2"></i> All Staff Loaded';
+                        loadMoreBtn.disabled = true;
+                    }, 1500);
+                });
+                
+                // Make staff cards interactive
+                const profileBtns = document.querySelectorAll('.staff-card .btn');
+                
+                profileBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const staffName = this.closest('.staff-card').querySelector('.staff-name').textContent;
+                        alert(`Profile for ${staffName} would open here.`);
+                        // In a real implementation, this would open a modal or navigate to a profile page
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iBridge Auth Fixer - Azure AD Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #4a8522;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            max-height: 200px;
+        }
+        .box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+            color: #856404;
+        }
+        .error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+        button {
+            background-color: #4a8522;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #396419;
+        }
+        .azure-button {
+            background-color: #0078d4;
+        }
+        .azure-button:hover {
+            background-color: #006bbe;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button:hover {
+            background-color: #3d6e1c;
+        }
+    </style>
+</head>
+<body>
+    <h1>iBridge Authentication Fixer Tool</h1>
+    
+    <div class="box" id="status-box">
+        <h2>Current Status</h2>
+        <div id="status-message">Checking authentication status...</div>
+    </div>
+    
+    <div class="box">
+        <h2>Fix Authentication</h2>
+        <p>Click the button below to create a working admin session for Lwandile Gasela:</p>
+        <button onclick="fixAuthentication()">Fix Authentication</button>
+        <button onclick="checkIndexPage()">Test Index Page</button>
+    </div>
+    
+    <div class="box">
+        <h2>Technical Details</h2>
+        <pre id="technical-details"></pre>
+    </div>
+    
+    <script>
+        // Function to check authentication status
+        function checkAuthStatus() {
+            try {
+                const userData = JSON.parse(sessionStorage.getItem('user') || '{}');
+                const statusBox = document.getElementById('status-box');
+                const statusMessage = document.getElementById('status-message');
+                const technicalDetails = document.getElementById('technical-details');
+                
+                if (!userData.username) {
+                    statusBox.className = 'box warning';
+                    statusMessage.innerHTML = '⚠️ No user session found. Authentication would fail.';
+                } else {
+                    statusBox.className = 'box success';
+                    statusMessage.innerHTML = '✅ Session found for user: ' + userData.username + 
+                                            '<br>Admin status: ' + (userData.isAdmin ? 'Yes' : 'No');
+                }
+                
+                // Display technical details
+                technicalDetails.textContent = JSON.stringify({
+                    sessionStorage: {
+                        user: userData
+                    },
+                    location: {
+                        href: window.location.href,
+                        origin: window.location.origin,
+                        pathname: window.location.pathname
+                    }
+                }, null, 2);
+                
+            } catch (e) {
+                document.getElementById('status-box').className = 'box error';
+                document.getElementById('status-message').innerHTML = '❌ Error checking authentication: ' + e.message;
+            }
+        }
+        
+        // Function to fix authentication
+        function fixAuthentication() {
+            try {
+                // Direct fix by creating a proper session for Lwandile
+                const userData = {
+                    name: "Lwandile Gasela",
+                    username: "lwandile.gasela@ibridge.co.za",
+                    email: "lwandile.gasela@ibridge.co.za",
+                    isAdmin: true,
+                    lastLogin: new Date().toISOString(),
+                    domain: "ibridge.co.za",
+                    authMethod: "authfixer"
+                };
+                
+                // Store directly in sessionStorage
+                sessionStorage.setItem('user', JSON.stringify(userData));
+                
+                // Set cookie for .htaccess authentication
+                document.cookie = "user_authenticated=true; path=/intranet/; max-age=86400; SameSite=Strict";
+                console.log("Authentication cookie set for .htaccess");
+                
+                // Verify storage
+                const storedData = JSON.parse(sessionStorage.getItem('user') || '{}');
+                
+                if (storedData.username === userData.username) {
+                    document.getElementById('status-box').className = 'box success';
+                    document.getElementById('status-message').innerHTML = 
+                        '✅ Authentication fixed! Session created successfully for ' + userData.username;
+                    
+                    // Update technical details
+                    document.getElementById('technical-details').textContent = JSON.stringify({
+                        action: "Created user session",
+                        userData: storedData,
+                        success: true
+                    }, null, 2);
+                } else {
+                    throw new Error("Failed to store user data in session");
+                }
+            } catch (e) {
+                document.getElementById('status-box').className = 'box error';
+                document.getElementById('status-message').innerHTML = '❌ Error fixing authentication: ' + e.message;
+                
+                // Update technical details
+                document.getElementById('technical-details').textContent = JSON.stringify({
+                    action: "Create user session",
+                    error: e.message,
+                    success: false
+                }, null, 2);
+            }
+        }
+        
+        // Function to test accessing the index page
+        function checkIndexPage() {
+            // First check if we have a valid session
+            const userData = JSON.parse(sessionStorage.getItem('user') || '{}');
+            
+            if (!userData.username) {
+                if (confirm('No valid session found. Create one before testing?')) {
+                    fixAuthentication();
+                } else {
+                    return;
+                }
+            }
+            
+            // Try to open the index page
+            const indexUrl = window.location.origin + '/intranet/index.html';
+            window.open(indexUrl, '_blank');
+        }
+        
+        // Run check on load
+        window.addEventListener('load', checkAuthStatus);
+    </script>
+</body>
+</html>

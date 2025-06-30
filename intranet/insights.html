@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="iBridge Intranet Insights - Analytics and data for management">
+    <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing of internal pages -->
+    <title>Insights | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/intranet-styles.css">
+    <link rel="stylesheet" href="css/intranet-enhanced.css">
+    
+    <style>
+        /* Moving these styles to intranet-enhanced.css */
+        .insights-container {
+            background-color: var(--intranet-card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--intranet-border);
+        }
+        
+        .metric-card {
+            background-color: var(--intranet-card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--intranet-primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2.5rem;
+            opacity: 0.1;
+            color: var(--intranet-primary);
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--intranet-primary);
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            color: var(--intranet-text-light);
+            margin-bottom: 10px;
+        }
+        
+        .metric-trend {
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .metric-trend-up {
+            color: var(--intranet-success);
+        }
+        
+        .metric-trend-down {
+            color: var(--intranet-danger);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 30px;
+        }
+        
+        .insights-tabs {
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--intranet-border);
+        }
+        
+        .insights-tab {
+            padding: 10px 20px;
+            font-weight: 500;
+            border-radius: 20px;
+            margin-right: 10px;
+            transition: all 0.2s ease;
+            background-color: transparent;
+            color: var(--intranet-text-dark);
+            border: 1px solid transparent;
+        }
+        
+        .insights-tab.active {
+            background-color: var(--intranet-primary);
+            color: white;
+        }
+        
+        .insights-tab:hover:not(.active) {
+            background-color: var(--intranet-background);
+            border-color: var(--intranet-border);
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 30px;
+        }
+        
+        .data-table th {
+            background-color: var(--intranet-background);
+            padding: 12px 15px;
+            font-weight: 600;
+            text-align: left;
+            border-bottom: 2px solid var(--intranet-border);
+        }
+        
+        .data-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--intranet-border);
+            vertical-align: middle;
+        }
+        
+        .data-table tr:hover {
+            background-color: rgba(161, 196, 79, 0.05);
+        }
+        
+        .insights-filters {
+            background-color: var(--intranet-card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--intranet-border);
+        }
+        
+        .date-range-btn {
+            background-color: white;
+            border: 1px solid var(--intranet-border);
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin-right: 10px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .date-range-btn.active {
+            background-color: var(--intranet-primary);
+            border-color: var(--intranet-primary);
+            color: white;
+        }
+        
+        .metric-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--intranet-success);
+        }
+        
+        .badge-warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--intranet-warning);
+        }
+        
+        .badge-danger {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--intranet-danger);
+        }
+        
+        .btn-export {
+            background-color: var(--intranet-primary);
+            color: white;
+            border-radius: 20px;
+            font-weight: 500;
+            padding: 8px 20px;
+        }
+        
+        .btn-export:hover {
+            background-color: var(--intranet-secondary);
+            color: white;
+        }
+    </style>
+</head>
+<body class="intranet-page insights-page">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header will be loaded dynamically -->
+    <div id="header-container"></div>
+    
+    <div class="intranet-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item">
+                    <a href="index.html" class="sidebar-menu-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="news.html" class="sidebar-menu-link">
+                        <i class="fas fa-newspaper"></i> Newsboard
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="teams.html" class="sidebar-menu-link">
+                        <i class="fas fa-users"></i> Teams
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="directory.html" class="sidebar-menu-link">
+                        <i class="fas fa-address-book"></i> Directory
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="resources.html" class="sidebar-menu-link">
+                        <i class="fas fa-folder-open"></i> Resources
+                    </a>
+                </li>
+                <li class="sidebar-menu-item sidebar-menu-item--admin">
+                    <a href="insights.html" class="sidebar-menu-link active">
+                        <i class="fas fa-chart-line"></i> Insights
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="calendar.html" class="sidebar-menu-link">
+                        <i class="fas fa-calendar"></i> Calendar
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="help.html" class="sidebar-menu-link">
+                        <i class="fas fa-question-circle"></i> Help
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-user">
+                <div class="sidebar-user-info">
+                    <img src="images/default-avatar.jpg" alt="User Avatar" class="sidebar-user-avatar">
+                    <div class="sidebar-user-details">
+                        <h5 class="sidebar-user-name">Loading...</h5>
+                        <p class="sidebar-user-role">Loading...</p>
+                    </div>
+                </div>
+                <button class="btn btn-outline-light btn-sm sidebar-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+        
+        <main class="main-content" id="main-content">
+            <div class="content-header">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="page-title"><i class="fas fa-chart-line"></i> Business Insights</h1>
+                        <p class="page-description">Analytics, reports and performance metrics</p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <button class="btn btn-export">
+                            <i class="fas fa-file-export me-2"></i> Export Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="insights-filters">
+                <div class="row align-items-center">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <div class="d-flex flex-wrap">
+                            <button class="date-range-btn" data-range="7">Last 7 days</button>
+                            <button class="date-range-btn active" data-range="30">Last 30 days</button>
+                            <button class="date-range-btn" data-range="90">Last 90 days</button>
+                            <button class="date-range-btn" data-range="year">Year to date</button>
+                            <button class="date-range-btn" data-range="custom">Custom Range</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="departmentFilter" class="visually-hidden">Filter by department</label>
+                                <select class="form-select" id="departmentFilter" title="Filter by department" aria-label="Filter by department">
+                                    <option value="all">All Departments</option>
+                                    <option value="contact-center">Contact Center</option>
+                                    <option value="sales">Sales</option>
+                                    <option value="operations">Operations</option>
+                                    <option value="it">IT</option>
+                                    <option value="hr">HR</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="metricFilter" class="visually-hidden">Filter by metric</label>
+                                <select class="form-select" id="metricFilter" title="Filter by metric" aria-label="Filter by metric">
+                                    <option value="all">All Metrics</option>
+                                    <option value="performance">Performance</option>
+                                    <option value="efficiency">Efficiency</option>
+                                    <option value="quality">Quality</option>
+                                    <option value="financial">Financial</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="metric-card">
+                        <i class="fas fa-headset metric-icon"></i>
+                        <div class="metric-value">98.2%</div>
+                        <div class="metric-label">Customer Satisfaction</div>
+                        <div class="metric-trend metric-trend-up">
+                            <i class="fas fa-arrow-up"></i> 2.3% from last month
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="metric-card">
+                        <i class="fas fa-clock metric-icon"></i>
+                        <div class="metric-value">00:42</div>
+                        <div class="metric-label">Average Handle Time</div>
+                        <div class="metric-trend metric-trend-down">
+                            <i class="fas fa-arrow-down"></i> 12s from last month
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="metric-card">
+                        <i class="fas fa-chart-bar metric-icon"></i>
+                        <div class="metric-value">82.7%</div>
+                        <div class="metric-label">First Contact Resolution</div>
+                        <div class="metric-trend metric-trend-up">
+                            <i class="fas fa-arrow-up"></i> 1.5% from last month
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="metric-card">
+                        <i class="fas fa-users metric-icon"></i>
+                        <div class="metric-value">97.3%</div>
+                        <div class="metric-label">Agent Occupancy</div>
+                        <div class="metric-trend metric-trend-up">
+                            <i class="fas fa-arrow-up"></i> 0.8% from last month
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="insights-tabs mt-4">
+                <button class="insights-tab active" data-tab="overview">Overview</button>
+                <button class="insights-tab" data-tab="performance">Performance</button>
+                <button class="insights-tab" data-tab="quality">Quality Assurance</button>
+                <button class="insights-tab" data-tab="efficiency">Efficiency</button>
+                <button class="insights-tab" data-tab="financial">Financial</button>
+            </div>
+            
+            <!-- Overview Tab Content -->
+            <div class="tab-content" id="tab-overview">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="insights-container">
+                            <h3 class="h5 mb-3">Monthly Performance Trends</h3>
+                            <div class="chart-container">
+                                <canvas id="performanceTrendChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="insights-container">
+                            <h3 class="h5 mb-3">Channel Distribution</h3>
+                            <div class="chart-container">
+                                <canvas id="channelDistributionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="insights-container mt-4">
+                    <h3 class="h5 mb-3">Key Performance Indicators</h3>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Current</th>
+                                    <th>Target</th>
+                                    <th>Last Month</th>
+                                    <th>Trend</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Customer Satisfaction</td>
+                                    <td>98.2%</td>
+                                    <td>95.0%</td>
+                                    <td>95.9%</td>
+                                    <td><i class="fas fa-arrow-up text-success"></i> +2.3%</td>
+                                    <td><span class="metric-badge badge-success">Exceeding</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Average Handle Time</td>
+                                    <td>00:42</td>
+                                    <td>00:45</td>
+                                    <td>00:54</td>
+                                    <td><i class="fas fa-arrow-down text-success"></i> -12s</td>
+                                    <td><span class="metric-badge badge-success">Exceeding</span></td>
+                                </tr>
+                                <tr>
+                                    <td>First Contact Resolution</td>
+                                    <td>82.7%</td>
+                                    <td>80.0%</td>
+                                    <td>81.2%</td>
+                                    <td><i class="fas fa-arrow-up text-success"></i> +1.5%</td>
+                                    <td><span class="metric-badge badge-success">Exceeding</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Agent Occupancy</td>
+                                    <td>97.3%</td>
+                                    <td>96.0%</td>
+                                    <td>96.5%</td>
+                                    <td><i class="fas fa-arrow-up text-success"></i> +0.8%</td>
+                                    <td><span class="metric-badge badge-success">Exceeding</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Average Speed of Answer</td>
+                                    <td>00:18</td>
+                                    <td>00:15</td>
+                                    <td>00:14</td>
+                                    <td><i class="fas fa-arrow-up text-warning"></i> +4s</td>
+                                    <td><span class="metric-badge badge-warning">At Risk</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Abandonment Rate</td>
+                                    <td>2.8%</td>
+                                    <td>2.0%</td>
+                                    <td>1.9%</td>
+                                    <td><i class="fas fa-arrow-up text-warning"></i> +0.9%</td>
+                                    <td><span class="metric-badge badge-warning">At Risk</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Agent Adherence</td>
+                                    <td>94.2%</td>
+                                    <td>95.0%</td>
+                                    <td>94.5%</td>
+                                    <td><i class="fas fa-arrow-down text-danger"></i> -0.3%</td>
+                                    <td><span class="metric-badge badge-warning">At Risk</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="insights-container">
+                            <h3 class="h5 mb-3">Contact Reasons</h3>
+                            <div class="chart-container">
+                                <canvas id="contactReasonsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="insights-container">
+                            <h3 class="h5 mb-3">Agent Performance Comparison</h3>
+                            <div class="chart-container">
+                                <canvas id="agentPerformanceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Performance Tab Content (hidden by default) -->
+            <div class="tab-content d-none" id="tab-performance">
+                <div class="insights-container">
+                    <h3 class="h5 mb-3">Team Performance Dashboard</h3>
+                    <p>Performance metrics and team comparison data will be displayed here.</p>
+                </div>
+            </div>
+            
+            <!-- Quality Assurance Tab Content (hidden by default) -->
+            <div class="tab-content d-none" id="tab-quality">
+                <div class="insights-container">
+                    <h3 class="h5 mb-3">Quality Assurance Metrics</h3>
+                    <p>Quality assurance scores and monitoring data will be displayed here.</p>
+                </div>
+            </div>
+            
+            <!-- Efficiency Tab Content (hidden by default) -->
+            <div class="tab-content d-none" id="tab-efficiency">
+                <div class="insights-container">
+                    <h3 class="h5 mb-3">Operational Efficiency</h3>
+                    <p>Efficiency metrics and resource utilization data will be displayed here.</p>
+                </div>
+            </div>
+            
+            <!-- Financial Tab Content (hidden by default) -->
+            <div class="tab-content d-none" id="tab-financial">
+                <div class="insights-container">
+                    <h3 class="h5 mb-3">Financial Performance</h3>
+                    <p>Cost metrics and financial performance data will be displayed here.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Footer will be loaded dynamically -->
+    <div id="footer-container"></div>
+    
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- MSAL -->
+    <script src="https://alcdn.msauth.net/browser/2.30.0/js/msal-browser.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- iBridge Intranet JavaScript -->
+    <script src="js/intranet.js"></script>
+
+    <script>
+        // Insights page specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Only run after the main intranet.js has loaded user data
+            setTimeout(initializeInsights, 500);
+            
+            function initializeInsights() {
+                // Monthly Performance Trends Chart
+                const performanceTrendCtx = document.getElementById('performanceTrendChart').getContext('2d');
+                // Create and store chart for potential future updates
+                window.charts = window.charts || {};
+                window.charts.performanceTrend = new Chart(performanceTrendCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [
+                            {
+                                label: 'Customer Satisfaction',
+                                data: [95.1, 95.4, 95.9, 96.2, 96.8, 98.2],
+                                borderColor: '#a1c44f',
+                                backgroundColor: 'rgba(161, 196, 79, 0.1)',
+                                tension: 0.4,
+                                fill: true
+                            },
+                            {
+                                label: 'First Contact Resolution',
+                                data: [78.2, 79.1, 80.5, 81.0, 81.2, 82.7],
+                                borderColor: '#17a2b8',
+                                backgroundColor: 'rgba(23, 162, 184, 0.1)',
+                                tension: 0.4,
+                                fill: true
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                min: 70,
+                                max: 100
+                            }
+                        }
+                    }
+                });
+                
+                // Channel Distribution Chart
+                const channelDistributionCtx = document.getElementById('channelDistributionChart').getContext('2d');
+                window.charts.channelDistribution = new Chart(channelDistributionCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Phone', 'Chat', 'Email', 'Social Media', 'WhatsApp'],
+                        datasets: [{
+                            data: [45, 22, 18, 10, 5],
+                            backgroundColor: [
+                                '#a1c44f',
+                                '#b5d36e',
+                                '#17a2b8',
+                                '#6c757d',
+                                '#ffc107'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+                
+                // Contact Reasons Chart
+                const contactReasonsCtx = document.getElementById('contactReasonsChart').getContext('2d');
+                window.charts.contactReasons = new Chart(contactReasonsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Account Issues', 'Billing Questions', 'Technical Support', 'General Inquiries', 'Service Changes'],
+                        datasets: [{
+                            label: 'Contact Volume',
+                            data: [32, 24, 18, 15, 11],
+                            backgroundColor: '#a1c44f'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+                
+                // Agent Performance Chart
+                const agentPerformanceCtx = document.getElementById('agentPerformanceChart').getContext('2d');
+                window.charts.agentPerformance = new Chart(agentPerformanceCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['CSAT', 'FCR', 'AHT', 'Adherence', 'Quality Score'],
+                        datasets: [
+                            {
+                                label: 'Team Average',
+                                data: [85, 80, 75, 90, 82],
+                                borderColor: '#a1c44f',
+                                backgroundColor: 'rgba(161, 196, 79, 0.2)'
+                            },
+                            {
+                                label: 'Top Performers',
+                                data: [95, 92, 88, 95, 94],
+                                borderColor: '#17a2b8',
+                                backgroundColor: 'rgba(23, 162, 184, 0.2)'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+                
+                // Tab switching functionality
+                const insightsTabs = document.querySelectorAll('.insights-tab');
+                const tabContents = document.querySelectorAll('.tab-content');
+                
+                // Extract tab switching to separate function to reduce nesting
+                function handleTabSwitch(e) {
+                    const tabId = e.currentTarget.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    insightsTabs.forEach(t => t.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    
+                    // Show relevant content
+                    showTabContent(tabId);
+                }
+                
+                // Function to show tab content
+                function showTabContent(tabId) {
+                    tabContents.forEach(content => {
+                        content.classList.add('d-none');
+                        if (content.id === `tab-${tabId}`) {
+                            content.classList.remove('d-none');
+                        }
+                    });
+                }
+                
+                // Add event listeners to tabs
+                insightsTabs.forEach(tab => {
+                    tab.addEventListener('click', handleTabSwitch);
+                });
+                
+                // Date range functionality
+                const dateRangeBtns = document.querySelectorAll('.date-range-btn');
+                
+                // Extract date range button handling to separate function
+                function handleDateRangeChange(e) {
+                    dateRangeBtns.forEach(b => b.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    
+                    const range = e.currentTarget.getAttribute('data-range');
+                    if (range === 'custom') {
+                        // In a real implementation, this would open a date range picker
+                        alert('A date range picker would open here for custom date selection.');
+                    } else {
+                        // In a real implementation, this would update all charts and metrics
+                        // based on the selected date range
+                        alert(`Data would be updated for the selected range: ${range}`);
+                    }
+                }
+                
+                // Add event listeners to date range buttons
+                dateRangeBtns.forEach(btn => {
+                    btn.addEventListener('click', handleDateRangeChange);
+                });
+                
+                // Department filter functionality
+                document.getElementById('departmentFilter').addEventListener('change', function() {
+                    const department = this.value;
+                    // In a real implementation, this would filter data by department
+                    if (department !== 'all') {
+                        alert(`Data would be filtered for department: ${department}`);
+                    }
+                });
+                
+                // Metric filter functionality
+                document.getElementById('metricFilter').addEventListener('change', function() {
+                    const metricType = this.value;
+                    // In a real implementation, this would filter metrics by type
+                    if (metricType !== 'all') {
+                        alert(`Metrics would be filtered by type: ${metricType}`);
+                    }
+                });
+                
+                // Export button functionality
+                document.querySelector('.btn-export').addEventListener('click', function() {
+                    const activeTab = document.querySelector('.insights-tab.active').getAttribute('data-tab');
+                    alert(`Report would be exported for: ${activeTab}`);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
