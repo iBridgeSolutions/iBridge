@@ -4,7 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="iBridge Intranet Login - Staff portal access">
-    <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing of internal pages -->
+    <meta name="robots" content="noindex, nofo        // http://localhost:8090/intranet/login.html
+        
+        // Detect environment and adjust redirect URI
+        let redirectUri;
+        let baseUrl;
+        
+        // Check if we're on GitHub Pages
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        
+        if (isGitHubPages) {
+            // GitHub Pages project site - needs the repository name in the path
+            redirectUri = "https://ibridgesolutions.github.io/iBridge/intranet/login.html";
+            baseUrl = "https://ibridgesolutions.github.io/iBridge/intranet/";
+            console.log("Detected GitHub Pages environment");
+        } else {
+            // Local development environment
+            redirectUri = window.location.origin + "/intranet/login.html";
+            baseUrl = window.location.origin + "/intranet/";
+        }
+        
+        console.log("Current URL:", currentUrl);
+        console.log("Using registered redirect URI:", redirectUri);
+        console.log("Origin:", window.location.origin);-- Prevent indexing of internal pages -->
     <title>Login | iBridge Staff Portal</title>
     
     <!-- Favicon -->
@@ -653,7 +675,8 @@
             console.log("Authentication cookie cleared");
             
             // Use a consistent, hardcoded redirect URI for logout
-            const logoutRedirectUri = window.location.origin + "/intranet/login.html";
+            // Use the same redirect URI logic as for login
+            const logoutRedirectUri = redirectUri;
             console.log("Logout redirect URI:", logoutRedirectUri);
             
             // Clear any MSAL cache or tokens
