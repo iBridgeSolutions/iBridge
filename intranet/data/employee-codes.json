@@ -1,0 +1,20 @@
+﻿{
+    "mappings":  [
+                     {
+                         "userPrincipalName":  "lwandile.gasela@ibridge.co.za",
+                         "employeeCode":  "IBDG054",
+                         "firstName":  "Lwandile",
+                         "lastName":  "Gasela",
+                         "department":  "IT",
+                         "position":  "Administrator",
+                         "permissions":  {
+                                             "isAdmin":  true,
+                                             "isEditor":  true,
+                                             "canViewAdminPanel":  true,
+                                             "canManageUsers":  true
+                                         }
+                     }
+                 ],
+    "format":  "IBD[Last Name Initials][Unique ID]",
+    "lastUpdated":  "2025-07-06 10:29:17"
+}

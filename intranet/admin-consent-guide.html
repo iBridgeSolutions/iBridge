@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix "Need Admin Approval" Error | iBridge Azure AD</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #0078d4;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0078d4;
+            margin-top: 30px;
+        }
+        .error-box {
+            background-color: #fef0f0;
+            border-left: 5px solid #d83b01;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .solution-box {
+            background-color: #e6ffed;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .steps {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .steps h3 {
+            margin-top: 0;
+            color: #0078d4;
+        }
+        .steps ol li {
+            margin-bottom: 15px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .highlight {
+            background-color: yellow;
+            padding: 0 3px;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Courier New', monospace;
+        }
+        .note {
+            background-color: #e6f7ff;
+            border-left: 5px solid #1890ff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .tabs {
+            margin: 20px 0;
+        }
+        .tab {
+            cursor: pointer;
+            padding: 10px 20px;
+            display: inline-block;
+            background-color: #f1f1f1;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab.active {
+            background-color: #0078d4;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resolving the "Need admin approval" Error</h1>
+    
+    <div class="error-box">
+        <p><strong>Error Description:</strong> When trying to sign in to the iBridge Portal, you see a Microsoft page saying:</p>
+        <p><em>"Need admin approval - Microsoft Corporation needs permission to access resources in your organization that only an admin can grant. Please ask an admin to grant permission to this app before you can use it."</em></p>
+    </div>
+    
+    <h2>Why This Happens</h2>
+    <p>This error occurs because the Azure AD application has not received admin consent for the permissions it requires. When an application requests access to data through Microsoft Graph API, an administrator must approve these permissions for all users in the organization.</p>
+    
+    <div class="solution-box">
+        <p><strong>Solution:</strong> An administrator must grant consent to the application for all users in your organization.</p>
+    </div>
+    
+    <div class="tabs">
+        <div role="tablist" aria-label="Consent Methods">
+            <div class="tab active" role="tab" tabindex="0" onclick="openTab(event, 'azure-portal')" onkeydown="if(event.key==='Enter'||event.key===' '){openTab(event, 'azure-portal');}">Azure Portal Method</div>
+            <div class="tab" role="tab" tabindex="0" onclick="openTab(event, 'admin-center')" onkeydown="if(event.key==='Enter'||event.key===' '){openTab(event, 'admin-center');}">Admin Center Method</div>
+            <div class="tab" role="tab" tabindex="0" onclick="openTab(event, 'consent-link')" onkeydown="if(event.key==='Enter'||event.key===' '){openTab(event, 'consent-link');}">Consent Link Method</div>
+        </div>
+    </div>
+    
+    <div id="azure-portal" class="tab-content active">
+        <div class="steps">
+            <h3>Method 1: Using Azure Portal (Recommended)</h3>
+            <ol>
+                <li><strong>Sign in to the Azure Portal</strong>
+                    <ul>
+                        <li>Go to <a href="https://portal.azure.com" target="_blank" rel="noopener">https://portal.azure.com</a></li>
+                        <li>Sign in with your administrator account (must have Global Admin or Cloud Application Administrator role)</li>
+                    </ul>
+                </li>
+                <li><strong>Navigate to Azure Active Directory</strong>
+                    <ul>
+                        <li>Click on "Azure Active Directory" in the left navigation or search for it in the search bar</li>
+                    </ul>
+                </li>
+                <li><strong>Go to App Registrations</strong>
+                    <ul>
+                        <li>In the left menu of Azure AD, click on "App registrations"</li>
+                    </ul>
+                </li>
+                <li><strong>Find the iBridge Portal Application</strong>
+                    <ul>
+                        <li>Click on "All applications" if you don't see it in the list</li>
+                        <li>Search for "iBridge Portal" or use the application ID: <code>6686c610-81cf-4ed7-8241-a91a20f01b06</code></li>
+                        <li>Click on the application name when you find it</li>
+                    </ul>
+                </li>
+                <li><strong>Access API Permissions</strong>
+                    <ul>
+                        <li>In the left menu of the application page, click on "API permissions"</li>
+                    </ul>
+                </li>
+                <li><strong>Grant Admin Consent</strong>
+                    <ul>
+                        <li>Look for a button at the top labeled "Grant admin consent for [Your Organization]"</li>
+                        <li>Click this button</li>
+                        <li>Confirm when prompted</li>
+                    </ul>
+                </li>
+                <li><strong>Verify Permissions</strong>
+                    <ul>
+                        <li>After granting consent, the status column should show "Granted for [Your Organization]"</li>
+                        <li>All permissions should now have a green checkmark</li>
+                    </ul>
+                </li>
+                <li><strong>Test the Application</strong>
+                    <ul>
+                        <li>Try signing in to the iBridge Portal again</li>
+                        <li>The "Need admin approval" error should no longer appear</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+    
+    <div id="admin-center" class="tab-content">
+        <div class="steps">
+            <h3>Method 2: Using Microsoft 365 Admin Center</h3>
+            <ol>
+                <li><strong>Sign in to Microsoft 365 Admin Center</strong>
+                    <ul>
+                        <li>Go to <a href="https://admin.microsoft.com" target="_blank" rel="noopener">https://admin.microsoft.com</a></li>
+                        <li>Sign in with your administrator account</li>
+                    </ul>
+                </li>
+                <li><strong>Navigate to Integrated Apps</strong>
+                    <ul>
+                        <li>Expand "Settings" in the left navigation</li>
+                        <li>Click on "Integrated apps"</li>
+                    </ul>
+                </li>
+                <li><strong>Find and Approve the iBridge Portal App</strong>
+                    <ul>
+                        <li>Look for "iBridge Portal" in the list of integrated apps</li>
+                        <li>If found, select it and click "Approve"</li>
+                    </ul>
+                </li>
+                <li><strong>If the App Is Not Listed</strong>
+                    <ul>
+                        <li>Click "Add an app"</li>
+                        <li>Choose "Register an app"</li>
+                        <li>Enter the Application ID: <code>6686c610-81cf-4ed7-8241-a91a20f01b06</code></li>
+                        <li>Follow the prompts to approve the application</li>
+                    </ul>
+                </li>
+                <li><strong>Test the Application</strong>
+                    <ul>
+                        <li>Try signing in to the iBridge Portal again</li>
+                        <li>The "Need admin approval" error should no longer appear</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+    
+    <div id="consent-link" class="tab-content">
+        <div class="steps">
+            <h3>Method 3: Using a Direct Consent Link</h3>
+            <p>If you have admin rights, you can use a direct link to grant consent:</p>
+            
+            <div class="note">
+                <p><strong>Admin Consent URL:</strong></p>
+                <code>https://login.microsoftonline.com/feeb9a78-4032-4b89-ae79-2100a5dc16a8/adminconsent?client_id=6686c610-81cf-4ed7-8241-a91a20f01b06</code>
+            </div>
+            
+            <ol>
+                <li><strong>Copy and Open the URL Above</strong>
+                    <ul>
+                        <li>Open a new browser tab</li>
+                        <li>Paste the URL and navigate to it</li>
+                    </ul>
+                </li>
+                <li><strong>Sign in as Administrator</strong>
+                    <ul>
+                        <li>When prompted, sign in with an account that has admin privileges</li>
+                    </ul>
+                </li>
+                <li><strong>Review and Accept Permissions</strong>
+                    <ul>
+                        <li>Review the requested permissions</li>
+                        <li>Click "Accept" to grant admin consent for your organization</li>
+                    </ul>
+                </li>
+                <li><strong>Test the Application</strong>
+                    <ul>
+                        <li>Try signing in to the iBridge Portal again</li>
+                        <li>The "Need admin approval" error should no longer appear</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+    
+    <h2>Additional Troubleshooting</h2>
+    
+    <div class="steps">
+        <h3>If Admin Consent Doesn't Resolve the Issue</h3>
+        <ol>
+            <li><strong>Check for Expired Tokens</strong>
+                <ul>
+                    <li>Clear your browser cache and cookies</li>
+                    <li>Try signing in again in a private/incognito window</li>
+                </ul>
+            </li>
+            <li><strong>Verify App Permissions</strong>
+                <ul>
+                    <li>Ensure the app has the correct permissions (at minimum, it needs Microsoft Graph User.Read)</li>
+                    <li>If more permissions were added recently, admin consent must be granted again</li>
+                </ul>
+            </li>
+            <li><strong>Check for Organization Restrictions</strong>
+                <ul>
+                    <li>Your organization may have policies that restrict app consent</li>
+                    <li>Contact your IT department if you believe this is the case</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    
+    <div class="note">
+        <p><strong>Need help?</strong> If you continue to experience issues after trying these solutions, please contact your IT administrator or reach out to the iBridge support team for assistance.</p>
+    </div>
+    
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            // Hide all tab content
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tabs
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            // Show the current tab and add an "active" class to the button
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>

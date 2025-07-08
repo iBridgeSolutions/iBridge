@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Duplicate Redirect URIs</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #d83b01;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .error-box {
+            background-color: #fef0f0;
+            border-left: 5px solid #d83b01;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .uri-box {
+            background-color: #f0f0f0;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 16px;
+            border-radius: 4px;
+            margin: 10px 0;
+            position: relative;
+        }
+        .uri-correct {
+            background-color: #e6ffed;
+            border-left: 5px solid #28a745;
+        }
+        .uri-incorrect {
+            background-color: #fff5f5;
+            border-left: 5px solid #d73a49;
+            text-decoration: line-through;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .badge-correct {
+            background-color: #28a745;
+            color: white;
+        }
+        .badge-incorrect {
+            background-color: #d73a49;
+            color: white;
+        }
+        .steps {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .steps h2 {
+            margin-top: 0;
+        }
+        .steps ol li {
+            margin-bottom: 15px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .highlight {
+            background-color: yellow;
+            padding: 0 3px;
+        }
+        button {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #005a9e;
+        }
+        .success-message {
+            display: none;
+            color: #28a745;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fix Duplicate Redirect URIs Error</h1>
+    
+    <div class="error-box">
+        <p><strong>Error Message:</strong> Failed to update iBridge Portal application. Error detail: Redirect URIs must have distinct values. [TYGSAZphPK8pKW9gLgkTeM]</p>
+    </div>
+    
+    <h2>What's Happening?</h2>
+    <p>You're encountering this error because you're trying to add a redirect URI that conflicts with an existing one in your Azure AD application registration.</p>
+    <p>The issue is that you already have both versions of the redirect URI configured:</p>
+    
+    <div class="uri-box uri-correct">
+        https://ibridgesolutions.github.io/iBridge/intranet/login.html
+        <span class="badge badge-correct">KEEP THIS</span>
+    </div>
+    
+    <div class="uri-box uri-incorrect">
+        https://ibridgesolutions.github.io/intranet/login.html
+        <span class="badge badge-incorrect">REMOVE THIS</span>
+    </div>
+    
+    <p>Notice that the second URI is <strong>missing</strong> the <span class="highlight">/iBridge/</span> part in the path.</p>
+    
+    <div class="steps">
+        <h2>How to Fix It</h2>
+        <ol>
+            <li>Sign in to the <a href="https://portal.azure.com" target="_blank" rel="noopener">Azure Portal</a></li>
+            <li>Navigate to <strong>Azure Active Directory</strong> → <strong>App registrations</strong></li>
+            <li>Find and select your application with ID: <code>6686c610-81cf-4ed7-8241-a91a20f01b06</code></li>
+            <li>Click on <strong>Authentication</strong> in the left menu</li>
+            <li>Under <strong>Platform configurations</strong> → <strong>Web</strong> → <strong>Redirect URIs</strong>, find and <strong>remove</strong> the incorrect URI:
+                <div class="uri-box uri-incorrect">https://ibridgesolutions.github.io/intranet/login.html</div>
+            </li>
+            <li>Make sure the correct URI is present:
+                <div class="uri-box uri-correct">https://ibridgesolutions.github.io/iBridge/intranet/login.html</div>
+                <button onclick="copyCorrectUri()">Copy Correct URI</button>
+                <span id="copy-success" class="success-message">Copied!</span>
+            </li>
+            <li>Click <strong>Save</strong> at the top of the page</li>
+            <li>Wait a few minutes for changes to propagate</li>
+            <li>Clear your browser cache or use an incognito/private window</li>
+            <li>Try signing in again at: <a href="https://ibridgesolutions.github.io/iBridge/intranet/login.html" target="_blank" rel="noopener">iBridge Intranet Login</a></li>
+        </ol>
+    </div>
+    
+    <h2>Troubleshooting - Still Getting the Error?</h2>
+    <div style="background-color: #fff4e5; border-left: 5px solid #ff9800; padding: 15px; margin: 20px 0;">
+        <h3 style="color: #d83b01; margin-top: 0;">Advanced Solutions</h3>
+        
+        <h4>Solution 1: Remove ALL Redirect URIs and Add Back Only the Correct One</h4>
+        <ol>
+            <li>In the Azure Portal, go to your application's Authentication page</li>
+            <li>Under Platform configurations > Web > Redirect URIs, <strong>remove ALL existing URIs</strong></li>
+            <li>Click Save</li>
+            <li>Wait a minute for changes to take effect</li>
+            <li>Add back <strong>ONLY</strong> the correct URI:
+                <div class="uri-box uri-correct">https://ibridgesolutions.github.io/iBridge/intranet/login.html</div>
+            </li>
+            <li>Click Save again</li>
+        </ol>
+        
+        <h4>Solution 2: Use PowerShell to View All URIs</h4>
+        <p>Sometimes there might be case-sensitive duplicates or whitespace issues that are hard to spot in the portal.</p>
+        <p>Try running this PowerShell command:</p>
+        <pre style="background: #f8f8f8; padding: 10px; overflow-x: auto;">
+# Install AzureAD module if you don't have it
+Install-Module AzureAD -Force
+
+# Connect to Azure AD
+Connect-AzureAD
+
+# Get app and show ALL redirect URIs
+$app = Get-AzureADApplication -Filter "AppId eq '6686c610-81cf-4ed7-8241-a91a20f01b06'"
+$app.ReplyUrls | ForEach-Object { Write-Host $_ }
+        </pre>
+
+        <h4>Solution 3: Create a New Application Registration</h4>
+        <p>If all else fails, you can create a new application registration and configure it correctly from scratch:</p>
+        <ol>
+            <li>In Azure Active Directory > App registrations, click "New registration"</li>
+            <li>Name it "iBridge Portal (New)"</li>
+            <li>For Redirect URI, add: <code>https://ibridgesolutions.github.io/iBridge/intranet/login.html</code></li>
+            <li>After creation, update your website's <code>login.html</code> file with the new client ID</li>
+        </ol>
+    </div>
+
+    <h2>Why This Fix Works</h2>
+    <p>GitHub Pages project sites are hosted under a repository path (e.g., <code>/iBridge/</code>) in the URL. The correct redirect URI must include this path for authentication to work properly.</p>
+    <p>By removing the incorrect URI (without the <code>/iBridge/</code> path) and keeping only the correct one, Azure AD will properly validate the authentication redirect.</p>
+    
+    <h2>Common Issues</h2>
+    <ul>
+        <li><strong>Case sensitivity</strong> - Make sure the URIs match exactly, including uppercase/lowercase</li>
+        <li><strong>Hidden characters</strong> - Trailing spaces or invisible characters can cause issues</li>
+        <li><strong>Multiple similar URIs</strong> - Azure AD might see URIs as too similar even if they look different to us</li>
+        <li><strong>Cache issues</strong> - Always use incognito/private browsing after making changes</li>
+    </ul>
+    
+    <script>
+        function copyCorrectUri() {
+            const correctUri = "https://ibridgesolutions.github.io/iBridge/intranet/login.html";
+            navigator.clipboard.writeText(correctUri)
+                .then(() => {
+                    const success = document.getElementById('copy-success');
+                    success.style.display = 'inline';
+                    setTimeout(() => {
+                        success.style.display = 'none';
+                    }, 2000);
+                })
+                .catch(err => {
+                    alert('Failed to copy: ' + err);
+                });
+        }
+    </script>
+</body>
+</html>

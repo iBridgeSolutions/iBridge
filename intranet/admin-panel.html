@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="css/intranet-styles.css">
     <link rel="stylesheet" href="css/intranet-enhanced.css">
     <link rel="stylesheet" href="css/admin-enhanced.css">
+    <link rel="stylesheet" href="../css/admin-panel.css">
     
     <style>
         .admin-container {
@@ -318,33 +319,33 @@
                 
                 <!-- Admin Navigation -->
                 <div class="admin-nav">
-                    <ul class="nav admin-nav-tabs" id="adminTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
+                    <div class="admin-nav-tabs" role="tablist" aria-label="Admin Tabs">
+                        <div class="nav-item">
                             <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="true">
-                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                                <i class="fas fa-tachometer-alt me-2" aria-hidden="true"></i>Dashboard
                             </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
+                        </div>
+                        <div class="nav-item">
                             <button class="nav-link" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="false">
-                                <i class="fas fa-users me-2"></i>Users
+                                <i class="fas fa-users me-2" aria-hidden="true"></i>Users
                             </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
+                        </div>
+                        <div class="nav-item">
                             <button class="nav-link" id="content-tab" data-bs-toggle="tab" data-bs-target="#content" type="button" role="tab" aria-controls="content" aria-selected="false">
-                                <i class="fas fa-file-alt me-2"></i>Content
+                                <i class="fas fa-file-alt me-2" aria-hidden="true"></i>Content
                             </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
+                        </div>
+                        <div class="nav-item">
                             <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">
-                                <i class="fas fa-cog me-2"></i>Settings
+                                <i class="fas fa-cog me-2" aria-hidden="true"></i>Settings
                             </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
+                        </div>
+                        <div class="nav-item">
                             <button class="nav-link" id="logs-tab" data-bs-toggle="tab" data-bs-target="#logs" type="button" role="tab" aria-controls="logs" aria-selected="false">
-                                <i class="fas fa-list-alt me-2"></i>Logs
+                                <i class="fas fa-list-alt me-2" aria-hidden="true"></i>Logs
                             </button>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Admin Content -->
@@ -393,7 +394,7 @@
                                             <h5 class="card-title mb-0">Recent User Activity</h5>
                                         </div>
                                         <div class="card-body p-0">
-                                            <div class="table-responsive" style="height: 300px; overflow-y: auto;">
+                                            <div class="table-responsive activity-table">
                                                 <table class="table admin-table table-hover mb-0">
                                                     <thead>
                                                         <tr>
@@ -453,38 +454,38 @@
                                         <div class="card-body">
                                             <div class="mb-4">
                                                 <div class="d-flex justify-content-between mb-1">
-                                                    <span>CPU Usage</span>
+                                                    <label id="cpu-usage-label" for="cpu-usage">CPU Usage</label>
                                                     <span>34%</span>
                                                 </div>
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 34%" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <progress id="cpu-usage" class="progress-bar cpu-usage" value="34" max="100" aria-labelledby="cpu-usage-label">34%</progress>
                                                 </div>
                                             </div>
                                             <div class="mb-4">
                                                 <div class="d-flex justify-content-between mb-1">
-                                                    <span>Memory Usage</span>
+                                                    <label id="memory-usage-label" for="memory-usage">Memory Usage</label>
                                                     <span>62%</span>
                                                 </div>
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <progress id="memory-usage" class="progress-bar memory-usage" value="62" max="100" aria-labelledby="memory-usage-label">62%</progress>
                                                 </div>
                                             </div>
                                             <div class="mb-4">
                                                 <div class="d-flex justify-content-between mb-1">
-                                                    <span>Disk Space</span>
+                                                    <label id="disk-space-label" for="disk-space">Disk Space</label>
                                                     <span>78%</span>
                                                 </div>
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <progress id="disk-space" class="progress-bar disk-space" value="78" max="100" aria-labelledby="disk-space-label">78%</progress>
                                                 </div>
                                             </div>
                                             <div class="mb-4">
                                                 <div class="d-flex justify-content-between mb-1">
-                                                    <span>Bandwidth</span>
+                                                    <label id="bandwidth-label" for="bandwidth">Bandwidth</label>
                                                     <span>45%</span>
                                                 </div>
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-info" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <progress id="bandwidth" class="progress-bar bandwidth" value="45" max="100" aria-labelledby="bandwidth-label">45%</progress>
                                                 </div>
                                             
                                             <div class="alert alert-success mb-0" role="alert">
@@ -501,7 +502,7 @@
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h3 class="mb-0">User Management</h3>
                                 <div class="d-flex">
-                                    <div class="input-group me-2" style="width: 250px;">
+                                    <div class="input-group me-2 search-input-group">
                                         <input type="text" class="form-control" placeholder="Search users...">
                                         <buttonbutton class="btn btn-outline-secondary" type="button">
                                             <span class="visually-hidden">Search</span>
@@ -647,20 +648,20 @@
                                 </div>
                             </div>
                             
-                            <ul class="nav nav-tabs mb-4" id="contentTypeTabs" role="tablist">
-                                <li class="nav-item" role="presentation">
+                            <div class="nav-tabs mb-4" role="tablist" aria-label="Content Type Tabs" id="contentTypeTabs">
+                                <div class="nav-item">
                                     <button class="nav-link active" id="news-tab" data-bs-toggle="tab" data-bs-target="#news" type="button" role="tab" aria-controls="news" aria-selected="true">News</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
+                                </div>
+                                <div class="nav-item">
                                     <button class="nav-link" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button" role="tab" aria-controls="events" aria-selected="false">Events</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
+                                </div>
+                                <div class="nav-item">
                                     <button class="nav-link" id="resources-tab" data-bs-toggle="tab" data-bs-target="#resources" type="button" role="tab" aria-controls="resources" aria-selected="false">Resources</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
+                                </div>
+                                <div class="nav-item">
                                     <button class="nav-link" id="announcements-tab" data-bs-toggle="tab" data-bs-target="#announcements" type="button" role="tab" aria-controls="announcements" aria-selected="false">Announcements</button>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                             
                             <div class="tab-content" id="contentTypeTabContent">
                                 <div class="tab-pane fade show active" id="news" role="tabpanel" aria-labelledby="news-tab">
@@ -1132,10 +1133,10 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize tooltips
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl)
-            });
+            [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                .forEach(function(el) { 
+                    return new bootstrap.Tooltip(el); 
+                });
             
             // Check if user is admin
             const userData = JSON.parse(sessionStorage.getItem('user') || '{}');

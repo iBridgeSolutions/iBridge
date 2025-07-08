@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | iBridge Contact Solutions</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/iBridge_Logo-favicon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/gallery.css">
+
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="Gallery | iBridge Contact Solutions">
+    <meta property="og:description" content="Explore our workplace culture and team through our photo gallery">
+    <meta property="og:image" content="images/gallery/hero-image.jpg">
+    <meta property="og:url" content="https://ibridge.co.za/gallery.html">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <!-- ...existing navigation code... -->
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="gallery-hero">
+        <div class="container">
+            <div class="row align-items-center min-vh-50">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-4">Our People, Our Culture</h1>
+                    <p class="lead mb-0">Experience the vibrant culture and dedicated team behind iBridge Contact Solutions</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section py-5">
+        <div class="container">
+            <!-- Gallery Filters -->
+            <div class="gallery-filters mb-5 text-center">
+                <button class="btn btn-outline-primary active" data-filter="all">All</button>
+                <button class="btn btn-outline-primary" data-filter="team">Our Team</button>
+                <button class="btn btn-outline-primary" data-filter="events">Events</button>
+                <button class="btn btn-outline-primary" data-filter="workspace">Workspace</button>
+                <button class="btn btn-outline-primary" data-filter="culture">Culture</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="row g-4 gallery-grid">
+                <!-- Team Members -->
+                <div class="col-md-4 gallery-item" data-category="team">
+                    <div class="gallery-card">
+                        <img src="images/gallery/team/leadership-team.jpg" 
+                             alt="iBridge Leadership Team"
+                             class="img-fluid"
+                             loading="lazy">
+                        <div class="gallery-overlay">
+                            <h5>Leadership Team</h5>
+                            <p>Our experienced leadership driving innovation and excellence</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Events -->
+                <div class="col-md-4 gallery-item" data-category="events">
+                    <div class="gallery-card">
+                        <img src="images/gallery/events/team-building.jpg" 
+                             alt="Team Building Event"
+                             class="img-fluid"
+                             loading="lazy">
+                        <div class="gallery-overlay">
+                            <h5>Team Building</h5>
+                            <p>Building stronger bonds through shared experiences</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workspace -->
+                <div class="col-md-4 gallery-item" data-category="workspace">
+                    <div class="gallery-card">
+                        <img src="images/gallery/workspace/modern-office.jpg" 
+                             alt="Modern Office Space"
+                             class="img-fluid"
+                             loading="lazy">
+                        <div class="gallery-overlay">
+                            <h5>Modern Workspace</h5>
+                            <p>State-of-the-art facilities designed for productivity</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more gallery items here -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-5">
+                <button class="btn btn-primary btn-lg" id="loadMoreBtn">Load More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light py-5">
+        <!-- ...existing footer code... -->
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/gallery.js"></script>
+</body>
+</html>

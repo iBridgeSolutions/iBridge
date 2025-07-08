@@ -30,4 +30,5 @@ Write-Host "Starting server from: $(Get-Location)"
 Write-Host "==============================================="
 
 # Try to use a different port
-http-server -p 3000 --cors -c-1
+http-server -p 8090 --cors -c-1
+

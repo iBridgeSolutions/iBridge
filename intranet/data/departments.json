@@ -1,0 +1,147 @@
+[
+  {
+    "count": 1,
+    "name": "Business Intelligence",
+    "members": [
+      {
+        "id": "12",
+        "photoUrl": "images/profiles/sipho-ndlovu.jpg",
+        "jobTitle": "Business Analyst",
+        "email": "sipho.ndlovu@ibridge.co.za",
+        "displayName": "Sipho Ndlovu"
+      }
+    ]
+  },
+  {
+    "count": 1,
+    "name": "Customer Success",
+    "members": [
+      {
+        "id": "6",
+        "photoUrl": "images/profiles/david-van-der-merwe.jpg",
+        "jobTitle": "Customer Success Manager",
+        "email": "david.vandermerwe@ibridge.co.za",
+        "displayName": "David van der Merwe"
+      }
+    ]
+  },
+  {
+    "count": 1,
+    "name": "Human Resources",
+    "members": [
+      {
+        "id": "3",
+        "photoUrl": "images/profiles/sarah-johnson.jpg",
+        "jobTitle": "HR Director",
+        "email": "sarah.johnson@ibridge.co.za",
+        "displayName": "Sarah Johnson"
+      }
+    ]
+  },
+  {
+    "headOfDepartment": {
+      "id": "4",
+      "jobTitle": "IT Director",
+      "email": "michael.thompson@ibridge.co.za",
+      "displayName": "Michael Thompson"
+    },
+    "lastUpdated": "2025-07-05",
+    "source": "Microsoft 365 Admin Center (Dev Mode)",
+    "count": 4,
+    "id": "IT-001",
+    "location": "Floor 2, Bryanston Office",
+    "members": [
+      {
+        "id": "1",
+        "photoUrl": "images/profiles/lwandile-gasela.jpg",
+        "jobTitle": "IT Systems Administrator",
+        "email": "lwandile.gasela@ibridge.co.za",
+        "displayName": "Lwandile Gasela"
+      },
+      {
+        "id": "4",
+        "photoUrl": "images/profiles/michael-thompson.jpg",
+        "jobTitle": "IT Director",
+        "email": "michael.thompson@ibridge.co.za",
+        "displayName": "Michael Thompson"
+      },
+      {
+        "id": "7",
+        "photoUrl": "images/profiles/priya-sharma.jpg",
+        "jobTitle": "Software Developer",
+        "email": "priya.sharma@ibridge.co.za",
+        "displayName": "Priya Sharma"
+      },
+      {
+        "id": "8",
+        "photoUrl": "images/profiles/robert-moyo.jpg",
+        "jobTitle": "Support Specialist",
+        "email": "robert.moyo@ibridge.co.za",
+        "displayName": "Robert Moyo"
+      }
+    ],
+    "contactPhone": "+27 11 540 8450",
+    "description": "Responsible for managing and maintaining the company's technology infrastructure, software systems, and providing technical support to all departments.",
+    "name": "Information Technology",
+    "contactEmail": "it.support@ibridge.co.za"
+  },
+  {
+    "count": 1,
+    "name": "Marketing",
+    "members": [
+      {
+        "id": "5",
+        "photoUrl": "images/profiles/thandi-mbeki.jpg",
+        "jobTitle": "Marketing Specialist",
+        "email": "thandi.mbeki@ibridge.co.za",
+        "displayName": "Thandi Mbeki"
+      }
+    ]
+  },
+  {
+    "count": 2,
+    "name": "Operations",
+    "members": [
+      {
+        "id": "2",
+        "photoUrl": "images/profiles/john-smith.jpg",
+        "jobTitle": "Contact Center Manager",
+        "email": "john.smith@ibridge.co.za",
+        "displayName": "John Smith"
+      },
+      {
+        "id": "9",
+        "photoUrl": "images/profiles/olivia-pretorius.jpg",
+        "jobTitle": "Call Center Agent",
+        "email": "olivia.pretorius@ibridge.co.za",
+        "displayName": "Olivia Pretorius"
+      }
+    ]
+  },
+  {
+    "count": 1,
+    "name": "Project Management",
+    "members": [
+      {
+        "id": "11",
+        "photoUrl": "images/profiles/emma-smith.jpg",
+        "jobTitle": "Project Manager",
+        "email": "emma.smith@ibridge.co.za",
+        "displayName": "Emma Smith"
+      }
+    ]
+  },
+  {
+    "count": 1,
+    "name": "Sales",
+    "members": [
+      {
+        "id": "10",
+        "photoUrl": "images/profiles/james-zulu.jpg",
+        "jobTitle": "Sales Executive",
+        "email": "james.zulu@ibridge.co.za",
+        "displayName": "James Zulu"
+      }
+    ]
+  }
+]

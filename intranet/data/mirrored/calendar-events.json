@@ -1,0 +1,96 @@
+﻿[
+    {
+        "description":  "Quarterly company update meeting for all staff members. Updates on company performance, new initiatives, and Q\u0026A session.",
+        "startDateTime":  "2025-07-15T09:00:00",
+        "type":  "company",
+        "attendees":  [
+                          "All Staff"
+                      ],
+        "organizer":  "John Smith, CEO",
+        "endDateTime":  "2025-07-15T10:30:00",
+        "location":  "Main Conference Room",
+        "title":  "All Staff Meeting",
+        "isAllDay":  false
+    },
+    {
+        "description":  "Monthly sales team performance review and goal setting for the next month.",
+        "startDateTime":  "2025-07-22T14:00:00",
+        "type":  "team",
+        "attendees":  [
+                          "Sales Team"
+                      ],
+        "organizer":  "Lisa van Wyk, Sales Manager",
+        "endDateTime":  "2025-07-22T15:30:00",
+        "location":  "Meeting Room 2",
+        "title":  "Sales Team Review",
+        "isAllDay":  false
+    },
+    {
+        "description":  "Full-day workshop focused on improving customer experience strategies and implementing best practices.",
+        "startDateTime":  "2025-07-25T09:00:00",
+        "type":  "training",
+        "attendees":  [
+                          "Contact Center Team",
+                          "Sales Team",
+                          "Operations Team"
+                      ],
+        "organizer":  "Thandi Mkhize, HR Manager",
+        "endDateTime":  "2025-07-25T17:00:00",
+        "location":  "Training Center",
+        "title":  "Customer Experience Workshop",
+        "isAllDay":  false
+    },
+    {
+        "description":  "South African public holiday commemorating the Soweto Uprising. Office closed.",
+        "startDateTime":  "2025-06-16T00:00:00",
+        "type":  "holiday",
+        "attendees":  [
+                          "All Staff"
+                      ],
+        "organizer":  "Government of South Africa",
+        "endDateTime":  "2025-06-16T23:59:59",
+        "location":  "Public Holiday",
+        "title":  "Youth Day",
+        "isAllDay":  true
+    },
+    {
+        "description":  "Final submission deadline for all Q3 campaign materials and strategy documents.",
+        "startDateTime":  "2025-08-10T17:00:00",
+        "type":  "deadline",
+        "attendees":  [
+                          "Marketing Team",
+                          "Design Team"
+                      ],
+        "organizer":  "Marketing Department",
+        "endDateTime":  "2025-08-10T17:00:00",
+        "location":  "N/A",
+        "title":  "Project Deadline: Q3 Campaign",
+        "isAllDay":  false
+    },
+    {
+        "description":  "Scheduled maintenance window for system updates and security patches. Some services may be unavailable during this time.",
+        "startDateTime":  "2025-08-05T22:00:00",
+        "type":  "company",
+        "attendees":  [
+                          "IT Team"
+                      ],
+        "organizer":  "IT Department",
+        "endDateTime":  "2025-08-06T02:00:00",
+        "location":  "Server Room",
+        "title":  "IT System Maintenance",
+        "isAllDay":  false
+    },
+    {
+        "description":  "Annual team building event featuring outdoor activities, team challenges, and a catered lunch.",
+        "startDateTime":  "2025-08-15T08:00:00",
+        "type":  "team",
+        "attendees":  [
+                          "All Staff"
+                      ],
+        "organizer":  "HR Department",
+        "endDateTime":  "2025-08-15T16:00:00",
+        "location":  "Adventure Outdoors, Sandton",
+        "title":  "Team Building: Outdoor Adventure",
+        "isAllDay":  true
+    }
+]

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="iBridge Intranet Login - Staff portal access">
+    <meta name="robots" content="noindex, nofollow"><!-- Prevent indexing of internal pages -->
+    <title>Login | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/intranet-styles.css">
+    <link rel="stylesheet" href="css/intranet-enhanced.css">
+    
+    <style>
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-image: linear-gradient(135deg, #0078d4 0%, #106ebe 100%);
+        }
+        
+        .login-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .login-logo {
+            margin-bottom: 25px;
+        }
+        
+        .login-logo img {
+            max-width: 180px;
+            height: auto;
+        }
+        
+        h1 {
+            color: #333333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .login-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: #0078d4;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #106ebe;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333333;
+            border: 1px solid #dddddd;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e5e5e5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #dddddd;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            color: #777777;
+            font-size: 14px;
+        }
+        
+        .login-form {
+            display: none;
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333333;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #0078d4;
+            outline: none;
+        }
+        
+        .error-message {
+            color: #d83b01;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #0078d4;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .info-box {
+            background-color: #f0f7ff;
+            border-left: 4px solid #0078d4;
+            padding: 12px 15px;
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #333333;
+        }
+        
+        .info-box.error {
+            background-color: #fff1f0;
+            border-left-color: #d83b01;
+        }
+        
+        .info-box i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        .spinner {
+            display: none;
+            margin-left: 10px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-logo">
+            <img src="images/iBridge_Logo.png" alt="iBridge Logo">
+        </div>
+        
+        <h1>Staff Portal Login</h1>
+        
+        <div id="loginInfo" class="info-box">
+            <i class="fas fa-info-circle"></i> Sign in with your <strong>Employee Code</strong> or <strong>credentials</strong> to access the portal.
+        </div>
+        
+        <div id="loginOptions" class="login-options">
+            <button id="credentialsLoginBtn" class="btn btn-primary">
+                <i class="fas fa-user"></i> Login with Username
+            </button>
+            
+            <button id="showEmployeeLoginBtn" class="btn btn-secondary">
+                <i class="fas fa-id-badge"></i> Login with Employee Code
+            </button>
+        </div>
+        
+        <!-- Employee Code Login Form -->
+        <div id="employeeLoginForm" class="login-form">
+            <h2>Employee Code Login</h2>
+            <div class="form-group">
+                <label for="employeeCodeInput">Employee Code</label>
+                <input type="text" id="employeeCodeInput" class="form-control" placeholder="Enter your employee code (e.g., IBDG054)" autocomplete="off">
+                <div id="employeeCodeError" class="error-message"></div>
+            </div>
+            
+            <button id="employeeLoginBtn" class="btn btn-primary">
+                Login
+                <i id="employeeLoginSpinner" class="fas fa-spinner spinner"></i>
+            </button>
+            
+            <a href="#" id="backToOptions" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to login options
+            </a>
+        </div>
+        
+        <!-- Credentials Login Form -->
+        <div id="credentialsLoginForm" class="login-form">
+            <h2>Username & Password</h2>
+            <div class="form-group">
+                <label for="usernameInput">Username or Email</label>
+                <input type="text" id="usernameInput" class="form-control" placeholder="Enter your username or email" autocomplete="username">
+            </div>
+            
+            <div class="form-group">
+                <label for="passwordInput">Password</label>
+                <input type="password" id="passwordInput" class="form-control" placeholder="Enter your password" autocomplete="current-password">
+                <div id="credentialsError" class="error-message"></div>
+            </div>
+            
+            <button id="credentialsLoginBtn2" class="btn btn-primary">
+                Login
+                <i id="credentialsLoginSpinner" class="fas fa-spinner spinner"></i>
+            </button>
+            
+            <a href="#" id="backToOptions2" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to login options
+            </a>
+        </div>
+        
+        <div class="divider">
+            <span>INTRANET PORTAL</span>
+        </div>
+        
+        <p style="color: #777; font-size: 13px;">
+            &copy; 2025 iBridge Contact Solutions. All rights reserved.
+        </p>
+    </div>
+    
+    <!-- Custom Authentication System -->
+    <script src="js/custom-authenticator.js"></script>
+    
+    <script>
+        // DOM Elements
+        const loginInfo = document.getElementById('loginInfo');
+        const loginOptions = document.getElementById('loginOptions');
+        const credentialsLoginBtn = document.getElementById('credentialsLoginBtn');
+        const showEmployeeLoginBtn = document.getElementById('showEmployeeLoginBtn');
+        const employeeLoginForm = document.getElementById('employeeLoginForm');
+        const employeeCodeInput = document.getElementById('employeeCodeInput');
+        const employeeCodeError = document.getElementById('employeeCodeError');
+        const employeeLoginBtn = document.getElementById('employeeLoginBtn');
+        const employeeLoginSpinner = document.getElementById('employeeLoginSpinner');
+        const backToOptions = document.getElementById('backToOptions');
+        const credentialsLoginForm = document.getElementById('credentialsLoginForm');
+        const usernameInput = document.getElementById('usernameInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const credentialsError = document.getElementById('credentialsError');
+        const credentialsLoginBtn2 = document.getElementById('credentialsLoginBtn2');
+        const credentialsLoginSpinner = document.getElementById('credentialsLoginSpinner');
+        const backToOptions2 = document.getElementById('backToOptions2');
+        
+        // Global variables
+        let settings = null;
+        let accessControl = null;
+        
+        // Helper function to set auth cookies
+        function setAuthCookies() {
+            document.cookie = `user_authenticated=true; path=/intranet/; secure; samesite=strict`;
+            document.cookie = `intranet_session=active; path=/intranet/; secure; samesite=strict`;
+        }
+        
+        // Initialize authentication
+        async function initializeAuth() {
+            try {
+                // Load settings and access control
+                const settingsResponse = await fetch('data/settings.json');
+                settings = await settingsResponse.json();
+                
+                const accessResponse = await fetch('data/access-control.json');
+                accessControl = await accessResponse.json();
+                
+                // Update login info based on access restrictions
+                updateLoginInfo();
+                
+                // Initialize custom authenticator
+                if (window.customAuth) {
+                    await window.customAuth.initialize();
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Failed to initialize auth:', error);
+                loginInfo.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <strong>Error:</strong> Failed to load portal settings. Please contact your administrator.';
+                loginInfo.classList.add('error');
+                return false;
+            }
+        }
+        
+        // Update login info box based on settings
+        function updateLoginInfo() {
+            let infoHTML = '';
+            
+            // Check access restrictions
+            if (accessControl.restrictedAccess) {
+                infoHTML += '<i class="fas fa-lock"></i> <strong>Notice:</strong> This portal has restricted access. ';
+                
+                // If lwandile.gasela@ibridge.co.za is the only allowed user
+                if (accessControl.allowedUsers.length === 1 && 
+                    accessControl.allowedUsers[0] === 'lwandile.gasela@ibridge.co.za') {
+                    infoHTML += 'Only authorized users with valid employee codes can access.';
+                } else {
+                    infoHTML += 'Only authorized users can access.';
+                }
+            } else {
+                // Standard info for all iBridge employees
+                infoHTML = '<i class="fas fa-info-circle"></i> Sign in with your <strong>Employee Code</strong> or <strong>credentials</strong> to access the portal.';
+            }
+            
+            loginInfo.innerHTML = infoHTML;
+        }
+        
+        // Employee code login function
+        async function loginWithEmployeeCode() {
+            // Get employee code
+            const employeeCode = employeeCodeInput.value.trim();
+            
+            // Validate
+            if (!employeeCode) {
+                employeeCodeError.textContent = 'Please enter your employee code';
+                employeeCodeError.style.display = 'block';
+                return;
+            }
+            
+            // Clear previous errors
+            employeeCodeError.style.display = 'none';
+            
+            // Show spinner
+            employeeLoginBtn.disabled = true;
+            employeeLoginSpinner.style.display = 'inline-block';
+            
+            try {
+                // Check if customAuth is available
+                if (!window.customAuth) {
+                    throw new Error('Authentication module not loaded');
+                }
+                
+                // Authenticate with employee code
+                const authResult = await window.customAuth.authenticateWithEmployeeCode(employeeCode);
+                
+                if (authResult.success) {
+                    // Set auth cookies immediately as a fallback
+                    setAuthCookies();
+                    
+                    // Also set legacy user session storage for compatibility
+                    if (!sessionStorage.getItem('user')) {
+                        sessionStorage.setItem('user', JSON.stringify({
+                            name: authResult.user.displayName,
+                            username: authResult.user.userPrincipalName,
+                            email: authResult.user.mail,
+                            isAdmin: authResult.user.permissions.isAdmin,
+                            lastLogin: new Date().toISOString(),
+                            authMethod: 'employee-code'
+                        }));
+                    }
+                    
+                    // Show success message
+                    loginInfo.innerHTML = '<i class="fas fa-check-circle"></i> Authentication successful. Loading portal...';
+                    loginInfo.style.backgroundColor = '#e6f7e6';
+                    loginInfo.style.borderLeftColor = '#107c10';
+                    
+                    // Redirect to intranet home after a brief delay
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+                } else {
+                    // Show error
+                    employeeCodeError.textContent = authResult.error;
+                    employeeCodeError.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Employee code login error:', error);
+                employeeCodeError.textContent = 'An unexpected error occurred. Please try again.';
+                employeeCodeError.style.display = 'block';
+            } finally {
+                // Hide spinner
+                employeeLoginBtn.disabled = false;
+                employeeLoginSpinner.style.display = 'none';
+            }
+        }
+        
+        // Credentials login function
+        async function loginWithCredentials() {
+            // Get username and password
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+            
+            // Validate
+            if (!username) {
+                credentialsError.textContent = 'Please enter your username or email';
+                credentialsError.style.display = 'block';
+                return;
+            }
+            
+            if (!password) {
+                credentialsError.textContent = 'Please enter your password';
+                credentialsError.style.display = 'block';
+                return;
+            }
+            
+            // Clear previous errors
+            credentialsError.style.display = 'none';
+            
+            // Show spinner
+            credentialsLoginBtn2.disabled = true;
+            credentialsLoginSpinner.style.display = 'inline-block';
+            
+            try {
+                // Check if customAuth is available
+                if (!window.customAuth) {
+                    throw new Error('Authentication module not loaded');
+                }
+                
+                // Authenticate with credentials
+                const authResult = await window.customAuth.authenticateWithCredentials(username, password);
+                
+                if (authResult.success) {
+                    // Set auth cookies immediately as a fallback
+                    setAuthCookies();
+                    
+                    // Also set legacy user session storage for compatibility
+                    if (!sessionStorage.getItem('user')) {
+                        sessionStorage.setItem('user', JSON.stringify({
+                            name: authResult.user.displayName,
+                            username: authResult.user.userPrincipalName,
+                            email: authResult.user.mail,
+                            isAdmin: authResult.user.permissions.isAdmin,
+                            lastLogin: new Date().toISOString(),
+                            authMethod: 'credentials'
+                        }));
+                    }
+                    
+                    // Show success message
+                    loginInfo.innerHTML = '<i class="fas fa-check-circle"></i> Authentication successful. Loading portal...';
+                    loginInfo.style.backgroundColor = '#e6f7e6';
+                    loginInfo.style.borderLeftColor = '#107c10';
+                    
+                    // Redirect to intranet home after a brief delay
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+                } else {
+                    // Show error
+                    credentialsError.textContent = authResult.error;
+                    credentialsError.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Credentials login error:', error);
+                credentialsError.textContent = 'An unexpected error occurred. Please try again.';
+                credentialsError.style.display = 'block';
+            } finally {
+                // Hide spinner
+                credentialsLoginBtn2.disabled = false;
+                credentialsLoginSpinner.style.display = 'none';
+            }
+        }
+        
+        // Toggle between login forms
+        function showEmployeeLogin() {
+            loginOptions.style.display = 'none';
+            employeeLoginForm.style.display = 'block';
+            credentialsLoginForm.style.display = 'none';
+            employeeCodeError.style.display = 'none';
+            employeeCodeInput.focus();
+        }
+        
+        function showCredentialsLogin() {
+            loginOptions.style.display = 'none';
+            employeeLoginForm.style.display = 'none';
+            credentialsLoginForm.style.display = 'block';
+            credentialsError.style.display = 'none';
+            usernameInput.focus();
+        }
+        
+        function showLoginOptions() {
+            employeeLoginForm.style.display = 'none';
+            credentialsLoginForm.style.display = 'none';
+            loginOptions.style.display = 'flex';
+            employeeCodeError.style.display = 'none';
+            credentialsError.style.display = 'none';
+        }
+        
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', initializeAuth);
+        credentialsLoginBtn.addEventListener('click', showCredentialsLogin);
+        showEmployeeLoginBtn.addEventListener('click', showEmployeeLogin);
+        backToOptions.addEventListener('click', showLoginOptions);
+        backToOptions2.addEventListener('click', showLoginOptions);
+        employeeLoginBtn.addEventListener('click', loginWithEmployeeCode);
+        credentialsLoginBtn2.addEventListener('click', loginWithCredentials);
+        
+        // Allow Enter key to submit forms
+        employeeCodeInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loginWithEmployeeCode();
+            }
+        });
+        
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loginWithCredentials();
+            }
+        });
+        
+        // Check if already authenticated
+        if (sessionStorage.getItem('portalUser')) {
+            // Already logged in, redirect to home
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

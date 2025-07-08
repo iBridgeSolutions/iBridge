@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="iBridge Intranet Login - Staff portal access">
+    <meta name="robots" content="noindex, nofollow"><!-- Prevent indexing of internal pages -->
+    <title>Login | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Microsoft Authentication Library -->
+    <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.30.0/js/msal-browser.min.js"></script>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/intranet-styles.css">
+    <link rel="stylesheet" href="css/intranet-enhanced.css">
+    
+    <style>
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-image: linear-gradient(135deg, #0078d4 0%, #106ebe 100%);
+        }
+        
+        .login-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .login-logo {
+            margin-bottom: 25px;
+        }
+        
+        .login-logo img {
+            max-width: 180px;
+            height: auto;
+        }
+        
+        h1 {
+            color: #333333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .login-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-ms365 {
+            background-color: #0078d4;
+            color: white;
+        }
+        
+        .btn-ms365:hover {
+            background-color: #106ebe;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-employee {
+            background-color: #f0f0f0;
+            color: #333333;
+            border: 1px solid #dddddd;
+        }
+        
+        .btn-employee:hover {
+            background-color: #e5e5e5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #dddddd;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            color: #777777;
+            font-size: 14px;
+        }
+        
+        .login-info {
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-left: 4px solid #0078d4;
+            margin-bottom: 25px;
+            text-align: left;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+        
+        .login-info.error {
+            background-color: #fde7e9;
+            border-left-color: #d83b01;
+        }
+        
+        .login-form {
+            text-align: left;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555555;
+            font-weight: 500;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #0078d4;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.2);
+        }
+        
+        .error-message {
+            color: #d83b01;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .btn-login-submit {
+            background-color: #0078d4;
+            color: white;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .btn-login-submit:hover {
+            background-color: #106ebe;
+        }
+        
+        .login-footer {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #777777;
+        }
+        
+        .toggle-login {
+            color: #0078d4;
+            cursor: pointer;
+            margin-top: 15px;
+            display: inline-block;
+            font-size: 14px;
+        }
+        
+        .toggle-login:hover {
+            text-decoration: underline;
+        }
+        
+        #employeeLoginForm {
+            display: none;
+        }
+        
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .exclusive-badge {
+            background-color: #d83b01;
+            color: white;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .admin-message {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .highlighted-code {
+            background-color: #f5f5f5;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-logo">
+            <img src="images/iBridge_Logo.png" alt="iBridge Logo">
+        </div>
+        
+        <h1>Staff Portal Login</h1>
+        
+        <div id="loginInfo" class="login-info">
+            <i class="fas fa-info-circle"></i> Loading portal settings...
+        </div>
+        
+        <div class="login-options">
+            <button id="msLoginBtn" class="btn btn-ms365">
+                <i class="fab fa-microsoft"></i> Sign in with Microsoft 365
+            </button>
+            
+            <div class="divider">
+                <span>OR</span>
+            </div>
+            
+            <button id="showEmployeeLoginBtn" class="btn btn-employee">
+                <i class="fas fa-id-badge"></i> Sign in with Employee Code
+            </button>
+        </div>
+        
+        <div id="employeeLoginForm" class="login-form">
+            <h3>Employee Code Login</h3>
+            
+            <div class="input-group">
+                <label for="employeeCodeInput">Enter your Employee Code:</label>
+                <input type="text" id="employeeCodeInput" class="input-field" placeholder="e.g., IBDG054" autocomplete="off">
+                <div id="employeeCodeError" class="error-message"></div>
+            </div>
+            
+            <button id="employeeLoginBtn" class="btn btn-login-submit">
+                <div id="employeeLoginSpinner" class="spinner"></div>
+                Login
+            </button>
+            
+            <div class="toggle-login" id="backToOptions">
+                <i class="fas fa-arrow-left"></i> Back to login options
+            </div>
+        </div>
+        
+        <div class="login-footer">
+            <p>For authorized iBridge staff only</p>
+            <div id="exclusiveMessage" style="display: none;">
+                <span class="exclusive-badge">EXCLUSIVE ACCESS</span>
+                <div class="admin-message">
+                    This portal is exclusively for <strong>lwandile.gasela@ibridge.co.za</strong><br>
+                    Employee Code: <span class="highlighted-code">IBDG054</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Portal Authentication -->
+    <script src="js/portal-authenticator.js"></script>
+    
+    <script>
+        // MSAL Configuration
+        const msalConfig = {
+            auth: {
+                clientId: '',
+                authority: '',
+                redirectUri: '',
+            },
+            cache: {
+                cacheLocation: 'sessionStorage',
+                storeAuthStateInCookie: false,
+            }
+        };
+        
+        let msalInstance = null;
+        let settings = null;
+        let accessControl = null;
+        
+        // Elements
+        const msLoginBtn = document.getElementById('msLoginBtn');
+        const showEmployeeLoginBtn = document.getElementById('showEmployeeLoginBtn');
+        const employeeLoginForm = document.getElementById('employeeLoginForm');
+        const employeeCodeInput = document.getElementById('employeeCodeInput');
+        const employeeCodeError = document.getElementById('employeeCodeError');
+        const employeeLoginBtn = document.getElementById('employeeLoginBtn');
+        const employeeLoginSpinner = document.getElementById('employeeLoginSpinner');
+        const backToOptions = document.getElementById('backToOptions');
+        const loginOptions = document.querySelector('.login-options');
+        const loginInfo = document.getElementById('loginInfo');
+        const exclusiveMessage = document.getElementById('exclusiveMessage');
+        
+        // Function to initialize MSAL
+        async function initializeAuth() {
+            try {
+                // Fetch settings
+                const settingsResponse = await fetch('data/settings.json');
+                settings = await settingsResponse.json();
+                
+                // Fetch access control settings
+                try {
+                    const accessResponse = await fetch('data/access-control.json');
+                    accessControl = await accessResponse.json();
+                } catch (error) {
+                    console.log('Access control file not found, using default settings');
+                    accessControl = { 
+                        restrictedAccess: false, 
+                        allowedUsers: ["lwandile.gasela@ibridge.co.za"],
+                        allowedEmployeeCodes: ["IBDG054"]
+                    };
+                }
+                
+                // Update login info box
+                updateLoginInfo();
+                
+                // Update exclusive access message
+                if (accessControl.restrictedAccess) {
+                    exclusiveMessage.style.display = 'block';
+                } else {
+                    exclusiveMessage.style.display = 'none';
+                }
+                
+                // If Microsoft integration is enabled, set up MSAL
+                if (settings.useM365Data && settings.features && settings.features.microsoftIntegration) {
+                    // Configure MSAL
+                    msalConfig.auth.clientId = settings.microsoftConfig.clientId;
+                    msalConfig.auth.authority = `https://login.microsoftonline.com/${settings.microsoftConfig.tenantId}`;
+                    msalConfig.auth.redirectUri = settings.microsoftConfig.redirectUri || window.location.origin + '/intranet/auth-callback.html';
+                    
+                    // Initialize MSAL
+                    msalInstance = new msal.PublicClientApplication(msalConfig);
+                    
+                    // Enable Microsoft login button
+                    msLoginBtn.disabled = false;
+                } else {
+                    // If Microsoft integration is disabled, hide the button
+                    msLoginBtn.style.display = 'none';
+                    document.querySelector('.divider').style.display = 'none';
+                }
+                
+                // If employee code login is disabled, hide the button
+                if (!settings.employeeCodeLogin) {
+                    showEmployeeLoginBtn.style.display = 'none';
+                }
+                
+                // If both login methods are disabled, show error
+                if (!settings.useM365Data && !settings.employeeCodeLogin) {
+                    loginInfo.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <strong>Error:</strong> No login methods are enabled. Please contact your administrator.';
+                    loginInfo.classList.add('error');
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Failed to initialize auth:', error);
+                loginInfo.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <strong>Error:</strong> Failed to load portal settings. Please contact your administrator.';
+                loginInfo.classList.add('error');
+                return false;
+            }
+        }
+        
+        // Update login info box based on settings
+        function updateLoginInfo() {
+            let infoHTML = '';
+            
+            // Check access restrictions
+            if (accessControl.restrictedAccess) {
+                infoHTML += '<i class="fas fa-lock"></i> <strong>Notice:</strong> This portal has restricted access. ';
+                
+                // If lwandile.gasela@ibridge.co.za is the only allowed user
+                if (accessControl.allowedUsers.length === 1 && 
+                    accessControl.allowedUsers[0] === 'lwandile.gasela@ibridge.co.za') {
+                    infoHTML += 'Only <strong>lwandile.gasela@ibridge.co.za</strong> or employee code <strong>IBDG054</strong> can access.';
+                } else {
+                    infoHTML += 'Only authorized users can access.';
+                }
+            } else {
+                // Standard info for all iBridge employees
+                infoHTML = '<i class="fas fa-info-circle"></i> Sign in with your <strong>Microsoft 365 account</strong> or <strong>employee code</strong> to access the portal.';
+            }
+            
+            loginInfo.innerHTML = infoHTML;
+        }
+        
+        // Microsoft login function
+        async function loginWithMicrosoft() {
+            if (!msalInstance) {
+                console.error('MSAL not initialized');
+                return;
+            }
+            
+            const loginRequest = {
+                scopes: settings.microsoftConfig.scopes || ["User.Read"]
+            };
+            
+            try {
+                // Login with popup
+                const loginResponse = await msalInstance.loginPopup(loginRequest);
+                
+                if (loginResponse) {
+                    // Get access token
+                    const tokenRequest = {
+                        scopes: settings.microsoftConfig.scopes || ["User.Read"],
+                        account: loginResponse.account
+                    };
+                    
+                    const tokenResponse = await msalInstance.acquireTokenSilent(tokenRequest);
+                    
+                    // Authenticate with portal
+                    const authResult = await window.portalAuth.authenticateWithM365(
+                        tokenResponse.accessToken, 
+                        loginResponse.account
+                    );
+                    
+                    if (authResult.success) {
+                        // Redirect to intranet home
+                        window.location.href = 'index.html';
+                    } else {
+                        // Show error
+                        loginInfo.innerHTML = `<i class="fas fa-exclamation-triangle"></i> <strong>Error:</strong> ${authResult.error}`;
+                        loginInfo.classList.add('error');
+                    }
+                }
+            } catch (error) {
+                console.error('Microsoft login error:', error);
+                loginInfo.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <strong>Error:</strong> Failed to authenticate with Microsoft. Please try again.';
+                loginInfo.classList.add('error');
+            }
+        }
+        
+        // Employee code login function
+        async function loginWithEmployeeCode() {
+            // Get employee code
+            const employeeCode = employeeCodeInput.value.trim();
+            
+            // Validate
+            if (!employeeCode) {
+                employeeCodeError.textContent = 'Please enter your employee code';
+                employeeCodeError.style.display = 'block';
+                return;
+            }
+            
+            // Special handling for IBDG054 (lwandile.gasela@ibridge.co.za)
+            if (employeeCode === 'IBDG054') {
+                // Always allow Lwandile's employee code to bypass regular checks
+                loginInfo.innerHTML = '<i class="fas fa-check-circle"></i> Administrator access confirmed. Loading portal...';
+                loginInfo.style.backgroundColor = '#e6f7e6';
+                loginInfo.style.borderLeftColor = '#107c10';
+                
+                // Store admin session
+                sessionStorage.setItem('portalUser', JSON.stringify({
+                    displayName: 'Lwandile Gasela',
+                    userPrincipalName: 'lwandile.gasela@ibridge.co.za',
+                    mail: 'lwandile.gasela@ibridge.co.za',
+                    employeeCode: 'IBDG054',
+                    permissions: {
+                        isAdmin: true,
+                        isEditor: true,
+                        canEditContent: true,
+                        canViewAdminPanel: true,
+                        canManageUsers: true
+                    }
+                }));
+                sessionStorage.setItem('authMode', 'employee-code');
+                
+                // Redirect to intranet home after a brief delay
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+                
+                return;
+            }
+            
+            // Clear previous errors
+            employeeCodeError.style.display = 'none';
+            
+            // Show spinner
+            employeeLoginBtn.disabled = true;
+            employeeLoginSpinner.style.display = 'inline-block';
+            
+            try {
+                // Check if portalAuth is available
+                if (!window.portalAuth) {
+                    throw new Error('Authentication module not loaded');
+                }
+                
+                // Authenticate with portal
+                const authResult = await window.portalAuth.authenticateWithEmployeeCode(employeeCode);
+                
+                if (authResult.success) {
+                    // Redirect to intranet home
+                    window.location.href = 'index.html';
+                } else {
+                    // Show error
+                    employeeCodeError.textContent = authResult.error;
+                    employeeCodeError.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Employee code login error:', error);
+                employeeCodeError.textContent = 'An unexpected error occurred. Please try again.';
+                employeeCodeError.style.display = 'block';
+            } finally {
+                // Hide spinner
+                employeeLoginBtn.disabled = false;
+                employeeLoginSpinner.style.display = 'none';
+            }
+        }
+        
+        // Toggle between login forms
+        function showEmployeeLogin() {
+            loginOptions.style.display = 'none';
+            employeeLoginForm.style.display = 'block';
+        }
+        
+        function showLoginOptions() {
+            employeeLoginForm.style.display = 'none';
+            loginOptions.style.display = 'flex';
+            employeeCodeError.style.display = 'none';
+        }
+        
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', initializeAuth);
+        msLoginBtn.addEventListener('click', loginWithMicrosoft);
+        showEmployeeLoginBtn.addEventListener('click', showEmployeeLogin);
+        backToOptions.addEventListener('click', showLoginOptions);
+        employeeLoginBtn.addEventListener('click', loginWithEmployeeCode);
+        
+        // Allow Enter key to submit employee code form
+        employeeCodeInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loginWithEmployeeCode();
+            }
+        });
+        
+        // Check if already authenticated
+        if (sessionStorage.getItem('portalUser')) {
+            // Already logged in, redirect to home
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
+

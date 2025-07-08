@@ -60,6 +60,9 @@
         .error {
             color: #d83b01;
         }
+        #testResult {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -97,7 +100,7 @@
         <p>Your Azure AD application should have these redirect URIs registered:</p>
         <div id="recommendedUris" class="result"></div>
         
-        <h2>Test Authentication Configuration</h2>
+        <div id="testResult" class="result"></div>
         <p>Click the button below to see exactly what redirect URI your code is using:</p>
         <button id="testButton">Test Configuration</button>
         <div id="testResult" class="result" style="display: none;"></div>
@@ -107,7 +110,7 @@
         <h2>Solution Steps</h2>
         <ol>
             <li>Copy the recommended redirect URIs above</li>
-            <li>Go to <a href="https://portal.azure.com" target="_blank">Azure Portal</a></li>
+            <li>Go to <a href="https://portal.azure.com" target="_blank" rel="noopener">Azure Portal</a></li>
             <li>Navigate to Azure AD &gt; App Registrations &gt; iBridge Portal</li>
             <li>Click on "Authentication" in the left menu</li>
             <li>Add each recommended URI to the list of redirect URIs</li>

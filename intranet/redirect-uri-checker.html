@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect URI Checker</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #0078d4;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+        
+        .card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info {
+            background-color: #e6f7ff;
+            border-left: 4px solid #1890ff;
+        }
+        
+        .warning {
+            background-color: #fff7e6;
+            border-left: 4px solid #faad14;
+        }
+        
+        .success {
+            background-color: #f6ffed;
+            border-left: 4px solid #52c41a;
+        }
+        
+        .error {
+            background-color: #fff2f0;
+            border-left: 4px solid #ff4d4f;
+        }
+        
+        pre {
+            background-color: #f0f0f0;
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+        }
+        
+        .highlight {
+            font-weight: bold;
+            background-color: yellow;
+            padding: 0 3px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .copy-button {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .copy-button:hover {
+            background-color: #005a9e;
+        }
+    </style>
+</head>
+<body>
+    <h1>Azure AD Redirect URI Checker</h1>
+    
+    <div class="card info">
+        <h2>Current Environment Information</h2>
+        <p>This tool helps diagnose Azure AD redirect URI issues by showing what redirect URIs should be configured in your Azure AD application.</p>
+    </div>
+    
+    <div class="card" id="detection-card">
+        <h2>Environment Detection</h2>
+        <div id="environment-info">Loading environment information...</div>
+    </div>
+    
+    <div class="card" id="redirect-card">
+        <h2>Redirect URI Information</h2>
+        <div id="redirect-info">Analyzing redirect URIs...</div>
+    </div>
+    
+    <div class="card" id="fix-card">
+        <h2>How to Fix</h2>
+        <div id="fix-info">Generating fix instructions...</div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get environment information
+            const hostname = window.location.hostname;
+            const origin = window.location.origin;
+            const path = window.location.pathname;
+            const isGitHubPages = hostname.includes('github.io');
+            
+            // Determine redirect URIs based on environment
+            let redirectUri;
+            let correctUri;
+            let isCorrect = false;
+            
+            if (isGitHubPages) {
+                // Check if path includes /iBridge/
+                if (path.includes('/iBridge/')) {
+                    redirectUri = "https://ibridgesolutions.github.io/iBridge/intranet/login.html";
+                    correctUri = redirectUri;
+                    isCorrect = true;
+                } else {
+                    redirectUri = "https://ibridgesolutions.github.io/intranet/login.html";
+                    correctUri = "https://ibridgesolutions.github.io/iBridge/intranet/login.html";
+                    isCorrect = false;
+                }
+            } else {
+                // Local development
+                redirectUri = origin + "/intranet/login.html";
+                correctUri = redirectUri;
+                isCorrect = true;
+            }
+            
+            // Update environment information
+            const envInfo = document.getElementById('environment-info');
+            envInfo.innerHTML = `
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Hostname</td>
+                        <td>${hostname}</td>
+                    </tr>
+                    <tr>
+                        <td>Origin</td>
+                        <td>${origin}</td>
+                    </tr>
+                    <tr>
+                        <td>Path</td>
+                        <td>${path}</td>
+                    </tr>
+                    <tr>
+                        <td>Is GitHub Pages</td>
+                        <td>${isGitHubPages ? "Yes" : "No"}</td>
+                    </tr>
+                </table>
+            `;
+            
+            // Update detection status class
+            document.getElementById('detection-card').className = isGitHubPages ? 'card info' : 'card success';
+            
+            // Update redirect information
+            const redirectInfo = document.getElementById('redirect-info');
+            if (isCorrect) {
+                redirectInfo.innerHTML = `
+                    <div class="success card">
+                        <h3>✅ Correct Redirect URI Format</h3>
+                        <p>Your current URL structure appears correct for your environment.</p>
+                        <p>Ensure this exact URI is registered in your Azure AD application:</p>
+                        <pre>${correctUri}</pre>
+                        <button class="copy-button" onclick="copyToClipboard('${correctUri}')">Copy to Clipboard</button>
+                    </div>
+                `;
+            } else {
+                redirectInfo.innerHTML = `
+                    <div class="error card">
+                        <h3>❌ Incorrect Redirect URI Format</h3>
+                        <p>Your current URL structure appears incorrect for GitHub Pages!</p>
+                        <p>Current format (INCORRECT):</p>
+                        <pre>${redirectUri}</pre>
+                        <p>This should instead be (CORRECT):</p>
+                        <pre>${correctUri}</pre>
+                        <p>Notice the <span class="highlight">/iBridge/</span> part in the path, which is required for GitHub project pages.</p>
+                        <button class="copy-button" onclick="copyToClipboard('${correctUri}')">Copy Correct URI to Clipboard</button>
+                    </div>
+                `;
+            }
+            
+            // Update fix information
+            const fixInfo = document.getElementById('fix-info');
+            if (isGitHubPages) {
+                fixInfo.innerHTML = `
+                    <ol>
+                        <li>Go to the <a href="https://portal.azure.com" target="_blank">Azure Portal</a></li>
+                        <li>Navigate to <strong>Azure Active Directory</strong> → <strong>App registrations</strong></li>
+                        <li>Select your application (Client ID: <code>6686c610-81cf-4ed7-8241-a91a20f01b06</code>)</li>
+                        <li>Click on <strong>Authentication</strong> in the left menu</li>
+                        <li>Under <strong>Redirect URIs</strong>, make sure this exact URI is added:
+                            <pre>${correctUri}</pre>
+                        </li>
+                        <li>Click <strong>Save</strong> at the top of the page</li>
+                        <li>Clear your browser cache or use an incognito/private window</li>
+                        <li>Try signing in again</li>
+                    </ol>
+                    <p>Alternatively, run the <code>update-azure-redirect-uri.ps1</code> script in PowerShell to automatically update your Azure AD application.</p>
+                `;
+            } else {
+                fixInfo.innerHTML = `
+                    <p>Your local environment appears correctly configured. If you're still having issues:</p>
+                    <ol>
+                        <li>Make sure the redirect URI in your Azure AD application matches <code>${redirectUri}</code></li>
+                        <li>Check that your server is running on the correct port</li>
+                        <li>Verify that your user account has access to the application</li>
+                        <li>Look for any JavaScript errors in the browser console</li>
+                    </ol>
+                `;
+            }
+        });
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard: ' + text);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy to clipboard. Please copy manually.');
+            });
+        }
+    </script>
+</body>
+</html>

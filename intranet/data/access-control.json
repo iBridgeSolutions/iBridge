@@ -1,0 +1,11 @@
+﻿{
+    "restrictedAccess":  false,
+    "accessPolicy":  "exclusive",
+    "lastUpdated":  "2025-07-06 10:38:55",
+    "allowedUsers":  [
+                         "lwandile.gasela@ibridge.co.za"
+                     ],
+    "allowedEmployeeCodes":  [
+                                 "IBDG054"
+                             ]
+}

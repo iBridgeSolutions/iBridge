@@ -4,773 +4,175 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="iBridge Intranet Login - Staff portal access">
-    <meta name="robots" content="noindex, nofo        // http://localhost:8090/intranet/login.html
-        
-        // Detect environment and adjust redirect URI
-        let redirectUri;
-        let baseUrl;
-        
-        // Check if we're on GitHub Pages
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        
-        if (isGitHubPages) {
-            // GitHub Pages project site - needs the repository name in the path
-            redirectUri = "https://ibridgesolutions.github.io/iBridge/intranet/login.html";
-            baseUrl = "https://ibridgesolutions.github.io/iBridge/intranet/";
-            console.log("Detected GitHub Pages environment");
-        } else {
-            // Local development environment
-            redirectUri = window.location.origin + "/intranet/login.html";
-            baseUrl = window.location.origin + "/intranet/";
-        }
-        
-        console.log("Current URL:", currentUrl);
-        console.log("Using registered redirect URI:", redirectUri);
-        console.log("Origin:", window.location.origin);-- Prevent indexing of internal pages -->
+    <meta name="robots" content="noindex, nofollow">
     <title>Login | iBridge Staff Portal</title>
     
-    <!-- Favicon -->
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
     <link rel="manifest" href="site.webmanifest">
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Microsoft Authentication Library -->
-    <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.30.0/js/msal-browser.min.js"></script>
-    
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/intranet-styles.css">
-    <link rel="stylesheet" href="css/intranet-enhanced.css">
-    
-    <style>
-        body {
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        
-        .login-container {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
-            padding: 40px;
-            text-align: center;
-        }
-        
-        .login-logo {
-            margin-bottom: 25px;
-        }
-        
-        .login-logo img {
-            max-width: 180px;
-            height: auto;
-        }
-        
-        .login-title {
-            color: var(--intranet-primary);
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-        
-        .login-subtitle {
-            color: var(--text-muted);
-            margin-bottom: 30px;
-        }
-        
-        .login-button {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 12px 20px;
-            font-family: var(--font-family);
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
-        }
-        
-        .login-button i {
-            margin-right: 10px;
-        }
-        
-        .login-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(161, 196, 79, 0.4);
-        }
-        
-        .login-info {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-top: 30px;
-        }
-        
-        .login-footer {
-            margin-top: 40px;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-        
-        .login-loading {
-            display: none;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .login-loading.active {
-            display: block;
-        }
-        
-        .spinner {
-            width: 40px;
-            height: 40px;
-            margin: 0 auto 10px;
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .login-error {
-            display: none;
-            color: #e74c3c;
-            background-color: #fde2e2;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        
-        .login-error.active {
-            display: block;
-        }
-
-        /* Development/Testing Login styles */
-        .dev-login {
-            margin-top: 20px;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
-        }
-
-        .dev-login summary {
-            color: #777;
-            cursor: pointer;
-            font-size: 14px;
-            text-align: center;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        .dev-login summary:hover {
-            color: var(--primary);
-        }
-
-        .dev-login-form {
-            margin-top: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            padding: 15px;
-        }
-
-        .dev-login-form p small {
-            color: #999;
-            display: block;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .input-group {
-            margin-bottom: 10px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .input-group input[type="text"],
-        .input-group input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            font-family: var(--font-family);
-        }
-
-        .dev-login-button {
-            background-color: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 8px 15px;
-            width: 100%;
-            font-family: var(--font-family);
-            font-size: 14px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .dev-login-button:hover {
-            background-color: #5a6268;
-        }
-    </style>
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <div class="login-container">
+    <main class="login-container" role="main">
         <div class="login-logo">
-            <img src="/intranet/images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo">
+            <img src="images/iBridge_Logo.png" alt="iBridge Logo" width="180" height="60">
         </div>
         
-        <h1 class="login-title">Staff Portal</h1>
-        <p class="login-subtitle">Please sign in with your iBridge Microsoft 365 account</p>
+        <h1>Staff Portal Login</h1>
         
-        <div id="login-error" class="login-error">
-            There was a problem signing in. Please try again.
+        <div id="loginInfo" class="info-box" role="alert">
+            <i class="fas fa-info-circle" aria-hidden="true"></i> 
+            Sign in with your <strong>Employee Code</strong>. For first-time login, use the temporary password provided.
         </div>
         
-        <div id="login-loading" class="login-loading">
-            <div class="spinner"></div>
-            <p>Authenticating...</p>
-        </div>
-        
-        <button id="loginButton" class="login-button">
-            <i class="fab fa-microsoft"></i> Sign in with Microsoft 365
-        </button>
-
-        <!-- Development/Testing Mode Login -->
-        <div class="dev-login">
-            <details>
-                <summary>Development Mode Login</summary>
-                <div class="dev-login-form">
-                    <p><small>For testing only. Will be removed in production.</small></p>
-                    <div class="input-group">
-                        <label for="devName">Name:</label>
-                        <input type="text" id="devName" value="Lwandile Gasela" placeholder="Your Name">
-                    </div>
-                    <div class="input-group">
-                        <label for="devEmail">Email:</label>
-                        <input type="email" id="devEmail" value="lwandile.gasela@ibridge.co.za" placeholder="your.email@ibridge.co.za">
-                    </div>
-                    <div class="input-group">
-                        <label><input type="checkbox" id="devIsAdmin" checked> Admin Access</label>
-                    </div>
-                    <button id="devLoginButton" class="dev-login-button">Login (Dev Mode)</button>
+        <form class="login-form" id="employeeLoginForm" aria-labelledby="loginFormTitle">
+            <h2 id="loginFormTitle" class="visually-hidden">Employee Login Form</h2>
+            
+            <div class="form-group">
+                <label for="employeeCode" class="form-label">Employee Code</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="employeeCode" 
+                       name="employeeCode"
+                       placeholder="Enter your employee code (e.g., IBDG054)" 
+                       autocomplete="username"
+                       required
+                       aria-required="true"
+                       aria-describedby="employeeCodeError">
+                <div id="employeeCodeError" class="invalid-feedback" role="alert"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                    <input type="password" 
+                           class="form-control" 
+                           id="password" 
+                           name="password"
+                           placeholder="Enter your password or temporary password" 
+                           autocomplete="current-password"
+                           required
+                           aria-required="true"
+                           aria-describedby="passwordError">
+                    <button class="btn btn-outline-secondary" 
+                            type="button" 
+                            id="togglePassword"
+                            aria-label="Toggle password visibility">
+                        <i class="fas fa-eye" aria-hidden="true"></i>
+                    </button>
                 </div>
-            </details>
-        </div>
-        
-        <p class="login-info">
-            This portal is exclusively for iBridge employees. All activities are monitored and logged.
-        </p>
-        
-        <div class="login-footer">
-            &copy; 2025 iBridge Contact Solutions | <a href="#">Help</a> | <a href="#">Privacy Policy</a>
-        </div>
-    </div>
-    
+                <div id="passwordError" class="invalid-feedback" role="alert"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="loginButton">
+                <span class="spinner-border spinner-border-sm d-none" 
+                      id="loginSpinner" 
+                      role="status"
+                      aria-hidden="true">
+                </span>
+                <span>Login</span>
+            </button>
+        </form>
+
+        <footer class="copyright-text">
+            <p>&copy; 2023 iBridge Contact Solutions (Pty) Ltd. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <script src="js/security-manager.js"></script>
+    <script src="js/custom-authenticator.js"></script>
     <script>
-        // Microsoft Authentication Configuration
-        // Get current URL for better redirect handling
-        const currentUrl = window.location.href;
+        // Initialize authenticator
+        const authenticator = new CustomAuthenticator();
         
-        // From your Azure Portal screenshot, we can see these URIs are registered:
-        // http://localhost:8090/intranet/login.html
-        // http://localhost:8090/intranet/
-        // http://localhost:8090/intranet/index.html
-        
-        // We'll use one that matches exactly what's registered
-        // Handle both port 8090 and port 3000 (for alternative server)
-        const redirectUri = window.location.origin + "/intranet/login.html";
-        const baseUrl = window.location.origin + "/intranet/";
-        console.log("Current URL:", currentUrl);
-        console.log("Using registered redirect URI:", redirectUri);
-        console.log("Origin:", window.location.origin);
-        
-        const msalConfig = {
-            auth: {
-                clientId: "6686c610-81cf-4ed7-8241-a91a20f01b06", // Azure AD Application (client) ID
-                authority: "https://login.microsoftonline.com/feeb9a78-4032-4b89-ae79-2100a5dc16a8", // iBridge tenant ID
-                redirectUri: redirectUri, // Use the registered URI exactly
-                navigateToLoginRequestUrl: false // Disable automatic navigation to avoid potential loops
-            },
-            cache: {
-                cacheLocation: "localStorage",
-                storeAuthStateInCookie: true
-            },
-            system: {
-                loggerOptions: {
-                    loggerCallback: (level, message, containsPii) => {
-                        if (containsPii) {
-                            return;
-                        }
-                        switch (level) {
-                            case msal.LogLevel.Error:
-                                console.error(message);
-                                break;
-                            case msal.LogLevel.Info:
-                                console.info(message);
-                                break;
-                            case msal.LogLevel.Verbose:
-                                console.debug(message);
-                                break;
-                            case msal.LogLevel.Warning:
-                                console.warn(message);
-                                break;
-                        }
-                    },
-                    piiLoggingEnabled: false,
-                    logLevel: msal.LogLevel.Verbose,
-                }
-            }
-        };
-        
-        // Admin users who have full access
-        const adminUsers = [
-            "lwandile.gasela@ibridge.co.za"
-        ];
-        
-        // Email domains that are allowed to access the intranet
-        const allowedDomains = [
-            "ibridge.co.za"
-        ];
-        
-        // MSAL instance
-        const msalInstance = new msal.PublicClientApplication(msalConfig);
-        
-        // Handle login button click
-        document.getElementById('loginButton').addEventListener('click', signIn);
-        
-        // Add a function to clear any ongoing auth sessions
-        function clearAuthSession() {
-            try {
-                console.log("Clearing all authentication sessions and caches...");
-                
-                // Clear MSAL cache items that might be stuck
-                sessionStorage.removeItem('msal.interaction.status');
-                localStorage.removeItem('msal.interaction.status');
-                
-                // Remove any existing user data
-                sessionStorage.removeItem('user');
-                
-                // Clear all MSAL-related items from storage
-                const clientId = "6686c610-81cf-4ed7-8241-a91a20f01b06";
-                
-                // Clear session storage
-                Object.keys(sessionStorage).forEach(key => {
-                    if (key.includes(clientId) || key.includes('msal')) {
-                        console.log("Clearing session storage key:", key);
-                        sessionStorage.removeItem(key);
-                    }
-                });
-                
-                // Clear local storage
-                Object.keys(localStorage).forEach(key => {
-                    if (key.includes(clientId) || key.includes('msal')) {
-                        console.log("Clearing local storage key:", key);
-                        localStorage.removeItem(key);
-                    }
-                });
-                
-                // Also clear cookies that might be related to authentication
-                document.cookie.split(";").forEach(function(c) {
-                    if (c.includes('msal') || c.includes('MSAL') || c.includes(clientId)) {
-                        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-                        console.log("Cleared cookie:", c);
-                    }
-                });
-                
-                console.log("Authentication session cleared successfully");
-            } catch (e) {
-                console.error("Error clearing auth session:", e);
-            }
-        }
-        
-        // Run this on page load to clear any stuck interactions
-        clearAuthSession();
-        
-        // Check if the user is already logged in
-        window.addEventListener('load', () => {
-            // Check if we have a response from a redirect
-            msalInstance.handleRedirectPromise()
-                .then(response => {
-                    if (response) {
-                        handleResponse(response);
-                    } else {
-                        // Check if user is already signed in
-                        const accounts = msalInstance.getAllAccounts();
-                        if (accounts.length > 0) {
-                            // User is already signed in
-                            validateUserAndRedirect(accounts[0]);
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error("Error during authentication:", error);
-                    // Clear any stuck auth sessions if there's an error
-                    clearAuthSession();
-                    showError("Authentication error. Please try again.");
-                });
-        });
-        
-        function signIn() {
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Initialize authentication system
+            await authenticator.initialize();
+            
+            const form = document.getElementById('employeeLoginForm');
             const loginButton = document.getElementById('loginButton');
-            const loadingIndicator = document.getElementById('login-loading');
-            
-            // Clear any error messages
-            document.getElementById('login-error').classList.remove('active');
-            
-            // First, clear any existing auth sessions to prevent conflicts
-            clearAuthSession();
-            
-            // Update loading indicator text to show what's happening
-            loadingIndicator.querySelector('p').textContent = "Authenticating...";
-            
-            // Disable button and show loading
-            loginButton.disabled = true;
-            loadingIndicator.classList.add('active');
-            
-            // Set up login request with fixed configuration for iBridge tenant
-            const loginRequest = {
-                scopes: ["User.Read"],
-                prompt: "select_account", // Force account selection to avoid cached credentials issues
-                authority: "https://login.microsoftonline.com/feeb9a78-4032-4b89-ae79-2100a5dc16a8",
-                redirectUri: redirectUri, // Explicitly set the URI to http://localhost:8090/intranet/login.html
-                account: null // Force new authentication rather than using cached account
-            };
-            
-            console.log("Starting authentication process with iBridge Portal app (ID: 2f833c55-f976-4d6c-ad96-fa357119f0ee)");
-            
-            // Allow 30 seconds for authentication before showing timeout message
-            const authTimeout = setTimeout(() => {
-                if (loadingIndicator.classList.contains('active')) {
-                    loadingIndicator.querySelector('p').textContent = "Authentication is taking longer than expected...";
-                }
-            }, 30000);
-            
-            // Handle the interaction_in_progress error
-            msalInstance.handleRedirectPromise()
-                .then((response) => {
-                    clearTimeout(authTimeout);
-                    console.log("Handled redirect promise", response ? "with response" : "without response");
-                    
-                    if (response) {
-                        // We have a response from a redirect
-                        handleResponse(response);
-                        return;
-                    }
-                    
-                    // Check if there's already an account
-                    const accounts = msalInstance.getAllAccounts();
-                    if (accounts.length > 0) {
-                        console.log("Found existing account:", accounts[0].username);
-                        validateUserAndRedirect(accounts[0]);
-                        return;
-                    }
-                    
-                    // No accounts, try login with redirect for better compatibility
-                    console.log("No existing accounts found, initiating sign-in");
-                    console.log("Using redirect URI:", redirectUri);
-                    
-                    // Ensure we're using the correct registered URI
-                    loginRequest.redirectUri = redirectUri;
-                    
-                    console.log("Login request configuration:", JSON.stringify(loginRequest, null, 2));
-                    loadingIndicator.querySelector('p').textContent = "Redirecting to Microsoft login...";
-                    msalInstance.loginRedirect(loginRequest);
-                })
-                .catch(error => {
-                    clearTimeout(authTimeout);
-                    console.error("Sign-in error:", error);
-                    loginButton.disabled = false;
-                    loadingIndicator.classList.remove('active');
-                    
-                    if (error.errorCode === 'AADSTS700016') {
-                        showError("Application not found in Azure AD. Please ensure you've registered the app and updated the Client ID.");
-                    } else if (error.errorCode === 'AADSTS50011' || (error.message && error.message.includes("redirect URI"))) {
-                        const errorMsg = "Redirect URI mismatch. Please add this exact URI to Azure AD: " + redirectUri;
-                        console.error("Redirect URI error:", error);
-                        console.error("Required redirect URI to add in Azure portal:", redirectUri);
-                        showError(errorMsg);
-                    } else if (error.errorCode === 'AADSTS500113' || (error.message && error.message.includes("No reply address"))) {
-                        const errorMsg = "No redirect URI is registered for this application. Please check Azure AD configuration and add: " + redirectUri;
-                        console.error(errorMsg);
-                        showError(errorMsg);
-                    } else if (error.errorCode && error.errorCode.includes("interaction_in_progress")) {
-                        showError("Authentication already in progress. Please try refreshing the page.");
-                    } else {
-                        showError("Unable to sign in: " + (error.message || "Unknown error"));
-                    }
-                });
-        }
-        
-        function handleResponse(response) {
-            if (response) {
-                validateUserAndRedirect(response.account);
-            }
-        }
-        
-        function validateUserAndRedirect(account) {
-            // Basic validation
-            if (!account || !account.username) {
-                showError("Invalid account information. Please try again.");
-                return;
-            }
-            
-            const userEmail = account.username.toLowerCase();
-            const userDomain = userEmail.split('@')[1];
-            
-            console.log("User attempting login:", userEmail);
-            console.log("Account details:", JSON.stringify(account, null, 2));
-            
-            // Check if user is from allowed domain
-            if (!allowedDomains.includes(userDomain)) {
-                console.log("Domain access denied:", userDomain);
-                showError("Access denied. You must use an iBridge email address to access this portal.");
-                return;
-            }
-            
-            // Special handling for lwandile.gasela@ibridge.co.za - ensure this admin always gets access
-            const isLwandile = userEmail === "lwandile.gasela@ibridge.co.za";
-            if (isLwandile) {
-                console.log("Admin user detected: Lwandile Gasela - granting administrative access");
-            }
-            
-            // Ensure we display a proper name
-            let displayName = account.name;
-            if (!displayName && isLwandile) {
-                displayName = "Lwandile Gasela";
-            } else if (!displayName) {
-                // Try to generate a name from email if needed
-                const namePart = userEmail.split('@')[0];
-                displayName = namePart.replace(/\./g, ' ')
-                    .split(' ')
-                    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
-                    .join(' ');
-            }
-            
-            // Store user info in session with detailed information
-            const userData = {
-                name: displayName,
-                username: userEmail,
-                email: userEmail,
-                isAdmin: adminUsers.includes(userEmail) || isLwandile,
-                lastLogin: new Date().toISOString(),
-                domain: userDomain,
-                authMethod: "microsoft"
-            };
-            
-            console.log("Storing user data:", userData);
-            sessionStorage.setItem('user', JSON.stringify(userData));
-            
-            // Set cookies for authentication with stronger parameters
-            // Set domain-wide cookie
-            document.cookie = "user_authenticated=true; path=/; max-age=86400; SameSite=Lax";
-            // Set intranet-specific cookie
-            document.cookie = "user_authenticated=true; path=/intranet/; max-age=86400; SameSite=Lax";
-            // Set a secondary cookie as backup
-            document.cookie = "intranet_session=active; path=/; max-age=86400; SameSite=Lax";
-            
-            console.log("Authentication cookies set with multiple strategies");
-            
-            // Redirect to dashboard with improved logic and session verification
-            console.log("Authentication successful, storing user data and redirecting to dashboard");
-            
-            // Make sure baseUrl is correctly defined - use absolute URL for reliability
-            const currentOrigin = window.location.origin;
-            const targetUrl = currentOrigin + "/intranet/index.html";
-            
-            console.log("User data to store:", userData);
-            
-            // Ensure user data is properly stored in sessionStorage
-            sessionStorage.setItem('user', JSON.stringify(userData));
-            
-            // Double check that it was stored correctly
-            try {
-                const storedData = JSON.parse(sessionStorage.getItem('user') || '{}');
-                console.log("Verification - stored user data:", storedData);
-                
-                if (!storedData.username) {
-                    console.error("Failed to persist user data in session storage!");
-                    showError("Error storing session data. Please try again.");
-                    return;
-                }
-                
-                // Show success message briefly before redirecting
-                const loadingIndicator = document.getElementById('login-loading');
-                if (loadingIndicator) {
-                    loadingIndicator.querySelector('p').textContent = "Login successful! Redirecting...";
-                    
-                    // Use a longer delay to ensure session storage is fully written
-                    setTimeout(() => {
-                        console.log("Executing redirect to:", targetUrl);
-                        
-                        // Do a final verification of cookies and session before redirecting
-                        const hasCookie = document.cookie.includes('user_authenticated=true');
-                        const hasSession = !!sessionStorage.getItem('user');
-                        
-                        console.log("Final verification - Cookie exists:", hasCookie, "Session exists:", hasSession);
-                        
-                        // Use location.replace to avoid issues with back button
-                        window.location.replace(targetUrl);
-                    }, 1500); // Slightly longer delay to ensure cookies are set
-                } else {
-                    console.log("Executing immediate redirect to:", targetUrl);
-                    
-                    // Do a quick verification before redirecting
-                    const hasCookie = document.cookie.includes('user_authenticated=true');
-                    const hasSession = !!sessionStorage.getItem('user');
-                    console.log("Redirect verification - Cookie exists:", hasCookie, "Session exists:", hasSession);
-                    
-                    window.location.replace(targetUrl);
-                }
-            } catch (e) {
-                console.error("Error verifying session storage:", e);
-                showError("Error storing session data. Please try again.");
-            }
-        }
-        
-        function showError(message) {
-            const errorElement = document.getElementById('login-error');
-            errorElement.textContent = message;
-            errorElement.classList.add('active');
-            
-            const loadingIndicator = document.getElementById('login-loading');
-            loadingIndicator.classList.remove('active');
-            
-            document.getElementById('loginButton').disabled = false;
-        }
+            const loginSpinner = document.getElementById('loginSpinner');
 
-        // Add logout function
-        window.logout = function() {
-            console.log("Logging out user...");
+            // Password visibility toggle
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
             
-            // Clear session storage
-            sessionStorage.removeItem('user');
-            
-            // Clear authentication cookie
-            document.cookie = "user_authenticated=; path=/intranet/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict";
-            console.log("Authentication cookie cleared");
-            
-            // Use a consistent, hardcoded redirect URI for logout
-            // Use the same redirect URI logic as for login
-            const logoutRedirectUri = redirectUri;
-            console.log("Logout redirect URI:", logoutRedirectUri);
-            
-            // Clear any MSAL cache or tokens
-            const accounts = msalInstance.getAllAccounts();
-            if (accounts.length > 0) {
-                console.log("Found accounts to log out:", accounts.length);
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+                this.setAttribute('aria-label', 
+                    type === 'password' ? 'Show password' : 'Hide password'
+                );
+            });
+
+            // Form submission
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Reset any previous error states
+                const errorElements = form.getElementsByClassName('invalid-feedback');
+                Array.from(errorElements).forEach(el => el.style.display = 'none');
+                
+                // Show loading state
+                loginButton.disabled = true;
+                loginSpinner.classList.remove('d-none');
+                
                 try {
-                    msalInstance.logoutRedirect({
-                        account: accounts[0],
-                        postLogoutRedirectUri: logoutRedirectUri
-                    }).catch(error => {
-                        console.error("Logout error:", error);
-                        // If logout fails, just redirect
-                        clearAuthSession();
-                        window.location.href = baseUrl + 'login.html';
-                    });
-                } catch (e) {
-                    console.error("Error during logout:", e);
-                    clearAuthSession();
-                    window.location.href = baseUrl + 'login.html';
-                }
-            } else {
-                console.log("No accounts found, clearing session and redirecting");
-                // If no accounts found, just redirect
-                clearAuthSession();
-                window.location.href = baseUrl + 'login.html';
-            }
-        };
+                    const employeeCode = document.getElementById('employeeCode').value;
+                    const password = document.getElementById('password').value;
+                    
+                    // Attempt login using the authenticator instance
+                    const result = await authenticator.authenticateEmployee(
+                        employeeCode, 
+                        password
+                    );
+                    
+                    if (result.success) {
+                        // Store session token securely
+                        SecurityManager.setSecureSession({
+                            token: result.token,
+                            employeeCode: employeeCode,
+                            requiresPasswordChange: result.tempPassword
+                        });
 
-        // Development mode login handler
-        document.getElementById('devLoginButton')?.addEventListener('click', function() {
-            const name = document.getElementById('devName').value.trim();
-            const email = document.getElementById('devEmail').value.trim();
-            const isAdmin = document.getElementById('devIsAdmin').checked;
-            
-            // Validate inputs
-            if (!name || !email) {
-                showError("Please enter both name and email.");
-                return;
-            }
-            
-            if (!email.endsWith('@ibridge.co.za')) {
-                showError("Email must end with @ibridge.co.za for testing");
-                return;
-            }
-            
-            // Special handling for Lwandile's account
-            const isLwandile = email.toLowerCase() === "lwandile.gasela@ibridge.co.za";
-            let adminStatus = isAdmin;
-            if (isLwandile && !adminStatus) {
-                // Force admin status for Lwandile
-                console.log("Forcing admin status for Lwandile Gasela");
-                adminStatus = true;
-            }
-            
-            // Store mock user data with enhanced fields to match Microsoft auth
-            const userData = {
-                name: name,
-                username: email,
-                email: email,
-                isAdmin: adminStatus || isLwandile,
-                lastLogin: new Date().toISOString(),
-                domain: "ibridge.co.za",
-                authType: "development"
-            };
-            
-            console.log("Development login: Storing user data", userData);
-            sessionStorage.setItem('user', JSON.stringify(userData));
-            
-            // Set cookie for .htaccess authentication
-            document.cookie = "user_authenticated=true; path=/intranet/; max-age=86400; SameSite=Strict";
-            console.log("Development login: Authentication cookie set for .htaccess");
-            
-            // Verify data was stored correctly
-            try {
-                const storedData = JSON.parse(sessionStorage.getItem('user') || '{}');
-                console.log("Development login - verification of stored data:", storedData);
-                
-                if (!storedData.username) {
-                    console.error("Failed to persist dev login data in session storage!");
-                    showError("Error storing session data. Please try again.");
-                    return;
+                        // If using temp password, redirect to password change page
+                        // Otherwise go to dashboard
+                        const redirectUrl = result.tempPassword ? 
+                            'change-password.html' : 
+                            'dashboard.html';
+
+                        window.location.href = SecurityManager.sanitizeUrl(redirectUrl);
+                    } else {
+                        throw new Error(result.error || 'Login failed');
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    
+                    const errorElement = document.getElementById('employeeCodeError');
+                    errorElement.textContent = error.message;
+                    errorElement.style.display = 'block';
+                    
+                    // Log failed attempt
+                    SecurityManager.logFailedLoginAttempt(
+                        document.getElementById('employeeCode').value
+                    );
+                } finally {
+                    // Reset loading state
+                    loginButton.disabled = false;
+                    loginSpinner.classList.add('d-none');
                 }
-                
-                // Redirect to dashboard with absolute path using current origin
-                const devLoginTargetUrl = window.location.origin + "/intranet/index.html";
-                console.log("Development login: Redirecting to:", devLoginTargetUrl);
-                window.location.replace(devLoginTargetUrl);
-            } catch (e) {
-                console.error("Error verifying dev login session storage:", e);
-                showError("Error storing session data. Please try again.");
-            }
+            });
+
+            // Focus first input on load
+            document.getElementById('employeeCode').focus();
         });
     </script>
 </body>
 </html>
-

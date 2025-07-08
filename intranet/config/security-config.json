@@ -1,0 +1,47 @@
+{
+    "authentication": {
+        "passwordPolicy": {
+            "minLength": 12,
+            "requireUppercase": true,
+            "requireLowercase": true,
+            "requireNumbers": true,
+            "requireSpecialChars": true,
+            "maxAge": 90,
+            "preventReuse": 5
+        },
+        "session": {
+            "timeout": 30,
+            "maxConcurrentSessions": 1,
+            "enforceHttpsOnly": true,
+            "sameSite": "Strict",
+            "secure": true
+        },
+        "mfa": {
+            "enabled": true,
+            "methods": ["email", "authenticator"],
+            "graceLoginCount": 1
+        },
+        "rateLimit": {
+            "maxAttempts": 5,
+            "windowMinutes": 15,
+            "blockDurationMinutes": 30
+        }
+    },
+    "csrf": {
+        "enabled": true,
+        "tokenExpiry": 3600
+    },
+    "headers": {
+        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://alcdn.msauth.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://login.microsoftonline.com",
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-Content-Type-Options": "nosniff",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "logging": {
+        "enableAuditLog": true,
+        "logFailedAttempts": true,
+        "logSuccessfulLogins": true,
+        "retentionDays": 90
+    }
+}

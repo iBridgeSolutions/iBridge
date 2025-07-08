@@ -114,7 +114,7 @@
                                 value.substring(0, 47) + '...' : value;
                         }
                     } catch (e) {
-                        sessionContent[key] = "[Error parsing]";
+                        sessionContent[key] = `[Error parsing: ${e.message}]`;
                     }
                 }
                 

@@ -36,6 +36,18 @@ This guide will help you finalize the Microsoft 365 login integration for the iB
    - Look for "Microsoft Graph" with the permission "User.Read"
    - Check if the permission status shows as "Granted for..."
    - If not, click "Grant admin consent for [Your Organization]" at the top
+   
+6. **Handle "Need admin approval" Error**:
+   - If you see a "Need admin approval" message when trying to log in, this means admin consent hasn't been granted
+   - To fix this, an admin must:
+      - Sign in to the [Azure portal](https://portal.azure.com)
+      - Go to Azure Active Directory → App registrations → iBridge Portal
+      - Select "API permissions" from the left menu
+      - Click "Grant admin consent for [Your Organization]" button at the top
+   - Alternatively, access the [Microsoft 365 Admin Center](https://admin.microsoft.com/)
+      - Navigate to "Settings" → "Integrated apps"
+      - Find the "iBridge Portal" app and approve it
+      - If you don't see it, use "Add an app" and enter the application ID
 
 ## 2. Update Client Configuration in Your Code
 

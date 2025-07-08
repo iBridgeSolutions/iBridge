@@ -34,6 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.location.pathname.includes('admin-panel.html')) {
         initAdminPanel();
     }
+    
+    // Initialize security features if on security.html
+    if (window.location.pathname.includes('security.html')) {
+        initializeSecurityFeatures();
+    }
 });
 
 /**
@@ -51,70 +56,20 @@ function checkAuthentication() {
     }
     
     console.log("Checking authentication status...");
-    console.log("Current URL:", window.location.href);
-    console.log("Current path:", window.location.pathname);
     
     try {
-        // Check for multiple auth indicators - session and cookies
-        const hasUserSession = !!sessionStorage.getItem('user');
-        const hasAuthCookie = document.cookie.includes('user_authenticated=true');
-        const hasBackupCookie = document.cookie.includes('intranet_session=active');
-        
-        console.log("Auth check - Session:", hasUserSession, "AuthCookie:", hasAuthCookie, "BackupCookie:", hasBackupCookie);
-        
-        // First scenario: No user session at all - clear redirect to login
-        if (!hasUserSession && !hasAuthCookie && !hasBackupCookie) {
-            console.error("No authentication found - redirecting to login");
-            
-            // Redirect to login with proper path handling
-            const loginPath = window.location.origin + '/intranet/login.html';
-            console.log("Redirecting to login:", loginPath);
+        // Use security manager to validate session
+        if (!window.securityManager.validateSession()) {
+            const loginPath = window.location.origin + (window.location.pathname.includes('/intranet/') ? '/intranet/login.html' : '/login.html');
+            console.log("No valid session found. Redirecting to:", loginPath);
             window.location.replace(loginPath);
             return false;
         }
-        
-        // Second scenario: Has cookie but no session - attempt to recover
-        if (!hasUserSession && (hasAuthCookie || hasBackupCookie)) {
-            console.log("Found auth cookie but no session - attempting to create mock session");
-            
-            // Create a temporary session to prevent redirect loops
-            const mockUserData = {
-                name: "Authenticated User",
-                username: "authenticated@ibridge.co.za",
-                email: "authenticated@ibridge.co.za",
-                isAdmin: false,
-                lastLogin: new Date().toISOString(),
-                authMethod: "cookie-recovery"
-            };
-            
-            sessionStorage.setItem('user', JSON.stringify(mockUserData));
-            console.log("Created recovery session");
-            return true;
-        }
-        
-        // Try to parse the user data
-        const userData = JSON.parse(sessionStorage.getItem('user') || '{}');
-        console.log("Session user data:", userData);
-        
-        // If no user data, redirect to login using absolute path
-        if (!userData.username) {
-            console.error("No username in user data, redirecting to login");
-            window.location.replace(window.location.origin + '/intranet/login.html');
-            return false;
-        }
-        
-        // Special check for Lwandile's account - ensure admin status
-        if (userData.email && userData.email.toLowerCase() === "lwandile.gasela@ibridge.co.za" && !userData.isAdmin) {
-            console.log("Fixing admin status for Lwandile Gasela");
-            userData.isAdmin = true;
-            sessionStorage.setItem('user', JSON.stringify(userData));
-        }
-        
-        console.log("User authenticated successfully:", userData.username);
+
         return true;
     } catch (e) {
         console.error("Error checking authentication:", e);
-        window.location.replace(window.location.origin + '/intranet/login.html');
+        window.location.replace(window.location.origin + (window.location.pathname.includes('/intranet/') ? '/intranet/login.html' : '/login.html'));
         return false;
     }
 }
@@ -123,16 +78,31 @@ function checkAuthentication() {
  * Load user information into the sidebar user info section
  */
 function loadUserInfo() {
-    const userData = JSON.parse(sessionStorage.getItem('user') || '{}');
+    // Check for both old and new authentication formats
+    let userData = null;
+    
+    // Try to load from custom auth first
+    if (sessionStorage.getItem('portalUser')) {
+        userData = JSON.parse(sessionStorage.getItem('portalUser') || '{}');
+        console.log("Loading user info from custom auth system:", userData);
+    } else {
+        // Fall back to old auth format if needed
+        userData = JSON.parse(sessionStorage.getItem('user') || '{}');
+        console.log("Loading user info from legacy auth system:", userData);
+    }
     
     // Find user info elements if they exist
     const userNameElement = document.querySelector('.user-name');
     const userRoleElement = document.querySelector('.user-role');
     
-    if (userNameElement && userData.name) {
+    // Handle different user data formats
+    const userName = userData.displayName || userData.name || '';
+    const isAdmin = userData.permissions?.isAdmin || userData.isAdmin || false;
+    
+    if (userNameElement && userName) {
         // Extract first name
-        const firstName = userData.name.split(' ')[0];
-        userNameElement.textContent = userData.name;
+        const firstName = userName.split(' ')[0];
+        userNameElement.textContent = userName;
         
         // Add greeting to the dashboard if on index page
         if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/intranet/')) {
@@ -144,11 +114,17 @@ function loadUserInfo() {
     }
     
     if (userRoleElement) {
-        userRoleElement.textContent = userData.isAdmin ? 'Administrator' : 'Staff Member';
+        let roleText = "Staff Member";
+        if (isAdmin) {
+            roleText = "Administrator";
+        } else if (userData.position) {
+            roleText = userData.position; // Use position from custom auth if available
+        }
+        userRoleElement.textContent = roleText;
     }
     
     // Add admin indicator if the user is an admin
-    if (userData.isAdmin) {
+    if (isAdmin) {
         document.body.classList.add('is-admin');
         
         // Show admin-only elements
@@ -181,7 +157,7 @@ window.logout = function() {
     console.log("Authentication cookie cleared");
     
     // Redirect to login page using absolute path
-    const loginUrl = window.location.origin + '/intranet/login.html';
+    const loginUrl = window.location.origin + (window.location.pathname.includes('/intranet/') ? '/intranet/login.html' : '/login.html');
     console.log("Redirecting to:", loginUrl);
     window.location.replace(loginUrl);
 };
@@ -859,4 +835,209 @@ function showAdminNotification(message) {
         notification.classList.remove('show');
         setTimeout(() => notification.remove(), 300);
     }, 3000);
+}
+
+/**
+ * Initialize security features on the security page
+ */
+function initializeSecurityFeatures() {
+    // Password strength checker
+    const newPasswordInput = document.getElementById('newPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const progressBar = document.querySelector('.password-strength .progress-bar');
+    const savePasswordBtn = document.getElementById('savePasswordBtn');
+    const passwordError = document.getElementById('passwordError');
+
+    if (newPasswordInput) {
+        newPasswordInput.addEventListener('input', function() {
+            const result = window.securityManager.checkPasswordStrength(this.value);
+            updatePasswordStrengthIndicator(progressBar, result);
+            
+            // Show feedback
+            const feedback = document.querySelector('.password-strength small');
+            if (feedback) {
+                feedback.textContent = result.feedback || result.isStrong ? 
+                    'Password strength: Good' : 
+                    'Password is not strong enough. ' + result.feedback;
+            }
+        });
+    }
+
+    if (savePasswordBtn) {
+        savePasswordBtn.addEventListener('click', async function() {
+            const newPassword = newPasswordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            if (newPassword !== confirmPassword) {
+                showError(passwordError, 'Passwords do not match');
+                return;
+            }
+
+            const strength = window.securityManager.checkPasswordStrength(newPassword);
+            if (!strength.isStrong) {
+                showError(passwordError, 'Password is not strong enough. ' + strength.feedback);
+                return;
+            }
+
+            try {
+                // Save new password
+                const result = await window.customAuth.changePassword(newPassword);
+                if (result.success) {
+                    window.securityManager.logSecurityEvent('password_change', {
+                        success: true
+                    });
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('passwordChangeModal'));
+                    modal.hide();
+                    showToast('Password updated successfully', 'success');
+                } else {
+                    showError(passwordError, result.error);
+                }
+            } catch (error) {
+                window.securityManager.logSecurityEvent('password_change', {
+                    success: false,
+                    error: error.message
+                });
+                showError(passwordError, 'Failed to update password. Please try again.');
+            }
+        });
+    }
+
+    // MFA handling
+    const mfaCodeInput = document.getElementById('mfaCode');
+    const verifyMfaBtn = document.getElementById('verifyMfaBtn');
+    const mfaError = document.getElementById('mfaError');
+    const resendMfaBtn = document.getElementById('resendMfaCode');
+
+    if (mfaCodeInput) {
+        mfaCodeInput.addEventListener('input', function() {
+            // Only allow numbers and limit to 6 digits
+            this.value = this.value.replace(/\D/g, '').substring(0, 6);
+        });
+    }
+
+    if (verifyMfaBtn) {
+        verifyMfaBtn.addEventListener('click', async function() {
+            const code = mfaCodeInput.value;
+            if (code.length !== 6) {
+                showError(mfaError, 'Please enter a valid 6-digit code');
+                return;
+            }
+
+            try {
+                const result = await window.customAuth.verifyMfaCode(code);
+                if (result.success) {
+                    window.securityManager.logSecurityEvent('mfa_success', {
+                        method: 'email'
+                    });
+                    // Hide MFA modal and redirect to dashboard
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('mfaModal'));
+                    modal.hide();
+                    window.location.href = 'index.html';
+                } else {
+                    window.securityManager.logSecurityEvent('mfa_failed', {
+                        reason: result.error
+                    });
+                    showError(mfaError, result.error);
+                }
+            } catch (error) {
+                window.securityManager.logSecurityEvent('mfa_error', {
+                    error: error.message
+                });
+                showError(mfaError, 'Failed to verify code. Please try again.');
+            }
+        });
+    }
+
+    if (resendMfaBtn) {
+        resendMfaBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            try {
+                await window.customAuth.resendMfaCode();
+                window.securityManager.logSecurityEvent('mfa_resend', {
+                    success: true
+                });
+                showToast('New verification code sent', 'success');
+                startMfaTimer();
+            } catch (error) {
+                window.securityManager.logSecurityEvent('mfa_resend', {
+                    success: false,
+                    error: error.message
+                });
+                showToast('Failed to send new code', 'error');
+            }
+        });
+    }
+}
+
+// Initialize security features
+window.initializeSecurityFeatures = function() {
+    // Add MFA timer initialization
+    startMfaTimer();
+    
+    // Initialize other security features
+    checkAuthentication();
+};
+
+/**
+ * Update password strength indicator
+ */
+function updatePasswordStrengthIndicator(progressBar, strength) {
+    if (!progressBar) return;
+    
+    const score = strength.score;
+    let color, width;
+    
+    switch (score) {
+        case 0:
+            color = '#dc3545'; // red
+            width = '20%';
+            break;
+        case 1:
+            color = '#dc3545'; // red
+            width = '20%';
+            break;
+        case 2:
+            color = '#ffc107'; // yellow
+            width = '40%';
+            break;
+        case 3:
+            color = '#20c997'; // teal
+            width = '60%';
+            break;
+        case 4:
+            color = '#198754'; // green
+            width = '80%';
+            break;
+        case 5:
+            color = '#198754'; // green
+            width = '100%';
+            break;
+    }
+    
+    progressBar.style.backgroundColor = color;
+    progressBar.style.width = width;
+}
+
+/**
+ * Start MFA verification timer
+ */
+function startMfaTimer() {
+    const timerEl = document.getElementById('mfaTimer');
+    if (!timerEl) return;
+    
+    const timeout = window.securityManager.config.session.mfaTimeout;
+    let timeLeft = timeout * 60;
+    
+    const timer = setInterval(() => {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (--timeLeft < 0) {
+            clearInterval(timer);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('mfaModal'));
+            modal.hide();
+            showToast('Verification code expired. Please try again.', 'error');
+        }
+    }, 1000);
 }

@@ -1,0 +1,36 @@
+{
+  "postalCode": "2191",
+  "privacyProfile": {
+    "contactEmail": "privacy@ibridge.co.za",
+    "statementUrl": "https://www.ibridge.co.za/privacy"
+  },
+  "street": "123 Main Street",
+  "technicalNotificationEmails": [
+    "it.support@ibridge.co.za"
+  ],
+  "source": "Microsoft 365 Admin Center (Dev Mode)",
+  "securityComplianceNotificationPhones": [
+    "+27 11 540 8450"
+  ],
+  "verifiedDomains": [
+    {
+      "type": "Managed",
+      "isDefault": true,
+      "isInitial": true,
+      "name": "ibridge.co.za"
+    }
+  ],
+  "state": "Gauteng",
+  "country": "ZA",
+  "displayName": "iBridge Contact Solutions",
+  "marketingNotificationEmails": [
+    "marketing@ibridge.co.za"
+  ],
+  "logoBase64": "",
+  "city": "Bryanston",
+  "lastUpdated": "2025-07-05",
+  "securityComplianceNotificationMails": [
+    "security@ibridge.co.za"
+  ],
+  "phoneNumber": "+27 11 540 8450"
+}

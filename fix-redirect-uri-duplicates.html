@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Azure Redirect URI Duplicates</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            max-width: 1000px;
+        }
+        h1, h2, h3 {
+            color: #0078d4;
+        }
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #0078d4;
+        }
+        .warning {
+            background-color: #fff4e5;
+            border-left: 5px solid #ff8c00;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #e6ffed;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .step {
+            background-color: #f0f0f0;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            counter-increment: step-counter;
+        }
+        .step::before {
+            content: "Step " counter(step-counter);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #0078d4;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: Consolas, 'Courier New', monospace;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #0078d4;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .btn:hover {
+            background-color: #005a9e;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fix "Redirect URIs must have distinct values" Error</h1>
+        <p>This guide will help you resolve the Azure AD error where you cannot add or update redirect URIs because of duplicates.</p>
+    </div>
+
+    <div class="warning">
+        <h3>⚠️ Understanding the Problem</h3>
+        <p>The "Redirect URIs must have distinct values" error occurs when:</p>
+        <ul>
+            <li>Azure AD detects duplicate URIs (case-insensitive comparison)</li>
+            <li>The same URI might appear with different capitalization</li>
+            <li>URIs that look different to us might be treated as identical by Azure AD</li>
+        </ul>
+        <p><strong>Example:</strong> These would be considered duplicates:</p>
+        <ul>
+            <li>https://ibridgesolutions.github.io/iBridge/intranet/login.html</li>
+            <li>https://ibridgesolutions.github.io/ibridge/intranet/login.html</li>
+        </ul>
+    </div>
+
+    <h2>Solution Options</h2>
+
+    <div class="step">
+        <h3>Automatic Fix (Recommended)</h3>
+        <p>We've created a tool to automatically fix this issue:</p>
+        <ol>
+            <li>Double-click the <code>FIX-REDIRECT-URI-DUPLICATES.bat</code> file in your website folder</li>
+            <li>Follow the prompts to install Microsoft Graph module if needed</li>
+            <li>Sign in with your Azure AD admin account when prompted</li>
+            <li>Choose option 4 "RESET ALL" to remove all URIs except the correct one</li>
+            <li>Verify the changes were successful</li>
+        </ol>
+    </div>
+
+    <div class="step">
+        <h3>Manual Fix in Azure Portal</h3>
+        <p>If you prefer to fix this manually:</p>
+        <ol>
+            <li>Go to <a href="https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade">Azure Portal App Registrations</a></li>
+            <li>Find and select your iBridge application</li>
+            <li>Click on "Authentication" in the left sidebar</li>
+            <li>Under "Platform configurations", delete ALL redirect URIs by clicking the three dots next to each and selecting "Delete"</li>
+            <li>Add only the correct URI: <code>https://ibridgesolutions.github.io/iBridge/intranet/login.html</code></li>
+            <li>Click "Save" at the top</li>
+        </ol>
+    </div>
+
+    <div class="success">
+        <h3>✅ Verification</h3>
+        <p>After fixing, verify that:</p>
+        <ol>
+            <li>Only one redirect URI exists: <code>https://ibridgesolutions.github.io/iBridge/intranet/login.html</code></li>
+            <li>Try accessing the portal at: <a href="https://ibridgesolutions.github.io/iBridge/intranet/">https://ibridgesolutions.github.io/iBridge/intranet/</a></li>
+            <li>Login should now work without errors</li>
+        </ol>
+    </div>
+
+    <div class="container">
+        <h3>Need More Help?</h3>
+        <p>If you're still experiencing issues after following these steps:</p>
+        <ol>
+            <li>Try running the PowerShell script directly: <code>.\check-redirect-uris-graph.ps1</code></li>
+            <li>If problems persist, consider creating a new app registration and updating your website with the new client ID</li>
+        </ol>
+    </div>
+</body>
+</html>

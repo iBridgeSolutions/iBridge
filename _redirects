@@ -1,0 +1,43 @@
+# Netlify redirects for GitHub Pages compatibility
+# Main domain redirects
+/home               /index.html
+/about-us           /about.html
+/our-services       /services.html
+/contact-us         /contact.html
+
+# Service page redirects
+/contact-center     /contact-center.html
+/contact-centre     /contact-center.html
+/it-support         /it-support.html
+/ai-automation      /ai-automation.html
+/client-interaction /client-interaction.html
+
+# Intranet redirects
+/portal             /intranet/login.html
+/login              /intranet/login.html
+/intranet-login     /intranet/login.html
+/staff-portal       /intranet/login.html
+
+# SEO friendly redirects
+/services/contact-center     /contact-center.html
+/services/it-support         /it-support.html
+/services/ai-automation      /ai-automation.html
+/services/client-interaction /client-interaction.html
+
+# Legacy URL redirects (if any)
+/old-about          /about.html
+/old-contact        /contact.html
+
+# Trailing slash redirects
+/about/             /about.html
+/services/          /services.html
+/contact/           /contact.html
+
+# File extension redirects
+/index              /index.html
+/about              /about.html
+/services           /services.html
+/contact            /contact.html
+
+# 404 fallback
+/*                  /404.html  404

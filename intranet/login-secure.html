@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="iBridge Staff Portal Login - Secure access to the company intranet">
+    <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing of internal pages -->
+    <title>Login | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/intranet-styles.css">
+    <link rel="stylesheet" href="css/intranet-enhanced.css">
+    
+    <style>
+        body {
+            background-color: var(--intranet-background);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            max-width: 450px;
+            width: 90%;
+            padding: 0 15px;
+        }
+        
+        .login-card {
+            background-color: var(--intranet-card-bg);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, var(--intranet-primary) 0%, var(--intranet-secondary) 100%);
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        .login-logo {
+            max-width: 150px;
+            margin-bottom: 15px;
+        }
+        
+        .login-title {
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        
+        .login-body {
+            padding: 30px;
+        }
+        
+        .form-control {
+            height: 50px;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            background-color: var(--intranet-input-bg);
+            border: 1px solid var(--intranet-border);
+            color: var(--intranet-text);
+        }
+        
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(161, 196, 79, 0.25);
+            border-color: var(--intranet-primary);
+            background-color: var(--intranet-input-bg-focus);
+        }
+        
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--intranet-text);
+        }
+        
+        .btn-login {
+            height: 50px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 16px;
+            background-color: var(--intranet-primary);
+            border-color: var(--intranet-primary);
+            width: 100%;
+        }
+        
+        .btn-login:hover, 
+        .btn-login:focus {
+            background-color: var(--intranet-secondary);
+            border-color: var(--intranet-secondary);
+        }
+        
+        .login-footer {
+            padding: 15px 30px;
+            border-top: 1px solid var(--intranet-border);
+            text-align: center;
+        }
+        
+        .login-help {
+            font-size: 14px;
+            color: var(--intranet-text-light);
+        }
+        
+        .login-help a {
+            color: var(--intranet-primary);
+            text-decoration: none;
+        }
+        
+        .login-help a:hover {
+            text-decoration: underline;
+        }
+        
+        #login-error {
+            display: none;
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+            border-radius: 5px;
+            padding: 12px 15px;
+            color: #dc3545;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--intranet-text-light);
+            cursor: pointer;
+        }
+        
+        .toggle-password:focus {
+            outline: none;
+        }
+        
+        .switch-auth-method {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--intranet-border);
+        }
+        
+        .auth-option {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: var(--intranet-background);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .auth-option:hover {
+            background-color: rgba(161, 196, 79, 0.1);
+        }
+        
+        .auth-option i {
+            font-size: 20px;
+            margin-right: 15px;
+            color: var(--intranet-primary);
+        }
+        
+        .auth-option .auth-name {
+            font-weight: 500;
+            color: var(--intranet-text);
+        }
+        
+        .auth-option .auth-desc {
+            font-size: 12px;
+            color: var(--intranet-text-light);
+        }
+        
+        .security-info {
+            font-size: 12px;
+            color: var(--intranet-text-light);
+            margin-top: 10px;
+        }
+        
+        .security-info i {
+            color: var(--intranet-primary);
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" class="login-logo">
+                <h1 class="login-title">Staff Portal</h1>
+            </div>
+            
+            <div class="login-body">
+                <form id="login-form">
+                    <div id="login-error" role="alert">
+                        Invalid employee code or password
+                    </div>
+                    
+                    <div id="login-step-1">
+                        <div class="mb-3">
+                            <label for="employee-code" class="form-label">Employee Code</label>
+                            <input type="text" class="form-control" id="employee-code" placeholder="Enter your employee code (e.g., IBDG054)" required autocomplete="username">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="password-container">
+                                <input type="password" class="form-control" id="password" placeholder="Enter your password" required autocomplete="current-password">
+                                <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-strength mt-2">
+                                <meter id="password-strength-meter" min="0" max="5" value="0" class="w-100"></meter>
+                                <p id="password-strength-text" class="small mt-1 mb-0">Password strength: weak</p>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-login">
+                            <i class="fas fa-sign-in-alt me-2"></i> Log In
+                        </button>
+                    </div>
+                    
+                    <!-- Two-factor authentication step -->
+                    <div id="login-step-2" style="display: none;">
+                        <h4>Two-Factor Authentication</h4>
+                        <p>Please enter the verification code sent to your email.</p>
+                        
+                        <div class="mb-3">
+                            <label for="verification-code" class="form-label">Verification Code</label>
+                            <input type="text" class="form-control" id="verification-code" placeholder="Enter 6-digit code" maxlength="6" autocomplete="one-time-code">
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button type="button" id="verify-code-btn" class="btn btn-primary">
+                                <i class="fas fa-check me-2"></i> Verify Code
+                            </button>
+                            <button type="button" id="resend-code-btn" class="btn btn-outline-secondary">
+                                <i class="fas fa-redo me-2"></i> Resend Code
+                            </button>
+                        </div>
+                        
+                        <div class="mt-2">
+                            <div id="code-countdown" class="text-muted small"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="switch-auth-method mt-4">
+                        <p class="text-center mb-3">Alternative Login Methods</p>
+                        <div class="auth-option employee-code">
+                            <i class="fas fa-id-card"></i>
+                            <div>
+                                <div class="auth-name">Employee Code (Current)</div>
+                                <div class="auth-desc">Using your iBridge employee code</div>
+                            </div>
+                        </div>
+                        <div class="auth-option disabled" style="opacity: 0.6; cursor: not-allowed">
+                            <i class="fab fa-microsoft"></i>
+                            <div>
+                                <div class="auth-name">Microsoft 365 (Disabled)</div>
+                                <div class="auth-desc">Login using Microsoft credentials</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="security-info">
+                        <i class="fas fa-shield-alt"></i> Secured with enhanced authentication
+                    </div>
+                </form>
+            </div>
+            
+            <div class="login-footer">
+                <p class="login-help">Need help? <a href="#">Contact IT Support</a></p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-3">
+            <a href="../index.html" class="text-decoration-none">
+                <i class="fas fa-arrow-left me-1"></i> Return to Public Site
+            </a>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- iBridge Security Components -->
+    <script src="js/password-utils.js"></script>
+    <script src="js/anti-forgery.js"></script>
+    <script src="js/rate-limiter.js"></script>
+    <script src="js/two-factor-auth.js"></script>
+    <!-- iBridge Secure Authentication -->
+    <script src="js/secure-auth.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle password visibility
+            const togglePassword = document.querySelector('.toggle-password');
+            const passwordInput = document.getElementById('password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+            
+            // Handle 2FA login flow
+            const loginForm = document.getElementById('login-form');
+            const loginStep1 = document.getElementById('login-step-1');
+            const loginStep2 = document.getElementById('login-step-2');
+            const verifyCodeBtn = document.getElementById('verify-code-btn');
+            const resendCodeBtn = document.getElementById('resend-code-btn');
+            const verificationCodeInput = document.getElementById('verification-code');
+            const countdownEl = document.getElementById('code-countdown');
+            const errorEl = document.getElementById('login-error');
+            
+            // Handle form submission (first step)
+            loginForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                
+                const employeeCode = document.getElementById('employee-code').value;
+                const password = document.getElementById('password').value;
+                
+                // Check rate limiting before processing login
+                const ipIdentifier = 'client-' + (new Date().getTime() % 1000); // In production, use actual client IP
+                const rateLimitCheck = window.RateLimiter.checkLimit(ipIdentifier, 'login');
+                
+                if (!rateLimitCheck.allowed) {
+                    errorEl.textContent = rateLimitCheck.message;
+                    errorEl.style.display = 'block';
+                    return;
+                }
+                
+                try {
+                    const loginResult = await window.secureAuth.login(employeeCode, password);
+                    
+                    if (loginResult.success && loginResult.requireTwoFactor) {
+                        // Show 2FA step
+                        loginStep1.style.display = 'none';
+                        loginStep2.style.display = 'block';
+                        verificationCodeInput.focus();
+                        
+                        // Start countdown
+                        startCountdown();
+                        
+                        // Reset rate limiting on successful first step
+                        window.RateLimiter.reset(ipIdentifier, 'login');
+                    } else if (loginResult.success) {
+                        // Login successful, redirect
+                        window.location.href = '/intranet/';
+                        
+                        // Reset rate limiting on successful login
+                        window.RateLimiter.reset(ipIdentifier, 'login');
+                    } else {
+                        // Record failed attempt for rate limiting
+                        const rateLimitResult = window.RateLimiter.recordFailure(ipIdentifier, 'login');
+                        
+                        // Show error
+                        if (!rateLimitResult.allowed) {
+                            errorEl.textContent = rateLimitResult.message;
+                        } else {
+                            errorEl.textContent = loginResult.message;
+                        }
+                        errorEl.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    errorEl.textContent = 'An error occurred. Please try again.';
+                    errorEl.style.display = 'block';
+                }
+            });
+            
+            // Handle verification code submission
+            verifyCodeBtn.addEventListener('click', async function() {
+                const code = verificationCodeInput.value.trim();
+                const userIdentifier = sessionStorage.getItem('2fa_pending_user');
+                
+                if (!code || code.length !== 6) {
+                    errorEl.textContent = 'Please enter a valid 6-digit code';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+                
+                try {
+                    const isValid = window.TwoFactorAuth.verifyCode(userIdentifier, code);
+                    
+                    if (isValid) {
+                        // Get pending session data
+                        const pendingSession = JSON.parse(sessionStorage.getItem('pending_2fa_session') || 'null');
+                        
+                        if (pendingSession) {
+                            // Create full session
+                            const sessionToken = window.secureAuth.tokenGenerator.generateToken();
+                            const session = {
+                                token: sessionToken,
+                                expires: Date.now() + window.secureAuth.sessionDuration,
+                                userData: pendingSession.userData
+                            };
+                            
+                            // Store session
+                            window.secureAuth.storeSession(session);
+                            
+                            // Clean up
+                            sessionStorage.removeItem('pending_2fa_session');
+                            sessionStorage.removeItem('2fa_pending_user');
+                            
+                            // Redirect
+                            window.location.href = '/intranet/';
+                        } else {
+                            errorEl.textContent = 'Session data lost. Please log in again.';
+                            errorEl.style.display = 'block';
+                            
+                            // Go back to step 1
+                            loginStep1.style.display = 'block';
+                            loginStep2.style.display = 'none';
+                        }
+                    } else {
+                        errorEl.textContent = 'Invalid or expired code. Please try again.';
+                        errorEl.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error('Verification error:', error);
+                    errorEl.textContent = 'An error occurred. Please try again.';
+                    errorEl.style.display = 'block';
+                }
+            });
+            
+            // Handle resend code
+            resendCodeBtn.addEventListener('click', async function() {
+                const userIdentifier = sessionStorage.getItem('2fa_pending_user');
+                
+                if (!userIdentifier) {
+                    errorEl.textContent = 'Session expired. Please log in again.';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+                
+                try {
+                    // Get email from pending session
+                    const pendingSession = JSON.parse(sessionStorage.getItem('pending_2fa_session') || 'null');
+                    const email = pendingSession?.userData?.email;
+                    
+                    const result = await window.TwoFactorAuth.startVerification(userIdentifier, email);
+                    
+                    if (result) {
+                        // Disable button temporarily
+                        resendCodeBtn.disabled = true;
+                        setTimeout(() => {
+                            resendCodeBtn.disabled = false;
+                        }, 30000);
+                        
+                        // Reset countdown
+                        startCountdown();
+                        
+                        // Show success message
+                        errorEl.textContent = 'A new code has been sent to your email';
+                        errorEl.style.display = 'block';
+                        errorEl.style.backgroundColor = 'rgba(25, 135, 84, 0.1)';
+                        errorEl.style.borderColor = 'rgba(25, 135, 84, 0.2)';
+                        errorEl.style.color = '#198754';
+                    } else {
+                        errorEl.textContent = 'Failed to send code. Please try again.';
+                        errorEl.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error('Resend error:', error);
+                    errorEl.textContent = 'An error occurred. Please try again.';
+                    errorEl.style.display = 'block';
+                }
+            });
+            
+            // Countdown function
+            function startCountdown() {
+                const userIdentifier = sessionStorage.getItem('2fa_pending_user');
+                const storedData = window.TwoFactorAuth.verificationCodes[userIdentifier];
+                
+                if (!storedData) return;
+                
+                // Clear existing interval
+                if (window._countdownInterval) {
+                    clearInterval(window._countdownInterval);
+                }
+                
+                // Update countdown every second
+                window._countdownInterval = setInterval(() => {
+                    const now = Date.now();
+                    const remaining = Math.max(0, storedData.expires - now);
+                    const minutes = Math.floor(remaining / 60000);
+                    const seconds = Math.floor((remaining % 60000) / 1000);
+                    
+                    countdownEl.textContent = `Code expires in ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    if (remaining <= 0) {
+                        clearInterval(window._countdownInterval);
+                        countdownEl.textContent = 'Code has expired';
+                    }
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

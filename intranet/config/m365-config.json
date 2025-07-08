@@ -1,0 +1,14 @@
+{
+    "clientId": "ENTER-YOUR-CLIENT-ID",
+    "clientSecret": "ENTER-YOUR-CLIENT-SECRET",
+    "tenantId": "ENTER-YOUR-TENANT-ID",
+    "redirectUri": "https://yourintranetdomain/auth",
+    "scopes": [
+        "User.Read.All",
+        "Directory.Read.All",
+        "Group.Read.All",
+        "Sites.Read.All",
+        "Calendars.Read",
+        "Files.Read.All"
+    ]
+}

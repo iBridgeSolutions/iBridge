@@ -1,0 +1,54 @@
+{
+  "clients": [
+    {
+      "clientId": "CLIENT001",
+      "companyName": "ABC Corporation",
+      "email": "support@abccorp.com",
+      "type": "corporate",
+      "accessLevel": "premium",
+      "contractStart": "2024-01-15",
+      "contractEnd": "2026-01-14",
+      "services": ["contact-center", "it-support"]
+    },
+    {
+      "clientId": "CLIENT002",
+      "companyName": "XYZ Industries",
+      "email": "admin@xyzind.com",
+      "type": "industrial",
+      "accessLevel": "standard",
+      "contractStart": "2023-10-01",
+      "contractEnd": "2025-09-30",
+      "services": ["ai-automation"]
+    },
+    {
+      "clientId": "CLIENT003",
+      "companyName": "Global Logistics Ltd",
+      "email": "support@globallogistics.com",
+      "type": "logistics",
+      "accessLevel": "premium",
+      "contractStart": "2024-03-01",
+      "contractEnd": "2026-02-28",
+      "services": ["contact-center", "it-support", "ai-automation"]
+    },
+    {
+      "clientId": "TEST123",
+      "companyName": "Test Company",
+      "email": "test@example.com",
+      "type": "test",
+      "accessLevel": "standard",
+      "contractStart": "2025-01-01",
+      "contractEnd": "2025-12-31",
+      "services": ["contact-center", "it-support"]
+    },
+    {
+      "clientId": "DEMO456",
+      "companyName": "Demo Enterprise",
+      "email": "demo@example.com",
+      "type": "demo",
+      "accessLevel": "premium",
+      "contractStart": "2025-01-01",
+      "contractEnd": "2025-12-31",
+      "services": ["contact-center", "it-support", "ai-automation"]
+    }
+  ]
+}

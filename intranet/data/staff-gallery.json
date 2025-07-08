@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "title": "Company Retreat 2025",
+        "description": "Team building activities at our annual company retreat",
+        "url": "images/gallery/company-retreat.jpg",
+        "thumbnail": "images/gallery/company-retreat-thumb.jpg",
+        "date": "2025-06-15",
+        "tags": ["company", "team-building", "retreat"],
+        "uploadedBy": "HR Team"
+    },
+    {
+        "id": 2,
+        "title": "Product Launch Meeting",
+        "description": "Marketing and Sales teams planning our new product launch",
+        "url": "images/gallery/product-launch.jpg",
+        "thumbnail": "images/gallery/product-launch-thumb.jpg",
+        "date": "2025-06-22",
+        "tags": ["marketing", "sales", "product"],
+        "uploadedBy": "Marketing Department"
+    },
+    {
+        "id": 3,
+        "title": "CSR Initiative: Tree Planting",
+        "description": "Our staff volunteers planting trees as part of our green initiative",
+        "url": "images/gallery/tree-planting.jpg",
+        "thumbnail": "images/gallery/tree-planting-thumb.jpg",
+        "date": "2025-06-30",
+        "tags": ["csr", "environment", "volunteers"],
+        "uploadedBy": "Community Outreach Team"
+    },
+    {
+        "id": 4,
+        "title": "Tech Workshop",
+        "description": "IT team hosting a technology workshop for staff",
+        "url": "images/gallery/tech-workshop.jpg",
+        "thumbnail": "images/gallery/tech-workshop-thumb.jpg",
+        "date": "2025-07-05",
+        "tags": ["it", "training", "workshop"],
+        "uploadedBy": "IT Department"
+    },
+    {
+        "id": 5,
+        "title": "Office Celebration",
+        "description": "Celebrating our 10-year company anniversary",
+        "url": "images/gallery/celebration.jpg",
+        "thumbnail": "images/gallery/celebration-thumb.jpg",
+        "date": "2025-07-07",
+        "tags": ["celebration", "milestone", "party"],
+        "uploadedBy": "Events Committee"
+    }
+]

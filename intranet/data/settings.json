@@ -1,0 +1,37 @@
+﻿{
+    "allowedDomains":  [
+                           "ibridge.co.za"
+                       ],
+    "dateUpdated":  "2025-07-05 16:18:04",
+    "editorUsers":  [
+                        "lwandile.gasela@ibridge.co.za"
+                    ],
+    "useM365Data":  false,
+    "devMode":  false,
+    "useCustomAuth":  true,
+    "employeeCodeLogin":  true,
+    "credentialsLogin":  true,
+    "authConfig":  {
+                       "employeeCodeFormat":  "IBD[Last Name Initials][Unique ID]",
+                       "employeeCodeExample":  "IBDG054",
+                       "passwordPolicy":  "Minimum 8 characters, at least 1 uppercase, 1 lowercase, and 1 number",
+                       "adminEmail":  "lwandile.gasela@ibridge.co.za"
+                   },
+    "microsoftConfig":  null,
+    "companyName":  "iBridge Contact Solutions",
+    "intranetTitle":  "iBridge Staff Portal",
+    "companyDomain":  "ibridge.co.za",
+    "adminUsers":  [
+                       "lwandile.gasela@ibridge.co.za"
+                   ],
+    "features":  {
+                     "calendar":  true,
+                     "adminPanel":  true,
+                     "helpdesk":  true,
+                     "news":  true,
+                     "companyProfile":  true,
+                     "documents":  true,
+                     "directory":  true,
+                     "microsoftIntegration":  true
+                 }
+}

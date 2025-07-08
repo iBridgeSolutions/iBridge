@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Employee Profile Guide - iBridge Staff Portal">
+    <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing of internal pages -->
+    <title>Employee Profile Guide | iBridge Staff Portal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/iBridge_Logo-favicon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/intranet-styles.css">
+    <link rel="stylesheet" href="css/intranet-enhanced.css">
+    
+    <style>
+        .guide-section {
+            margin-bottom: 2rem;
+        }
+        
+        .guide-section h2 {
+            color: var(--intranet-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .guide-section h3 {
+            color: var(--intranet-secondary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+        
+        .guide-section ul, .guide-section ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .guide-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .note-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--intranet-primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .tip-box {
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .print-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        @media print {
+            .print-btn, #header-placeholder, #footer-placeholder {
+                display: none !important;
+            }
+            
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .container {
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .guide-section h2 {
+                page-break-after: avoid;
+            }
+            
+            .guide-section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Include header partial -->
+    <div id="header-placeholder"></div>
+    
+    <main class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item">Resources</li>
+                        <li class="breadcrumb-item active" aria-current="page">Employee Profile Guide</li>
+                    </ol>
+                </nav>
+                
+                <h1 class="intranet-title mb-4">Employee Profile Guide</h1>
+                <p class="lead mb-5">This guide provides instructions on how to update and enhance your personal profile information on the iBridge Staff Portal.</p>
+                
+                <div class="guide-section">
+                    <h2>Accessing Your Profile</h2>
+                    <ol>
+                        <li>Navigate to the <a href="index.html">iBridge Staff Portal</a></li>
+                        <li>Log in with your company email and password</li>
+                        <li>Click on "My Profile" in the navigation menu or your profile photo in the header</li>
+                    </ol>
+                </div>
+                
+                <div class="guide-section">
+                    <h2>Profile Information Categories</h2>
+                    
+                    <h3>Basic Information</h3>
+                    <p>These details are typically synchronized from Microsoft 365 and cannot be directly edited:</p>
+                    <ul>
+                        <li>Name</li>
+                        <li>Email address</li>
+                        <li>Job title</li>
+                        <li>Department</li>
+                        <li>Office location</li>
+                    </ul>
+                    
+                    <h3>Contact Information</h3>
+                    <p>You can update these contact details:</p>
+                    <ul>
+                        <li>Business phone (extension)</li>
+                        <li>Mobile phone</li>
+                        <li>Preferred contact method</li>
+                    </ul>
+                    
+                    <h3>Skills & Expertise</h3>
+                    <p>Add or update skills to help colleagues find the right person for collaboration:</p>
+                    <ul>
+                        <li>Technical skills (e.g., "Microsoft Azure", "Project Management")</li>
+                        <li>Soft skills (e.g., "Customer Service", "Team Leadership")</li>
+                        <li>Certifications (e.g., "ITIL Foundation", "Microsoft Certified")</li>
+                    </ul>
+                    
+                    <h3>About Me</h3>
+                    <p>A brief professional bio can help team members get to know you better:</p>
+                    <ul>
+                        <li>Work responsibilities</li>
+                        <li>Areas of expertise</li>
+                        <li>Professional background</li>
+                        <li>Work-related interests</li>
+                    </ul>
+                    
+                    <h3>Social Media</h3>
+                    <p>You can link your professional social media accounts:</p>
+                    <ul>
+                        <li>LinkedIn</li>
+                        <li>GitHub</li>
+                        <li>Other professional networks</li>
+                    </ul>
+                    
+                    <h3>Profile Photo</h3>
+                    <p>A professional photo helps build connections across the company:</p>
+                    <ul>
+                        <li>Upload a clear headshot</li>
+                        <li>Use a neutral background</li>
+                        <li>Ensure proper lighting</li>
+                        <li>The recommended size is 400x400 pixels</li>
+                    </ul>
+                </div>
+                
+                <div class="guide-section">
+                    <h2>Best Practices</h2>
+                    <ol>
+                        <li><strong>Keep It Professional</strong>: All information should be appropriate for a workplace environment</li>
+                        <li><strong>Be Consistent</strong>: Use the same professional tone across all sections</li>
+                        <li><strong>Stay Current</strong>: Update your skills and information as they evolve</li>
+                        <li><strong>Be Specific</strong>: List specific skills rather than broad categories</li>
+                        <li><strong>Be Concise</strong>: Keep your bio and descriptions brief and to the point</li>
+                    </ol>
+                    
+                    <div class="tip-box">
+                        <h4><i class="fas fa-lightbulb"></i> Pro Tip</h4>
+                        <p>A complete profile increases your visibility in company-wide searches and helps colleagues find you when they need your expertise.</p>
+                    </div>
+                </div>
+                
+                <div class="guide-section">
+                    <h2>Privacy Considerations</h2>
+                    <ul>
+                        <li>All profile information is visible to other employees within the organization</li>
+                        <li>Your profile data is not accessible to the public</li>
+                        <li>Contact your manager or IT department if you have concerns about specific information</li>
+                    </ul>
+                    
+                    <div class="note-box">
+                        <h4><i class="fas fa-info-circle"></i> Note</h4>
+                        <p>Some information may be mandatory as part of your employee profile. Please consult with HR if you have any concerns about required information.</p>
+                    </div>
+                </div>
+                
+                <div class="guide-section">
+                    <h2>Need Help?</h2>
+                    <p>If you encounter any issues updating your profile or have questions about what information to include:</p>
+                    <ol>
+                        <li>Contact the IT Support team at <a href="mailto:it.support@ibridge.co.za">it.support@ibridge.co.za</a></li>
+                        <li>Submit a help desk ticket through the "Support" section of the intranet</li>
+                        <li>Contact your department manager for guidance on professional standards</li>
+                    </ol>
+                </div>
+                
+                <hr class="my-5">
+                
+                <p class="text-muted"><small>This guide was last updated on July 5, 2025</small></p>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary print-btn" onclick="window.print()">
+            <i class="fas fa-print"></i> Print Guide
+        </button>
+    </main>
+    
+    <!-- Include footer partial -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Load header and footer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../intranet/partials/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                });
+                
+            fetch('../intranet/partials/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                });
+        });
+    </script>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../intranet/js/intranet.js"></script>
+    <script src="../js/accessibility.js"></script>
+</body>
+</html>

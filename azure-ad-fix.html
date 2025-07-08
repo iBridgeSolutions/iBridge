@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure AD Fix - Quick Guide</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #0078d4;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .box {
+            background-color: #f0f0f0;
+            border-left: 5px solid #0078d4;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .uri {
+            background-color: #e6f7ff;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 16px;
+            border: 1px solid #91d5ff;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        ol li {
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #005a9e;
+        }
+        .success {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Azure AD Redirect URI Fix</h1>
+    
+    <div class="box">
+        <p>This guide will help you fix the GitHub Pages redirect URI issue for iBridge's Azure AD authentication.</p>
+    </div>
+    
+    <h2>The URI to Add</h2>
+    <div class="uri" id="redirect-uri">https://ibridgesolutions.github.io/iBridge/intranet/login.html</div>
+    <div id="copy-success" class="success">URI copied to clipboard!</div>
+    <!-- Removed inline style, display is controlled by .success class in CSS -->
+    <div id="copy-success" class="success">URI copied to clipboard!</div>
+    
+    <h2>Steps to Fix</h2>
+    <ol>
+        <li>Sign in to the <a href="https://portal.azure.com" target="_blank" rel="noopener">Azure Portal</a></li>
+        <li>Navigate to <strong>Azure Active Directory</strong> → <strong>App registrations</strong></li>
+        <li>Find and select your application with ID: <code>6686c610-81cf-4ed7-8241-a91a20f01b06</code></li>
+        <li>Click on <strong>Authentication</strong> in the left menu</li>
+        <li>Under <strong>Platform configurations</strong> → <strong>Web</strong> → <strong>Redirect URIs</strong>, click <strong>Add URI</strong></li>
+        <li>Paste the URI copied from above</li>
+        <li>Click <strong>Save</strong> at the top of the page</li>
+        <li>Wait a few minutes for changes to propagate</li>
+        <li>Clear your browser cache or use an incognito/private window</li>
+        <li>Try signing in at: <a href="https://ibridgesolutions.github.io/iBridge/intranet/login.html" target="_blank" rel="noopener">iBridge Intranet Login</a></li>
+    </ol>
+    
+    <h2>Why This Fix Works</h2>
+    <p>GitHub Pages project sites are hosted under a repository path (e.g., <code>/iBridge/</code>) but the Azure AD application was configured with a redirect URI that didn't include this path.</p>
+    <p>The correct URI needs to include the <code>/iBridge/</code> part in the path.</p>
+    
+    <script>
+        function copyUri() {
+            const uri = document.getElementById('redirect-uri').innerText;
+            navigator.clipboard.writeText(uri)
+                .then(() => {
+                    const success = document.getElementById('copy-success');
+                    success.style.display = 'block';
+                    setTimeout(() => {
+                        success.style.display = 'none';
+                    }, 3000);
+                })
+                .catch(err => {
+                    alert('Failed to copy: ' + err);
+                });
+        }
+    </script>
+</body>
+</html>
