@@ -27,6 +27,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/style-enhancements.css">
+    <link rel="stylesheet" href="css/gallery.css">
 
     <!-- Structured Data for SEO: Organization & LocalBusiness -->
     <script type="application/ld+json">
@@ -502,17 +503,109 @@
         </section>
 
         <!-- Gallery Section -->
-        <section class="gallery">
+        <section class="gallery-section py-5">
             <div class="container">
-                <h2 class="section-title">Gallery</h2>
-                <div class="gallery-grid">
-                    <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" class="gallery-img">
-                    <img src="images/iBridge_IMG_6.png" alt="BPO team collaboration" class="gallery-img">
-                    <img src="images/iBridge_IMG_7.png" alt="Contact center operations" class="gallery-img">
-                    <img src="images/iBridge_IMG_8.png" alt="IT support team" class="gallery-img">
-                    <img src="images/iBridge_IMG_9.png" alt="AI automation dashboard" class="gallery-img">
-                    <img src="images/iBridge_IMG_10.png" alt="AI automation dashboard" class="gallery-img">
-                    <img src="images/iBridge_IMG_11.png" alt="AI automation dashboard" class="gallery-img">
+                <h2 class="section-title">Our Gallery</h2>
+                <p class="section-subtitle">Experience the vibrant culture and dedicated team behind iBridge Contact Solutions</p>
+
+                <!-- Gallery Filters -->
+                <div class="gallery-filters mb-5 text-center">
+                    <button class="btn btn-outline-primary active" data-filter="all">All</button>
+                    <button class="btn btn-outline-primary" data-filter="team">Our Team</button>
+                    <button class="btn btn-outline-primary" data-filter="workspace">Workspace</button>
+                    <button class="btn btn-outline-primary" data-filter="culture">Culture</button>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="row g-4 gallery-grid">
+                    <!-- Team Members -->
+                    <div class="col-md-4 gallery-item" data-category="team">
+                        <div class="gallery-card">
+                            <img src="images/iBridge_IMG_1.png" 
+                                alt="iBridge Team"
+                                class="img-fluid"
+                                loading="lazy">
+                            <div class="gallery-overlay">
+                                <h5>Our Team</h5>
+                                <p>Dedicated professionals working together for excellence</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Workspace -->
+                    <div class="col-md-4 gallery-item" data-category="workspace">
+                        <div class="gallery-card">
+                            <img src="images/iBridge_IMG_9.png" 
+                                alt="iBridge Contact Center"
+                                class="img-fluid enhance-clarity"
+                                loading="lazy">
+                            <div class="gallery-overlay">
+                                <h5>Modern Contact Center</h5>
+                                <p>State-of-the-art facilities designed for efficiency</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Culture -->
+                    <div class="col-md-4 gallery-item" data-category="culture">
+                        <div class="gallery-card">
+                            <img src="images/iBridge_IMG_4.png" 
+                                alt="Team Collaboration"
+                                class="img-fluid enhance-warmth"
+                                loading="lazy">
+                            <div class="gallery-overlay">
+                                <h5>Collaborative Culture</h5>
+                                <p>Building success through teamwork</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More Team -->
+                    <div class="col-md-4 gallery-item" data-category="team">
+                        <div class="gallery-card">
+                            <img src="images/iBridge_IMG_6.png" 
+                                alt="IT Support Team"
+                                class="img-fluid enhance-clarity"
+                                loading="lazy">
+                            <div class="gallery-overlay">
+                                <h5>IT Support Excellence</h5>
+                                <p>Expert tech support at your service</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More Workspace -->
+                    <div class="col-md-4 gallery-item" data-category="workspace">
+                        <div class="gallery-card">
+                            <img src="images/iBridge_IMG_10.png" 
+                                alt="AI and Automation"
+                                class="img-fluid enhance-cool"
+                                loading="lazy">
+                            <div class="gallery-overlay">
+                                <h5>Innovation Hub</h5>
+                                <p>Where technology meets business solutions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More Culture -->
+                    <div class="col-md-4 gallery-item" data-category="culture">
+                        <div class="gallery-card">
+                            <img src="images/iBridge_IMG_11.png" 
+                                alt="Team Engagement"
+                                class="img-fluid enhance-vibrance"
+                                loading="lazy">
+                            <div class="gallery-overlay">
+                                <h5>Engaging Environment</h5>
+                                <p>Creating meaningful connections</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View More Button -->
+                <div class="text-center mt-5">
+                    <a href="gallery.html" class="btn btn-primary btn-lg">View Full Gallery</a>
                 </div>
             </div>
         </section>
@@ -651,6 +744,7 @@
     <!-- Custom JavaScript -->
     <script src="js/main.js"></script>
     <script src="js/accessibility.js"></script>
+    <script src="js/gallery.js"></script>
 
     <!-- Modal/Popup Root (Reusable for all popups) -->
 <dialog id="modal-overlay" class="modal-overlay">
