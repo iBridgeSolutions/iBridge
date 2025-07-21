@@ -1,190 +1,174 @@
-/* Gallery Styles */
-.gallery-hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                url('../images/gallery/hero-image.jpg') no-repeat center center;
-    background-size: cover;
-    padding: 120px 0;
-    color: white;
-    margin-top: 76px;
+/* Gallery Section */
+.gallery-section {
+    padding: 4rem 0;
+    background-color: var(--bg-secondary);
 }
 
-.gallery-filters .btn {
-    margin: 0 5px;
+/* Gallery Filters */
+.gallery-filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.gallery-filter {
+    padding: 0.5rem 1.5rem;
+    border: 1px solid var(--border-color);
     border-radius: 25px;
-    padding: 8px 20px;
+    background: none;
+    color: var(--text-primary);
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.gallery-filters .btn.active {
-    background-color: var(--primary);
+.gallery-filter:hover {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color);
+}
+
+.gallery-filter.active {
+    background-color: var(--primary-color);
     color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
 }
 
-.gallery-card {
+/* Gallery Grid */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+/* Gallery Item */
+.gallery-item {
     position: relative;
+    border-radius: 10px;
     overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
     transition: transform 0.3s ease;
+    aspect-ratio: 4/3;
+    cursor: pointer;
 }
 
-.gallery-card:hover {
+.gallery-item:hover {
     transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
 }
 
-.gallery-card img {
+.gallery-item img {
     width: 100%;
-    height: 300px;
+    height: 100%;
     object-fit: cover;
-    border-radius: 10px;
     transition: transform 0.3s ease;
 }
 
-.gallery-card:hover img {
+.gallery-item:hover img {
     transform: scale(1.05);
 }
 
-.gallery-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-    color: white;
-    padding: 20px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-}
-
-.gallery-card:hover .gallery-overlay {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.gallery-overlay h5 {
-    font-size: 1.2rem;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-.gallery-overlay p {
-    font-size: 0.9rem;
-    margin-bottom: 0;
-    opacity: 0.9;
-}
-
-/* Image Enhancement Classes */
-.enhance-contrast {
-    filter: contrast(1.1) brightness(1.05);
-}
-
-.enhance-vibrance {
-    filter: saturate(1.2);
-}
-
-.enhance-clarity {
-    filter: sharpen(1);
-}
-
-.enhance-warmth {
-    filter: sepia(0.2) brightness(1.05);
-}
-
-.enhance-cool {
-    filter: hue-rotate(10deg) saturate(1.1);
-}
-
-/* Video Enhancement */
-.video-container {
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.video-container video {
-    width: 100%;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-}
-
-.video-overlay {
-    position: absolute;
+/* Lightbox Styles */
+.lightbox {
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
+    background-color: rgba(0,0,0,0.9);
+    display: none;
     justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    align-items: center;
+    z-index: 9999;
 }
 
-.video-container:hover .video-overlay {
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    padding: 0.5rem;
+}
+
+.lightbox-close:hover {
     opacity: 1;
 }
 
-.play-button {
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 2rem;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    background: none;
+    border: none;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    padding: 1rem;
 }
 
-.play-button i {
-    font-size: 30px;
-    color: var(--primary);
-    margin-left: 5px;
+.lightbox-nav:hover {
+    opacity: 1;
 }
 
-.play-button:hover {
-    transform: scale(1.1);
+.lightbox-prev {
+    left: 20px;
 }
 
-/* Responsive Adjustments */
+.lightbox-next {
+    right: 20px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
     .gallery-filters {
-        overflow-x: auto;
-        white-space: nowrap;
-        padding-bottom: 15px;
-        margin-bottom: 20px;
+        gap: 0.5rem;
     }
-    
-    .gallery-filters::-webkit-scrollbar {
-        height: 4px;
-    }
-    
-    .gallery-filters::-webkit-scrollbar-thumb {
-        background: var(--primary);
-        border-radius: 2px;
-    }
-    
-    .gallery-card img {
-        height: 250px;
+
+    .gallery-filter {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
     }
 }
 
-/* Animation Classes */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Dark Mode Styles */
+[data-theme="dark"] .gallery-item {
+    background-color: var(--bg-tertiary);
 }
 
-.animate-fadeInUp {
-    animation: fadeInUp 0.6s ease forwards;
+[data-theme="dark"] .gallery-filter {
+    background-color: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .gallery-filter:hover {
+    background-color: var(--primary-color-dark);
 }

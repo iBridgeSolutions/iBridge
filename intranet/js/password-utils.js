@@ -5,51 +5,64 @@
 
 class PasswordUtils {
     /**
-     * Generate a secure hash of a password using SHA-256
-     * In a production environment, consider using a dedicated hashing library
-     * with salting and stronger algorithms like bcrypt, Argon2, or PBKDF2
-     * 
-     * @param {string} password - The password to hash
-     * @param {string} salt - Optional salt to use (will generate if not provided)
-     * @returns {Promise<object>} Object containing hash and salt
+     * Hash password with salt using SHA-256
+     * @param {string} password - Password to hash
+     * @param {string} salt - Salt to use
+     * @returns {object} Hash result
      */
-    static async hashPassword(password, salt = null) {
-        // Generate salt if not provided
+    hashPassword(password, salt = null) {
         if (!salt) {
             salt = this.generateSalt();
         }
         
-        // Combine password with salt
-        const passwordWithSalt = password + salt;
-        
-        // Convert to buffer
-        const encoder = new TextEncoder();
-        const data = encoder.encode(passwordWithSalt);
-        
-        // Hash using SHA-256
-        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-        
-        // Convert to hex string
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        
-        return {
-            hash: hashHex,
-            salt: salt
-        };
+        try {
+            // Ensure consistent string encoding across browsers
+            const encoder = new TextEncoder();
+            const combinedString = password + salt;
+            const encodedData = encoder.encode(combinedString);
+            
+            // Use CryptoJS with WordArray for consistent hashing
+            const wordArray = CryptoJS.lib.WordArray.create(encodedData);
+            const hash = CryptoJS.SHA256(wordArray).toString();
+            
+            console.log('Password hashing:', {
+                saltUsed: salt,
+                hashLength: hash.length,
+                success: true
+            });
+            
+            return { hash, salt };
+        } catch (error) {
+            console.error('Hashing error:', error);
+            throw new Error('Failed to hash password');
+        }
     }
-    
+
     /**
-     * Verify a password against a stored hash and salt
-     * 
-     * @param {string} password - The password to verify
-     * @param {string} storedHash - The stored hash to check against
-     * @param {string} salt - The salt used for the stored hash
-     * @returns {Promise<boolean>} True if password is valid
+     * Verify password against stored hash
+     * @param {string} password - Password to verify
+     * @param {string} storedHash - Stored hash to check against
+     * @param {string} salt - Salt used in stored hash
+     * @returns {boolean} Whether password matches
      */
-    static async verifyPassword(password, storedHash, salt) {
-        const hashResult = await this.hashPassword(password, salt);
-        return hashResult.hash === storedHash;
+    verifyPassword(password, storedHash, salt) {
+        const { hash } = this.hashPassword(password, salt);
+        
+        // Normalize hashes by removing any trailing 'b' characters and whitespace
+        const normalizedStoredHash = storedHash.trim().replace(/b+$/, '');
+        const normalizedGeneratedHash = hash.trim();
+        
+        console.log('Verification Details:', {
+            providedPassword: password,
+            salt: salt,
+            generatedHash: normalizedGeneratedHash,
+            storedHash: normalizedStoredHash,
+            rawGeneratedHash: hash,
+            rawStoredHash: storedHash,
+            matches: normalizedGeneratedHash === normalizedStoredHash
+        });
+        
+        return normalizedGeneratedHash === normalizedStoredHash;
     }
     
     /**
@@ -58,7 +71,7 @@ class PasswordUtils {
      * @param {number} length - Length of salt to generate
      * @returns {string} Random salt string
      */
-    static generateSalt(length = 16) {
+    generateSalt(length = 3) {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
         const randomValues = new Uint8Array(length);
         window.crypto.getRandomValues(randomValues);

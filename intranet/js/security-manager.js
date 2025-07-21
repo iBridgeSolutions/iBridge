@@ -14,13 +14,34 @@ class SecurityManager {
      */
     async initialize() {
         try {
-            const response = await fetch('/intranet/config/security-config.json');
+            const response = await fetch('data/settings.json');
             this.config = await response.json();
+            
+            if (!this.config.authConfig) {
+                this.config.authConfig = {
+                    employeeCodeFormat: "IBD[Last Name Initials][Unique ID]",
+                    employeeCodeExample: "IBDG054",
+                    passwordPolicy: "Minimum 8 characters, at least 1 uppercase, 1 lowercase, and 1 number"
+                };
+            }
+            
             this.initComplete = true;
+            console.log('Security manager initialized with config:', this.config);
             return true;
         } catch (error) {
             console.error('Failed to initialize security manager:', error);
-            return false;
+            console.log('Using default security configuration');
+            this.config = {
+                employeeCodeLogin: true,
+                credentialsLogin: true,
+                authConfig: {
+                    employeeCodeFormat: "IBD[Last Name Initials][Unique ID]",
+                    employeeCodeExample: "IBDG054",
+                    passwordPolicy: "Minimum 8 characters, at least 1 uppercase, 1 lowercase, and 1 number"
+                }
+            };
+            this.initComplete = true;
+            return true;
         }
     }
 

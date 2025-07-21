@@ -52,6 +52,9 @@ document.addEventListener('click', (e) => {
 
 // Header scroll effect
 function handleHeaderScroll() {
+    // Only proceed if nav element exists
+    if (!nav) return;
+    
     if (window.scrollY > 50) {
         nav.classList.add('scrolled');
     } else {

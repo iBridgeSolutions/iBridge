@@ -198,4 +198,102 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Slideshow functionality
+    let currentSlideIndex = 0;
+    let slides = [];
+    let isSlideShowPlaying = false;
+    let slideShowInterval;
+
+    function initSlideshow() {
+        const slideshowContainer = document.createElement('div');
+        slideshowContainer.className = 'slideshow-container';
+        slideshowContainer.innerHTML = `
+            <div class="slideshow-content">
+                <img src="" alt="" class="slideshow-image">
+                <div class="slideshow-caption"></div>
+            </div>
+            <button class="slideshow-prev">&lt;</button>
+            <button class="slideshow-next">&gt;</button>
+            <button class="slideshow-play-pause">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="slideshow-close">&times;</button>
+        `;
+        document.body.appendChild(slideshowContainer);
+
+        // Add event listeners
+        document.querySelector('.slideshow-prev').addEventListener('click', () => showSlide(currentSlideIndex - 1));
+        document.querySelector('.slideshow-next').addEventListener('click', () => showSlide(currentSlideIndex + 1));
+        document.querySelector('.slideshow-play-pause').addEventListener('click', toggleSlideshow);
+        document.querySelector('.slideshow-close').addEventListener('click', closeSlideshow);
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (slideshowContainer.style.display === 'flex') {
+                switch(e.key) {
+                    case 'ArrowLeft': showSlide(currentSlideIndex - 1); break;
+                    case 'ArrowRight': showSlide(currentSlideIndex + 1); break;
+                    case 'Escape': closeSlideshow(); break;
+                    case ' ': toggleSlideshow(); break;
+                }
+            }
+        });
+    }
+
+    function showSlide(index) {
+        if (slides.length === 0) return;
+        
+        currentSlideIndex = (index + slides.length) % slides.length;
+        const slideshowImage = document.querySelector('.slideshow-image');
+        const slideshowCaption = document.querySelector('.slideshow-caption');
+        
+        slideshowImage.src = slides[currentSlideIndex].src;
+        slideshowImage.alt = slides[currentSlideIndex].alt;
+        slideshowCaption.textContent = slides[currentSlideIndex].caption;
+    }
+
+    function toggleSlideshow() {
+        const playPauseBtn = document.querySelector('.slideshow-play-pause i');
+        isSlideShowPlaying = !isSlideShowPlaying;
+        
+        if (isSlideShowPlaying) {
+            playPauseBtn.className = 'fas fa-pause';
+            slideShowInterval = setInterval(() => showSlide(currentSlideIndex + 1), 3000);
+        } else {
+            playPauseBtn.className = 'fas fa-play';
+            clearInterval(slideShowInterval);
+        }
+    }
+
+    function closeSlideshow() {
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        slideshowContainer.style.display = 'none';
+        isSlideShowPlaying = false;
+        clearInterval(slideShowInterval);
+    }
+
+    function openSlideshow(startIndex = 0) {
+        slides = Array.from(document.querySelectorAll('.gallery-item:not([style*="display: none"]) img'))
+            .map(img => ({
+                src: img.src,
+                alt: img.alt,
+                caption: img.closest('.gallery-card').querySelector('.gallery-overlay h5').textContent
+            }));
+        
+        if (slides.length === 0) return;
+        
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        slideshowContainer.style.display = 'flex';
+        currentSlideIndex = startIndex;
+        showSlide(currentSlideIndex);
+    }
+
+    // Initialize slideshow on page load
+    initSlideshow();
+
+    // Add click event to gallery items to open slideshow
+    document.querySelectorAll('.gallery-card').forEach((card, index) => {
+        card.addEventListener('click', () => openSlideshow(index));
+    });
 });

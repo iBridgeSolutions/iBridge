@@ -81,14 +81,16 @@ function loadUserInfo() {
     // Check for both old and new authentication formats
     let userData = null;
     
-    // Try to load from custom auth first
-    if (sessionStorage.getItem('portalUser')) {
-        userData = JSON.parse(sessionStorage.getItem('portalUser') || '{}');
-        console.log("Loading user info from custom auth system:", userData);
+    // Try to load from secure session
+    const secureSession = sessionStorage.getItem('secureSession');
+    if (secureSession) {
+        const sessionData = JSON.parse(secureSession);
+        userData = sessionData.user;
+        console.log("Loading user info from secure session:", userData);
     } else {
-        // Fall back to old auth format if needed
+        // Fall back to legacy format if needed
         userData = JSON.parse(sessionStorage.getItem('user') || '{}');
-        console.log("Loading user info from legacy auth system:", userData);
+        console.log("Loading user info from legacy system:", userData);
     }
     
     // Find user info elements if they exist
@@ -149,8 +151,10 @@ function loadUserInfo() {
 window.logout = function() {
     console.log("Logging out user...");
     
-    // Clear session storage
+    // Clear all session storage
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('secureSession');
+    sessionStorage.removeItem('portalUser');
     
     // Clear authentication cookie required by .htaccess
     document.cookie = "user_authenticated=; path=/intranet/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Strict";

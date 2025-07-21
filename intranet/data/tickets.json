@@ -1,0 +1,93 @@
+{
+    "tickets": [],
+    "categories": [
+        {
+            "id": "hardware",
+            "name": "Hardware Issues",
+            "description": "Computer, printer, or other hardware problems",
+            "sla": 24
+        },
+        {
+            "id": "software",
+            "name": "Software Issues",
+            "description": "Application, operating system, or software problems",
+            "sla": 16
+        },
+        {
+            "id": "network",
+            "name": "Network Issues",
+            "description": "Internet, email, or network connectivity problems",
+            "sla": 8
+        },
+        {
+            "id": "access",
+            "name": "Access & Security",
+            "description": "Password resets, account access, permissions",
+            "sla": 4
+        },
+        {
+            "id": "other",
+            "name": "Other Support",
+            "description": "Other IT-related support requests",
+            "sla": 48
+        }
+    ],
+    "statuses": [
+        {
+            "id": "new",
+            "name": "New",
+            "color": "#dc3545"
+        },
+        {
+            "id": "assigned",
+            "name": "Assigned",
+            "color": "#ffc107"
+        },
+        {
+            "id": "in-progress",
+            "name": "In Progress",
+            "color": "#17a2b8"
+        },
+        {
+            "id": "waiting",
+            "name": "Waiting for User",
+            "color": "#6c757d"
+        },
+        {
+            "id": "resolved",
+            "name": "Resolved",
+            "color": "#28a745"
+        },
+        {
+            "id": "closed",
+            "name": "Closed",
+            "color": "#343a40"
+        }
+    ],
+    "priorities": [
+        {
+            "id": "critical",
+            "name": "Critical",
+            "color": "#dc3545",
+            "slaMultiplier": 0.5
+        },
+        {
+            "id": "high",
+            "name": "High",
+            "color": "#ffc107",
+            "slaMultiplier": 0.75
+        },
+        {
+            "id": "medium",
+            "name": "Medium",
+            "color": "#17a2b8",
+            "slaMultiplier": 1
+        },
+        {
+            "id": "low",
+            "name": "Low",
+            "color": "#28a745",
+            "slaMultiplier": 1.5
+        }
+    ]
+}

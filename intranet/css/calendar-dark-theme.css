@@ -1,0 +1,25 @@
+[data-theme="dark"] .fc {
+    --fc-page-bg-color: #1a1a1a;
+    --fc-neutral-bg-color: #2d2d2d;
+    --fc-neutral-text-color: #fff;
+    --fc-border-color: #404040;
+    --fc-button-text-color: #fff;
+    --fc-button-bg-color: #404040;
+    --fc-button-border-color: #606060;
+    --fc-button-hover-bg-color: #505050;
+    --fc-button-hover-border-color: #808080;
+    --fc-event-bg-color: var(--primary-color);
+    --fc-event-border-color: var(--primary-color);
+    --fc-event-text-color: #fff;
+    --fc-event-selected-overlay-color: rgba(255, 255, 255, 0.25);
+}
+
+[data-theme="dark"] .event-modal-header {
+    background-color: #2d2d2d;
+    color: #fff;
+}
+
+[data-theme="dark"] .calendar-toast {
+    background-color: #2d2d2d;
+    color: #fff;
+}

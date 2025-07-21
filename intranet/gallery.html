@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internal Gallery | iBridge Intranet</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/gallery.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <!-- Include your intranet navigation here -->
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="gallery-hero">
+        <div class="container">
+            <div class="row align-items-center min-vh-50">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-4">Internal Gallery</h1>
+                    <p class="lead mb-0">Explore our team's achievements, events, and special moments</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section py-5">
+        <div class="container">
+            <!-- Gallery Filters -->
+            <div class="gallery-filters mb-5 text-center">
+                <button class="btn btn-outline-primary active" data-filter="all">All</button>
+                <button class="btn btn-outline-primary" data-filter="team">Team Members</button>
+                <button class="btn btn-outline-primary" data-filter="events">Events</button>
+                <button class="btn btn-outline-primary" data-filter="wow">WOW Champions</button>
+                <button class="btn btn-outline-primary" data-filter="meetings">Meetings</button>
+                <button class="btn btn-outline-primary" data-filter="trainings">Trainings</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="row g-4 gallery-grid">
+                <!-- Team Members -->
+                ${[
+                    'lwandile-gasela',
+                    'david-van-der-merwe',
+                    'emma-smith',
+                    'james-zulu',
+                    'john-smith',
+                    'michael-thompson',
+                    'olivia-pretorius',
+                    'priya-sharma',
+                    'robert-moyo',
+                    'sarah-johnson',
+                    'sipho-ndlovu',
+                    'thandi-mbeki'
+                ].map(name => `
+                <div class="col-md-4 gallery-item" data-category="team">
+                    <div class="gallery-card">
+                        <img src="images/profiles/${name}.jpg" 
+                             alt="${name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}"
+                             class="img-fluid enhance-portrait"
+                             loading="lazy">
+                        <div class="gallery-overlay">
+                            <h5>${name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h5>
+                            <p>Team Member</p>
+                        </div>
+                    </div>
+                </div>
+                `).join('')}
+
+                <!-- Events -->
+                <div class="col-md-4 gallery-item" data-category="events">
+                    <div class="gallery-card">
+                        <img src="images/team-building.jpg" 
+                             alt="Team Building Event"
+                             class="img-fluid enhance-vibrance"
+                             loading="lazy">
+                        <div class="gallery-overlay">
+                            <h5>Team Building</h5>
+                            <p>Building stronger bonds together</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meetings -->
+                <div class="col-md-4 gallery-item" data-category="meetings">
+                    <div class="gallery-card">
+                        <img src="images/company-meeting.jpg" 
+                             alt="Company Meeting"
+                             class="img-fluid enhance-clarity"
+                             loading="lazy">
+                        <div class="gallery-overlay">
+                            <h5>Strategy Meeting</h5>
+                            <p>Planning for success</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Photos from main site -->
+                ${Array.from({length: 96}, (_, i) => `
+                <div class="col-md-4 gallery-item" data-category="${
+                    i < 30 ? 'events' : 
+                    i < 50 ? 'trainings' : 
+                    i < 70 ? 'meetings' : 
+                    'wow'
+                }">
+                    <div class="gallery-card">
+                        <img src="../images/photo_${i+1}_2025-07-07_13-45-10.jpg" 
+                             alt="iBridge ${
+                                i < 30 ? 'Event' : 
+                                i < 50 ? 'Training Session' : 
+                                i < 70 ? 'Team Meeting' : 
+                                'Achievement'
+                             } ${i+1}"
+                             class="img-fluid ${
+                                i < 30 ? 'enhance-vibrance' : 
+                                i < 50 ? 'enhance-clarity' : 
+                                i < 70 ? 'enhance-cool' : 
+                                'enhance-warmth'
+                             }"
+                             loading="lazy">
+                        <div class="gallery-overlay">
+                            <h5>${
+                                i < 30 ? 'Company Event' : 
+                                i < 50 ? 'Training & Development' : 
+                                i < 70 ? 'Team Collaboration' : 
+                                'Outstanding Achievement'
+                            }</h5>
+                            <p>${
+                                i < 30 ? 'Creating memories together' : 
+                                i < 50 ? 'Growing our skills' : 
+                                i < 70 ? 'Working as one team' : 
+                                'Celebrating excellence'
+                            }</p>
+                        </div>
+                    </div>
+                </div>
+                `).join('')}
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-5">
+                <button id="loadMoreBtn" class="btn btn-primary">Load More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slideshow Container -->
+    <div class="slideshow-container">
+        <div class="slideshow-content">
+            <img src="" alt="" class="slideshow-image">
+            <div class="slideshow-caption"></div>
+        </div>
+        <button class="slideshow-prev" title="Previous image">&lt;</button>
+        <button class="slideshow-next" title="Next image">&gt;</button>
+        <button class="slideshow-play-pause" title="Play/Pause slideshow">
+            <i class="fas fa-play" aria-hidden="true"></i>
+            <span class="visually-hidden">Play/Pause slideshow</span>
+        </button>
+        <button class="slideshow-close" title="Close slideshow">&times;</button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/gallery.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>
+

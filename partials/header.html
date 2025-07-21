@@ -1,42 +1,48 @@
 <!-- Header with enhanced accessibility and mobile compatibility -->
-<header class="header">
-    <div class="container">
-        <nav class="nav">
-            <a href="index.html" class="logo" aria-label="iBridge Home">
-                <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" width="100" height="33">
-            </a>
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="about.html" class="nav-link">About</a>
-                </li>
-                <li class="nav-item has-dropdown">
-                    <a href="services.html" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item"><a href="contact-center.html" class="nav-link">Contact Centre</a></li>
-                        <li class="dropdown-item"><a href="it-support.html" class="nav-link">IT Support</a></li>
-                        <li class="dropdown-item"><a href="ai-automation.html" class="nav-link">AI & Automation</a></li>
-                        <li class="dropdown-item"><a href="client-interaction.html" class="nav-link">Client Interaction</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="contact.html" class="nav-link">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a href="intranet/login.html" class="nav-link nav-portal-btn" target="_blank">
-                        <i class="fas fa-user-lock" aria-hidden="true"></i> 
+    <header class="enhanced-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html" aria-label="iBridge Home">
+                    <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" class="fade-in">
+                </a>
+            </div>
+            <nav class="enhanced-nav">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links stagger-children">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-dropdown">
+                        <a href="services.html" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="contact-center.html" class="dropdown-link">Contact Centre</a>
+                            <a href="it-support.html" class="dropdown-link">IT Support</a>
+                            <a href="ai-automation.html" class="dropdown-link">AI & Automation</a>
+                            <a href="client-interaction.html" class="dropdown-link">Client Interaction</a>
+                        </div>
+                    </li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="header-actions">
+                    <div class="search-container">
+                        <input type="search" class="search-input" placeholder="Search..." aria-label="Search">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                    <button class="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-sun light-icon"></i>
+                        <i class="fas fa-moon dark-icon"></i>
+                    </button>
+                    <a href="intranet/login.html" class="portal-btn" target="_blank">
+                        <i class="fas fa-user-lock"></i>
                         <span>Portal Login</span>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="tel:+27112387090" class="nav-link nav-cta">
-                        <i class="fas fa-phone" aria-hidden="true"></i> 
+                    <a href="tel:+27112387090" class="portal-btn call-btn">
+                        <i class="fas fa-phone"></i>
                         <span>011 238 7090</span>
                     </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</header>
+                </div>
+            </nav>
+        </div>
+    </header>
+

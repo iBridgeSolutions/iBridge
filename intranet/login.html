@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="iBridge Intranet Login - Staff portal access">
     <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self';">
     <title>Login | iBridge Staff Portal</title>
     
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
@@ -16,6 +17,21 @@
     
     <link rel="stylesheet" href="css/intranet-styles.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <!-- Add CryptoJS library with fallback -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        // Check if CryptoJS loaded properly
+        if (typeof CryptoJS === 'undefined') {
+            // Fallback to local copy
+            const fallbackScript = document.createElement('script');
+            fallbackScript.src = 'js/libs/crypto-js.min.js';
+            document.head.appendChild(fallbackScript);
+        }
+    </script>
 </head>
 <body>
     <main class="login-container" role="main">
@@ -77,6 +93,12 @@
                 </span>
                 <span>Login</span>
             </button>
+
+            <div class="mt-3 text-center">
+                <a href="password-reset.html" class="password-reset-link">
+                    <i class="fas fa-key"></i> Forgot your password?
+                </a>
+            </div>
         </form>
 
         <footer class="copyright-text">
@@ -85,94 +107,180 @@
     </main>
 
     <script src="js/security-manager.js"></script>
-    <script src="js/custom-authenticator.js"></script>
+    <script src="js/password-utils.js"></script>
+    <script src="js/auth-handler.js"></script>
     <script>
-        // Initialize authenticator
+        // Test password hashing
+        async function testHash() {
+            const pwUtils = new PasswordUtils();
+            const result = await pwUtils.hashPassword('@Dopeboi24', 'Db2');
+            console.log('Test hash result:', result);
+        }
+        testHash();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Login page loaded');
+            
+            // Test if CryptoJS is loaded
+            if (typeof CryptoJS === 'undefined') {
+                console.error('CryptoJS is not loaded!');
+            } else {
+                console.log('CryptoJS is loaded successfully');
+            }
+            
+            const form = document.getElementById('employeeLoginForm');
+            const employeeCode = document.getElementById('employeeCode');
+            const password = document.getElementById('password');
+            const loginButton = document.getElementById('loginButton');
+            const loginSpinner = document.getElementById('loginSpinner');
+            const employeeCodeError = document.getElementById('employeeCodeError');
+            const passwordError = document.getElementById('passwordError');
+
+            // Password visibility toggle
+            document.getElementById('togglePassword').addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                employeeCodeError.textContent = '';
+                passwordError.textContent = '';
+                employeeCode.classList.remove('is-invalid');
+                password.classList.remove('is-invalid');
+
+                // Show loading state
+                loginButton.disabled = true;
+                loginSpinner.classList.remove('d-none');
+
+                try {
+                    console.log('Login attempt:', {
+                        employeeCode: employeeCode.value.trim(),
+                        passwordLength: password.value.length
+                    });
+                    
+                    const result = await window.authHandler.validateCredentials(
+                        employeeCode.value.trim(),
+                        password.value
+                    );
+                    
+                    console.log('Login result:', result);
+
+                    if (result.success) {
+                        if (result.user.requiresPasswordChange) {
+                            window.location.href = 'change-password.html';
+                        } else {
+                            window.location.href = 'dashboard.html';
+                        }
+                    } else {
+                        employeeCode.classList.add('is-invalid');
+                        password.classList.add('is-invalid');
+                        employeeCodeError.textContent = result.error;
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    employeeCodeError.textContent = 'An error occurred during login. Please try again.';
+                } finally {
+                    loginButton.disabled = false;
+                    loginSpinner.classList.add('d-none');
+                }
+            });
+        });
         const authenticator = new CustomAuthenticator();
         
         document.addEventListener('DOMContentLoaded', async function() {
+            // Check for password reset success message
+            const passwordResetSuccess = sessionStorage.getItem('passwordResetSuccess');
+            if (passwordResetSuccess) {
+                const infoBox = document.getElementById('loginInfo');
+                infoBox.className = 'info-box success-message';
+                infoBox.innerHTML = '<i class="fas fa-check-circle"></i> Password successfully reset. Please login with your new password.';
+                sessionStorage.removeItem('passwordResetSuccess');
+            }
+            
             // Initialize authentication system
             await authenticator.initialize();
             
             const form = document.getElementById('employeeLoginForm');
             const loginButton = document.getElementById('loginButton');
             const loginSpinner = document.getElementById('loginSpinner');
-
-            // Password visibility toggle
-            const togglePassword = document.getElementById('togglePassword');
-            const passwordInput = document.getElementById('password');
             
-            togglePassword.addEventListener('click', function() {
-                const type = passwordInput.type === 'password' ? 'text' : 'password';
-                passwordInput.type = type;
-                this.querySelector('i').classList.toggle('fa-eye');
-                this.querySelector('i').classList.toggle('fa-eye-slash');
-                this.setAttribute('aria-label', 
-                    type === 'password' ? 'Show password' : 'Hide password'
-                );
-            });
-
-            // Form submission
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
-                // Reset any previous error states
-                const errorElements = form.getElementsByClassName('invalid-feedback');
-                Array.from(errorElements).forEach(el => el.style.display = 'none');
+                // Reset any previous error messages
+                document.querySelectorAll('.invalid-feedback').forEach(el => {
+                    el.textContent = '';
+                });
+                document.querySelectorAll('.is-invalid').forEach(el => {
+                    el.classList.remove('is-invalid');
+                });
                 
                 // Show loading state
                 loginButton.disabled = true;
                 loginSpinner.classList.remove('d-none');
                 
+                // Get form values
+                const identifier = document.getElementById('employeeCode').value.trim();
+                const password = document.getElementById('password').value;
+                
                 try {
-                    const employeeCode = document.getElementById('employeeCode').value;
-                    const password = document.getElementById('password').value;
-                    
-                    // Attempt login using the authenticator instance
-                    const result = await authenticator.authenticateEmployee(
-                        employeeCode, 
-                        password
-                    );
+                    console.log('Attempting login with:', { identifier });
+                    const result = await authenticator.authenticateEmployee(identifier, password);
+                    console.log('Authentication result:', { success: result.success, error: result.error });
                     
                     if (result.success) {
-                        // Store session token securely
-                        SecurityManager.setSecureSession({
-                            token: result.token,
-                            employeeCode: employeeCode,
-                            requiresPasswordChange: result.tempPassword
-                        });
-
-                        // If using temp password, redirect to password change page
-                        // Otherwise go to dashboard
-                        const redirectUrl = result.tempPassword ? 
-                            'change-password.html' : 
-                            'dashboard.html';
-
-                        window.location.href = SecurityManager.sanitizeUrl(redirectUrl);
+                        console.log('Login successful, redirecting...');
+                        window.location.href = 'index.html';
                     } else {
-                        throw new Error(result.error || 'Login failed');
+                        // Show error in appropriate field
+                        const errorField = document.getElementById(
+                            result.error === 'Invalid credentials.' ? 'passwordError' : 'employeeCodeError'
+                        );
+                        errorField.textContent = result.error;
+                        document.getElementById(
+                            result.error === 'Invalid credentials.' ? 'password' : 'employeeCode'
+                        ).classList.add('is-invalid');
                     }
                 } catch (error) {
                     console.error('Login error:', error);
-                    
-                    const errorElement = document.getElementById('employeeCodeError');
-                    errorElement.textContent = error.message;
-                    errorElement.style.display = 'block';
-                    
-                    // Log failed attempt
-                    SecurityManager.logFailedLoginAttempt(
-                        document.getElementById('employeeCode').value
-                    );
+                    const errorField = document.getElementById('employeeCodeError');
+                    errorField.textContent = 'An error occurred during login. Please try again.';
+                    document.getElementById('employeeCode').classList.add('is-invalid');
                 } finally {
                     // Reset loading state
                     loginButton.disabled = false;
                     loginSpinner.classList.add('d-none');
                 }
             });
-
-            // Focus first input on load
-            document.getElementById('employeeCode').focus();
+            
+            // Password visibility toggle
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                // Toggle icon
+                const icon = this.querySelector('i');
+                if (type === 'text') {
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
         });
     </script>
+    <script src="js/components.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/animations.js"></script>
 </body>
 </html>
+

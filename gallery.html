@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+        <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive BPO & BPaaS solutions including contact center services, IT support, and AI-driven automation for businesses in South Africa.">
     <title>Gallery | iBridge Contact Solutions</title>
     
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/iBridge_Logo-favicon.png">
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/iBridge_Logo-removebg-preview.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/iBridge_Logo-removebg-preview.png">
+    
+    <!-- CSS Links -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style-enhancements.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/gallery.css">
-
-    <!-- Open Graph tags -->
-    <meta property="og:title" content="Gallery | iBridge Contact Solutions">
-    <meta property="og:description" content="Explore our workplace culture and team through our photo gallery">
-    <meta property="og:image" content="images/gallery/hero-image.jpg">
-    <meta property="og:url" content="https://ibridge.co.za/gallery.html">
 </head>
 <body>
     <!-- Navigation -->
@@ -28,90 +31,234 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="gallery-hero">
-        <div class="container">
-            <div class="row align-items-center min-vh-50">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h1 class="display-4 fw-bold mb-4">Our People, Our Culture</h1>
-                    <p class="lead mb-0">Experience the vibrant culture and dedicated team behind iBridge Contact Solutions</p>
-                </div>
+        <header class="enhanced-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html" aria-label="iBridge Home">
+                    <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" class="fade-in">
+                </a>
             </div>
+            <nav class="enhanced-nav">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links stagger-children">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-dropdown">
+                        <a href="services.html" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="contact-center.html" class="dropdown-link">Contact Centre</a>
+                            <a href="it-support.html" class="dropdown-link">IT Support</a>
+                            <a href="ai-automation.html" class="dropdown-link">AI & Automation</a>
+                            <a href="client-interaction.html" class="dropdown-link">Client Interaction</a>
+                        </div>
+                    </li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="header-actions">
+                    <div class="search-container">
+                        <input type="search" class="search-input" placeholder="Search..." aria-label="Search">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                    <button class="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="intranet/login.html" class="portal-btn" target="_blank">
+                        <i class="fas fa-user-lock"></i>
+                        <span>Portal Login</span>
+                    </a>
+                    <a href="tel:+27112387090" class="portal-btn call-btn">
+                        <i class="fas fa-phone"></i>
+                        <span>011 238 7090</span>
+                    </a>
+                </div>
+            </nav>
         </div>
     </header>
 
     <!-- Gallery Section -->
     <section class="gallery-section py-5">
         <div class="container">
-            <!-- Gallery Filters -->
-            <div class="gallery-filters mb-5 text-center">
-                <button class="btn btn-outline-primary active" data-filter="all">All</button>
-                <button class="btn btn-outline-primary" data-filter="team">Our Team</button>
-                <button class="btn btn-outline-primary" data-filter="events">Events</button>
-                <button class="btn btn-outline-primary" data-filter="workspace">Workspace</button>
-                <button class="btn btn-outline-primary" data-filter="culture">Culture</button>
+            <div class="gallery-filters">
+                <button class="gallery-filter active" data-filter="all">All</button>
+                <button class="gallery-filter" data-filter="team">Team</button>
+                <button class="gallery-filter" data-filter="events">Events</button>
+                <button class="gallery-filter" data-filter="office">Office</button>
             </div>
 
-            <!-- Gallery Grid -->
-            <div class="row g-4 gallery-grid">
-                <!-- Team Members -->
-                <div class="col-md-4 gallery-item" data-category="team">
-                    <div class="gallery-card">
-                        <img src="images/gallery/team/leadership-team.jpg" 
-                             alt="iBridge Leadership Team"
-                             class="img-fluid"
-                             loading="lazy">
-                        <div class="gallery-overlay">
-                            <h5>Leadership Team</h5>
-                            <p>Our experienced leadership driving innovation and excellence</p>
-                        </div>
-                    </div>
+            <div class="gallery-grid">
+                <!-- Profile Images -->
+                <div class="gallery-item" data-category="team">
+                    <img src="intranet/images/profiles/lwandile-gasela.jpg" alt="Team Member" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="team">
+                    <img src="intranet/images/profiles/sarah-johnson.jpg" alt="Team Member" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="team">
+                    <img src="intranet/images/profiles/sipho-ndlovu.jpg" alt="Team Member" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="team">
+                    <img src="intranet/images/profiles/robert-moyo.jpg" alt="Team Member" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="team">
+                    <img src="intranet/images/profiles/priya-sharma.jpg" alt="Team Member" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="team">
+                    <img src="intranet/images/profiles/olivia-pretorius.jpg" alt="Team Member" loading="lazy">
                 </div>
 
-                <!-- Events -->
-                <div class="col-md-4 gallery-item" data-category="events">
-                    <div class="gallery-card">
-                        <img src="images/gallery/events/team-building.jpg" 
-                             alt="Team Building Event"
-                             class="img-fluid"
-                             loading="lazy">
-                        <div class="gallery-overlay">
-                            <h5>Team Building</h5>
-                            <p>Building stronger bonds through shared experiences</p>
-                        </div>
-                    </div>
+                <!-- Event Photos -->
+                <div class="gallery-item" data-category="events">
+                    <img src="images/photo_1_2025-07-07_13-45-27.jpg" alt="Event" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <img src="images/photo_2_2025-07-07_13-45-27.jpg" alt="Event" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <img src="images/photo_15_2025-07-07_13-45-27.jpg" alt="Event" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <img src="images/photo_16_2025-07-07_13-45-27.jpg" alt="Event" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <img src="images/photo_17_2025-07-07_13-45-27.jpg" alt="Event" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <img src="images/photo_18_2025-07-07_13-45-27.jpg" alt="Event" loading="lazy">
                 </div>
 
-                <!-- Workspace -->
-                <div class="col-md-4 gallery-item" data-category="workspace">
-                    <div class="gallery-card">
-                        <img src="images/gallery/workspace/modern-office.jpg" 
-                             alt="Modern Office Space"
-                             class="img-fluid"
-                             loading="lazy">
-                        <div class="gallery-overlay">
-                            <h5>Modern Workspace</h5>
-                            <p>State-of-the-art facilities designed for productivity</p>
-                        </div>
-                    </div>
+                <!-- Office Photos -->
+                <div class="gallery-item" data-category="office">
+                    <img src="images/photo_19_2025-07-07_13-45-27.jpg" alt="Office" loading="lazy">
                 </div>
-
-                <!-- Add more gallery items here -->
-            </div>
-
-            <!-- Load More Button -->
-            <div class="text-center mt-5">
-                <button class="btn btn-primary btn-lg" id="loadMoreBtn">Load More</button>
+                <div class="gallery-item" data-category="office">
+                    <img src="images/photo_20_2025-07-07_13-45-27.jpg" alt="Office" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="office">
+                    <img src="images/photo_21_2025-07-07_13-45-27.jpg" alt="Office" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="office">
+                    <img src="images/photo_22_2025-07-07_13-45-27.jpg" alt="Office" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="office">
+                    <img src="images/photo_23_2025-07-07_13-45-27.jpg" alt="Office" loading="lazy">
+                </div>
+                <div class="gallery-item" data-category="office">
+                    <img src="images/photo_24_2025-07-07_13-45-27.jpg" alt="Office" loading="lazy">
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Simple Lightbox -->
+    <div class="lightbox">
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-image">
+            <button class="lightbox-close">&times;</button>
+            <button class="lightbox-nav lightbox-prev">&lt;</button>
+            <button class="lightbox-nav lightbox-next">&gt;</button>
+        </div>
+    </div>
+
+    <!-- Gallery Navigation -->
+    <div class="gallery-nav py-4 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-4 text-center">
+                    <a href="contact.html" class="btn btn-primary">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slideshow Container (will be populated by JavaScript) -->
+    <div class="slideshow-container">
+        <div class="slideshow-content">
+            <img src="" alt="" class="slideshow-image">
+            <div class="slideshow-caption"></div>
+        </div>
+        <button class="slideshow-prev" title="Previous image">&lt;</button>
+        <button class="slideshow-next" title="Next image">&gt;</button>
+        <button class="slideshow-play-pause" title="Play/Pause slideshow">
+            <i class="fas fa-play" aria-hidden="true"></i>
+            <span class="visually-hidden">Play/Pause slideshow</span>
+        </button>
+        <button class="slideshow-close" title="Close slideshow">&times;</button>
+    </div>
+
     <!-- Footer -->
-    <footer class="footer bg-dark text-light py-5">
-        <!-- ...existing footer code... -->
+        <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="images/iBridge_Logo-removebg-preview.png" alt="iBridge Logo" width="150" height="50">
+                    </div>
+                    <p>Leading provider of contact center solutions and business process outsourcing services in South Africa.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Follow us on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact-center.html">Contact Center Solutions</a></li>
+                        <li><a href="it-support.html">IT Support & Cloud Services</a></li>
+                        <li><a href="ai-automation.html">AI & Automation</a></li>
+                        <li><a href="client-interaction.html">Client Interaction</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            332 Kent Ave, Ferndale, Randburg, 2194
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+27112387090">011 238 7090</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@ibridge.co.za">info@ibridge.co.za</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> <span class="primary">iBridge</span> Contact Solutions. All rights reserved.</p>
+                <ul class="footer-legal">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="js/gallery.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/gallery.js" defer></script>
+    <script src="js/animations.js"></script>
 </body>
 </html>
+

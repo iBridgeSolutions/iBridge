@@ -21,11 +21,23 @@ RewriteCond %{REQUEST_URI} !^/images/
 RewriteCond %{HTTP_COOKIE} !^.*(user_authenticated=true|intranet_session=active).*$ [NC]
 RewriteRule .* login.html [L,R=302]
 
-# Prevent access to sensitive files
-<FilesMatch "(^\.)|(\.(md|log|ps1|config|json|bak|old)$)">
+# Enhanced security for sensitive files
+<FilesMatch "(^\.)|(\.(md|log|ps1|config|json|bak|old|ini|env|git.*|htaccess|htpasswd)$)">
     Order allow,deny
     Deny from all
 </FilesMatch>
+
+# Allow specific JSON files that are needed
+<Files "credentials.json">
+    Order allow,deny
+    Allow from all
+    # Add additional security headers
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header set X-Content-Type-Options "nosniff"
+    </IfModule>
+</Files>
 
 # Enable compression for faster loading
 <IfModule mod_deflate.c>

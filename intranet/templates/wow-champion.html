@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOW Champion Announcement | iBridge Intranet</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .wow-champion-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .wow-champion-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .champion-header {
+            background: linear-gradient(135deg, #a1c44f 0%, #84a840 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .champion-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: -100px auto 20px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .champion-details {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .achievement-badge {
+            font-size: 3rem;
+            color: #ffc107;
+            margin-bottom: 1rem;
+        }
+        
+        .quote-text {
+            font-style: italic;
+            color: #6c757d;
+            margin: 1.5rem 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #a1c44f;
+        }
+        
+        .endorsements {
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .endorsement-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .endorsement-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <!-- Include your navigation here -->
+    </nav>
+
+    <div class="container mt-5 pt-5">
+        <div class="wow-champion-card my-5">
+            <div class="champion-header">
+                <h1 class="display-4 fw-bold">WOW Champion of the Month</h1>
+                <p class="lead mb-0">July 2023</p>
+            </div>
+            
+            <img src="../images/profiles/lwandile-gasela.jpg" alt="Lwandile Gasela" class="champion-image">
+            
+            <div class="champion-details">
+                <div class="achievement-badge">
+                    <i class="fas fa-award"></i>
+                </div>
+                
+                <h2 class="fw-bold mb-3">Lwandile Gasela</h2>
+                <p class="text-muted">IT Systems Administrator - Information Technology</p>
+                
+                <div class="quote-text">
+                    "Recognized for exceptional contributions in modernizing our IT infrastructure and successfully implementing company-wide system upgrades while maintaining 99.9% service uptime."
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">15</div>
+                        <div class="stat-label">IT Support Achievements</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">System Uptime</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">25+</div>
+                        <div class="stat-label">Process Improvements</div>
+                    </div>
+                </div>
+                
+                <div class="endorsements">
+                    <h4 class="mb-4">Team Endorsements</h4>
+                    <div class="endorsement-item">
+                        <p class="mb-1"><strong>Michael Thompson</strong></p>
+                        <p class="text-muted">"Lwandile has demonstrated exceptional leadership in managing our IT infrastructure. His proactive approach to system maintenance and security has significantly improved our operational efficiency."</p>
+                    </div>
+                    <div class="endorsement-item">
+                        <p class="mb-1"><strong>John Smith</strong></p>
+                        <p class="text-muted">"The IT support we receive from Lwandile is outstanding. He consistently goes above and beyond to ensure our systems run smoothly and our team can work efficiently."</p>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="#" class="btn btn-primary">Share Congratulations</a>
+                    <a href="#" class="btn btn-outline-primary ms-2">View Past Champions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Template usage instructions
+        console.log(`
+            WOW Champion Post Template Usage:
+            1. Replace [Month] [Year] with the current month and year
+            2. Replace [profile-image] with the champion's profile image filename
+            3. Replace [Employee Name] with the champion's full name
+            4. Replace [Job Title] and [Department] with their position
+            5. Add their achievement quote/description
+            6. Update statistics (Customer Compliments, Quality Score, Team Contributions)
+            7. Add manager and colleague endorsements
+            8. Update sharing links if needed
+        `);
+    </script>
+    <script src="js/components.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>
+

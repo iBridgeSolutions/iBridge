@@ -51,12 +51,21 @@ class CustomAuthenticator {
    * Check if user is already authenticated
    */
   checkExistingAuth() {
-    if (this.securityManager.validateSession()) {
+    try {
       const sessionData = JSON.parse(sessionStorage.getItem('secureSession'));
-      this.currentUser = sessionData.user;
-      this.isAuthenticated = true;
-      return true;
+      if (sessionData && sessionData.user && Date.now() - sessionData.timestamp < 86400000) {
+        this.currentUser = sessionData.user;
+        this.isAuthenticated = true;
+        return true;
+      }
+    } catch (e) {
+      console.error('Error checking session:', e);
     }
+    
+    // Clear invalid session
+    sessionStorage.removeItem('secureSession');
+    this.currentUser = null;
+    this.isAuthenticated = false;
     return false;
   }
   
@@ -71,92 +80,108 @@ class CustomAuthenticator {
   }
 
   /**
-   * Authenticate using employee code
-   * @param {string} employeeCode - The employee code to authenticate
+   * Authenticate using employee code or email
+   * @param {string} identifier - The employee code or email to authenticate
    * @param {string} password - The password to verify
    */
-  async authenticateEmployee(employeeCode, password) {
+  async authenticateEmployee(identifier, password) {
     if (!this.initComplete) {
       await this.initialize();
     }
 
-    // Validate employee code format
-    if (!this.validateEmployeeCodeFormat(employeeCode)) {
-      this.securityManager.logSecurityEvent('login_failed', {
-        reason: 'invalid_format',
-        employeeCode: employeeCode
-      });
-      return {
-        success: false,
-        error: 'Invalid employee code format.'
-      };
-    }
+    try {
+      // Check if identifier is email or employee code
+      const isEmail = identifier.includes('@');
+      
+      // Find user data
+      let employeeData = null;
+      if (isEmail) {
+        // Find by email in employee codes
+        employeeData = this.employeeCodes.mappings.find(e => e.userPrincipalName.toLowerCase() === identifier.toLowerCase());
+      } else {
+        // Find by employee code
+        employeeData = this.employeeCodes.mappings.find(e => e.employeeCode === identifier.toUpperCase());
+      }
 
-    // Check for lockout
-    if (this.securityManager.isLockedOut(employeeCode)) {
-      return {
-        success: false,
-        error: 'Account is temporarily locked. Please try again later.'
-      };
-    }
+      if (!employeeData) {
+        this.securityManager.logSecurityEvent('login_failed', {
+          reason: 'invalid_credentials',
+          identifier: identifier
+        });
+        return {
+          success: false,
+          error: 'Invalid credentials.'
+        };
+      }
 
-    // Get employee record
-    const employee = this.employeeCodes.find(e => e.code === employeeCode);
-    if (!employee) {
-      return {
-        success: false,
-        error: 'Employee code not found.'
-      };
-    }
+      // Check credentials file
+      const credentialsResponse = await fetch('/intranet/data/credentials.json');
+      const credentials = await credentialsResponse.json();
+      
+      // Find user credentials
+      const userCreds = credentials.users.find(u => 
+        u.userPrincipalName === employeeData.userPrincipalName && 
+        u.employeeCode === employeeData.employeeCode
+      );
 
-    // Check if using temporary password
-    const usingTempPassword = this.isUsingTempPassword(employeeCode, password);
-    if (usingTempPassword) {
-      // Create session with temporary flag
-      const sessionToken = await this.securityManager.createSession({
-        employeeCode,
-        requiresPasswordChange: true
+      if (!userCreds) {
+        return {
+          success: false,
+          error: 'Invalid credentials.'
+        };
+      }
+
+      // Verify password
+      const pwUtils = new PasswordUtils();
+      const isValid = await pwUtils.verifyPassword(password, userCreds.passwordHash, userCreds.salt);
+
+      if (!isValid) {
+        this.securityManager.logSecurityEvent('login_failed', {
+          reason: 'invalid_password',
+          identifier: identifier
+        });
+        return {
+          success: false,
+          error: 'Invalid credentials.'
+        };
+      }
+
+      // Create session
+      const sessionData = {
+        displayName: employeeData.firstName + ' ' + employeeData.lastName,
+        username: employeeData.userPrincipalName,
+        employeeCode: employeeData.employeeCode,
+        department: employeeData.department,
+        position: employeeData.position,
+        permissions: employeeData.permissions,
+        lastLogin: new Date().toISOString()
+      };
+
+      // Store in session
+      sessionStorage.setItem('secureSession', JSON.stringify({
+        user: sessionData,
+        timestamp: Date.now()
+      }));
+      
+      // Set authentication cookie
+      document.cookie = "user_authenticated=true; path=/intranet/; max-age=86400; SameSite=Strict";
+
+      this.securityManager.logSecurityEvent('login_success', {
+        identifier: identifier
       });
 
       return {
         success: true,
-        tempPassword: true,
-        token: sessionToken,
-        message: 'Logged in with temporary password. You must change your password.'
+        user: sessionData
       };
-    }
 
-    // Regular password validation
-    if (!employee.passwordSet || !employee.passwordHash) {
+    } catch (error) {
+      console.error('Authentication error:', error);
       return {
         success: false,
-        error: 'Please use the temporary password for first-time login.'
+        error: 'An error occurred during authentication.'
       };
     }
-
-    // Verify password
-    const isValid = await this.securityManager.verifyPassword(password, employee.passwordHash);
-    if (!isValid) {
-      this.securityManager.logFailedLoginAttempt(employeeCode);
-      return {
-        success: false,
-        error: 'Invalid password.'
-      };
-    }
-
-    // Create session
-    const sessionToken = await this.securityManager.createSession({
-      employeeCode,
-      requiresPasswordChange: false
-    });
-
-    // Clear any failed attempts
-    this.securityManager.clearFailedAttempts(employeeCode);
-
-    return {
-      success: true,
-      token: sessionToken
-    };
   }
   
   /**

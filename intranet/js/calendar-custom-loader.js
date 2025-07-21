@@ -52,7 +52,7 @@ async function loadCalendarEvents() {
                     cache: 'no-store',
                     headers: { 'Cache-Control': 'no-cache' }
                 });
-                
+
                 if (psScriptResponse.ok) {
                     const psData = await psScriptResponse.json();
                     if (Array.isArray(psData)) {
@@ -349,7 +349,7 @@ async function initializeCalendarWithLocalData() {
                 const eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
                 eventModal.show();
             }
-        }
+        });
         
         // Make calendar globally accessible
         window.calendar = calendar;
